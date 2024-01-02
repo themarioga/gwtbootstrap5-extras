@@ -20,9 +20,11 @@
   -->
 <module>
     <public path="resource">
-        <include name="css/summernote-0.8.2.min.cache.css"/>
+        <include name="css/summernote-0.8.20.min.cache.css"/>
+        <include name="css/summernote-bs4-0.8.20.min.cache.css"/>
         <include name="css/font/*"/>
     </public>
 
-    <stylesheet src="css/summernote-0.8.2.min.cache.css"/>
+    <stylesheet src="css/summernote-0.8.20.min.cache.css"/>
+    <stylesheet src="css/summernote-bs4-0.8.20.min.cache.css"/>
 </module>

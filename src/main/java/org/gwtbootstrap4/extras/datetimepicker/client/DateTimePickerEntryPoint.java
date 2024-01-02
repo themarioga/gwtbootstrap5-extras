@@ -30,6 +30,8 @@ public class DateTimePickerEntryPoint implements EntryPoint {
 
     @Override
     public void onModuleLoad() {
+        ScriptInjector.fromString(DateTimePickerClientBundle.INSTANCE.moment().getText())
+                .setWindow(ScriptInjector.TOP_WINDOW).inject();
         ScriptInjector.fromString(DateTimePickerClientBundle.INSTANCE.dateTimePicker().getText())
                 .setWindow(ScriptInjector.TOP_WINDOW).inject();
     }

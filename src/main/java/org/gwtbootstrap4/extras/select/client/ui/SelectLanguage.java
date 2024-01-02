@@ -25,24 +25,29 @@ import org.gwtbootstrap4.extras.select.client.SelectClientBundle;
 
 public enum SelectLanguage {
 
+    AM("am", SelectClientBundle.INSTANCE.am()),
     AR("ar", SelectClientBundle.INSTANCE.ar()),
     BG("bg", SelectClientBundle.INSTANCE.bg()),
-    CRO("cro", SelectClientBundle.INSTANCE.cro()),
     CS("cs", SelectClientBundle.INSTANCE.cs()),
     DA("da", SelectClientBundle.INSTANCE.da()),
     DE("de", SelectClientBundle.INSTANCE.de()),
     EN_US("en-US", SelectClientBundle.INSTANCE.en()),
     ES_CL("es-CL", SelectClientBundle.INSTANCE.es_CL()),
     ES_ES("es-ES", SelectClientBundle.INSTANCE.es_ES()),
+    ES_EE("es-EE", SelectClientBundle.INSTANCE.es_EE()),
     EU("eu", SelectClientBundle.INSTANCE.eu()),
     FA("fa", SelectClientBundle.INSTANCE.fa()),
     FI("fi", SelectClientBundle.INSTANCE.fi()),
     FR("fr", SelectClientBundle.INSTANCE.fr()),
+    HR("hr", SelectClientBundle.INSTANCE.hr()),
     HU("hu", SelectClientBundle.INSTANCE.hu()),
     ID("id", SelectClientBundle.INSTANCE.id()),
     IT("it", SelectClientBundle.INSTANCE.it()),
+    KH("kh", SelectClientBundle.INSTANCE.kh()),
     KO("ko", SelectClientBundle.INSTANCE.ko()),
+    JP("jp", SelectClientBundle.INSTANCE.jp()),
     LT("lt", SelectClientBundle.INSTANCE.lt()),
+    LV("lv", SelectClientBundle.INSTANCE.lv()),
     NB("nb", SelectClientBundle.INSTANCE.nb()),
     NL("nl", SelectClientBundle.INSTANCE.nl()),
     PL("pl", SelectClientBundle.INSTANCE.pl()),
@@ -52,9 +57,11 @@ public enum SelectLanguage {
     RU("ru", SelectClientBundle.INSTANCE.ru()),
     SK("sk", SelectClientBundle.INSTANCE.sk()),
     SL("sl", SelectClientBundle.INSTANCE.sl()),
+    SR("sr", SelectClientBundle.INSTANCE.sr()),
     SV("sv", SelectClientBundle.INSTANCE.sv()),
     TR("tr", SelectClientBundle.INSTANCE.tr()),
     UA("ua", SelectClientBundle.INSTANCE.ua()),
+    VI("vi", SelectClientBundle.INSTANCE.vi()),
     ZH_CN("zh-CN", SelectClientBundle.INSTANCE.zh_CN()),
     ZH_TW("zh-TW", SelectClientBundle.INSTANCE.zh_TW()),
     EN("en", null); 
@@ -62,7 +69,7 @@ public enum SelectLanguage {
     private final String code;
     private final TextResource js;
 
-    private SelectLanguage(final String code, final TextResource js) {
+    SelectLanguage(final String code, final TextResource js) {
         this.js = js;
         this.code = code;
     }

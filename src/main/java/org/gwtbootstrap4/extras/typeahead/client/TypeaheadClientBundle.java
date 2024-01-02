@@ -28,8 +28,9 @@ import com.google.gwt.resources.client.TextResource;
  * @author Florian Kremser <florian.kremser@sage.com>
  */
 public interface TypeaheadClientBundle extends ClientBundle {
-  static final TypeaheadClientBundle INSTANCE = GWT.create(TypeaheadClientBundle.class);
 
-  @ClientBundle.Source("resource/js/typeahead.jquery-0.10.5.min.cache.js")
+  TypeaheadClientBundle INSTANCE = GWT.create(TypeaheadClientBundle.class);
+
+  @ClientBundle.Source("resource/js/typeahead.jquery-0.11.1.min.cache.js")
   TextResource typeahead();
 }

@@ -22,5 +22,5 @@
 <module>
     <inherits name="org.gwtbootstrap4.extras.typeahead.client.TypeaheadNoThemeResources"/>
 
-    <stylesheet src="css/typeahead-0.10.5.min.cache.css"/>
+    <stylesheet src="css/typeahead-0.11.1.min.cache.css"/>
 </module>

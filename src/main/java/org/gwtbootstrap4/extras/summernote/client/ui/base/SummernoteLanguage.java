@@ -28,11 +28,16 @@ import org.gwtbootstrap4.extras.summernote.client.SummernoteClientBundle;
  */
 public enum SummernoteLanguage {
     AR_AR("ar-AR", SummernoteClientBundle.INSTANCE.ar_AR()),
+    AZ_AZ("az-AZ", SummernoteClientBundle.INSTANCE.az_AZ()),
     BG_BG("bg-BG", SummernoteClientBundle.INSTANCE.bg_BG()),
+    BN_BD("bn-BD", SummernoteClientBundle.INSTANCE.bn_BD()),
     CA_ES("ca-ES", SummernoteClientBundle.INSTANCE.ca_ES()),
     CS_CZ("cs-CZ", SummernoteClientBundle.INSTANCE.cs_CZ()),
     DA_DK("da-DK", SummernoteClientBundle.INSTANCE.da_DK()),
+    DE_CH("de-CH", SummernoteClientBundle.INSTANCE.de_CH()),
     DE_DE("de-DE", SummernoteClientBundle.INSTANCE.de_DE()),
+    EL_GR("el-GR", SummernoteClientBundle.INSTANCE.el_GR()),
+    EN_US("en-US", SummernoteClientBundle.INSTANCE.en_US()),
     ES_ES("es-ES", SummernoteClientBundle.INSTANCE.es_ES()),
     ES_EU("es-EU", SummernoteClientBundle.INSTANCE.es_EU()),
     FA_IR("fa-IR", SummernoteClientBundle.INSTANCE.fa_IR()),
@@ -46,6 +51,7 @@ public enum SummernoteLanguage {
     IT_IT("it-IT", SummernoteClientBundle.INSTANCE.it_IT()),
     JA_JP("ja-JP", SummernoteClientBundle.INSTANCE.ja_JP()),
     KO_KR("ko-KR", SummernoteClientBundle.INSTANCE.ko_KR()),
+    MN_MN("mn-MN", SummernoteClientBundle.INSTANCE.mn_MN()),
     NB_NO("nb-NO", SummernoteClientBundle.INSTANCE.nb_NO()),
     NL_NL("nl-NL", SummernoteClientBundle.INSTANCE.nl_NL()),
     LT_LT("lt-LT", SummernoteClientBundle.INSTANCE.lt_LT()),
@@ -65,8 +71,7 @@ public enum SummernoteLanguage {
     UK_UA("uk-UA", SummernoteClientBundle.INSTANCE.uk_UA()),
     VI_VN("vi-VN", SummernoteClientBundle.INSTANCE.vi_VN()),
     ZH_CN("zh-CN", SummernoteClientBundle.INSTANCE.zh_CN()),
-    ZH_TW("zh-TW", SummernoteClientBundle.INSTANCE.zh_TW()),
-    EN_US("en-US", null); // Base language, don't need another file
+    ZH_TW("zh-TW", SummernoteClientBundle.INSTANCE.zh_TW()); // Base language, don't need another file
   
     private final String code;
     private final TextResource js;
