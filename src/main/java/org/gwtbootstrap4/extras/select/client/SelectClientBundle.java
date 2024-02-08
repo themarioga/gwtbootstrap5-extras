@@ -64,7 +64,7 @@ public interface SelectClientBundle extends ClientBundle {
     @Source(I18N_DIR + "defaults-es_ES.min.js")
     TextResource es_ES();
 
-    @Source(I18N_DIR + "defaults-es_EE.min.js")
+    @Source(I18N_DIR + "defaults-et_EE.min.js")
     TextResource es_EE();
 
     @Source(I18N_DIR + "defaults-eu.min.js")

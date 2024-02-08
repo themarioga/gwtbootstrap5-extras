@@ -69,7 +69,6 @@ public enum DatePickerLanguage {
     MK("mk", DatePickerClientBundle.INSTANCE.mk()),
     MN("mn", DatePickerClientBundle.INSTANCE.mn()),
     MS("ms", DatePickerClientBundle.INSTANCE.ms()),
-    NB("nb", DatePickerClientBundle.INSTANCE.nb()),
     NL("nl", DatePickerClientBundle.INSTANCE.nl()),
     NL_BE("nl-BE", DatePickerClientBundle.INSTANCE.nl_BE()),
     NO("no", DatePickerClientBundle.INSTANCE.no()),

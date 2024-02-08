@@ -160,9 +160,6 @@ public interface DatePickerClientBundle extends ClientBundle {
     @Source(LOCALES_DIR + "bootstrap-datepicker.ms.min.js")
     TextResource ms();
 
-    @Source(LOCALES_DIR + "bootstrap-datepicker.nb.min.js")
-    TextResource nb();
-
     @Source(LOCALES_DIR + "bootstrap-datepicker.nl.min.js")
     TextResource nl();
 

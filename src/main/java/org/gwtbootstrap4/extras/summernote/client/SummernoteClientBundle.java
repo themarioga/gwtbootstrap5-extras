@@ -31,7 +31,7 @@ public interface SummernoteClientBundle extends ClientBundle {
 
     SummernoteClientBundle INSTANCE = GWT.create(SummernoteClientBundle.class);
     String VERSION = "0.8.20";
-    String LOCALE_DIR = "resource/js/locales.cache." + VERSION + "/";
+    String LOCALE_DIR = "resource/js/locale.cache." + VERSION + "/";
 
     @Source("resource/js/summernote-" + VERSION + ".min.cache.js")
     TextResource summernote();
@@ -39,138 +39,138 @@ public interface SummernoteClientBundle extends ClientBundle {
     @Source("resource/js/summernote-bs4-" + VERSION + ".min.cache.js")
     TextResource summernote_BS4();
 
-    @Source(LOCALE_DIR + "summernote-ar-AR.js")
+    @Source(LOCALE_DIR + "summernote-ar-AR.min.js")
     TextResource ar_AR();
 
-    @Source(LOCALE_DIR + "summernote-az-AZ.js")
+    @Source(LOCALE_DIR + "summernote-az-AZ.min.js")
     TextResource az_AZ();
 
-    @Source(LOCALE_DIR + "summernote-bg-BG.js")
+    @Source(LOCALE_DIR + "summernote-bg-BG.min.js")
     TextResource bg_BG();
 
-    @Source(LOCALE_DIR + "summernote-bn-BD.js")
+    @Source(LOCALE_DIR + "summernote-bn-BD.min.js")
     TextResource bn_BD();
 
-    @Source(LOCALE_DIR + "summernote-ca-ES.js")
+    @Source(LOCALE_DIR + "summernote-ca-ES.min.js")
     TextResource ca_ES();
 
-    @Source(LOCALE_DIR + "summernote-cs-CZ.js")
+    @Source(LOCALE_DIR + "summernote-cs-CZ.min.js")
     TextResource cs_CZ();
 
-    @Source(LOCALE_DIR + "summernote-da-DK.js")
+    @Source(LOCALE_DIR + "summernote-da-DK.min.js")
     TextResource da_DK();
 
-    @Source(LOCALE_DIR + "summernote-de-CH.js")
+    @Source(LOCALE_DIR + "summernote-de-CH.min.js")
     TextResource de_CH();
 
-    @Source(LOCALE_DIR + "summernote-de-DE.js")
+    @Source(LOCALE_DIR + "summernote-de-DE.min.js")
     TextResource de_DE();
 
-    @Source(LOCALE_DIR + "summernote-el-GR.js")
+    @Source(LOCALE_DIR + "summernote-el-GR.min.js")
     TextResource el_GR();
 
-    @Source(LOCALE_DIR + "summernote-en-US.js")
+    @Source(LOCALE_DIR + "summernote-en-US.min.js")
     TextResource en_US();
 
-    @Source(LOCALE_DIR + "summernote-es-ES.js")
+    @Source(LOCALE_DIR + "summernote-es-ES.min.js")
     TextResource es_ES();
 
-    @Source(LOCALE_DIR + "summernote-es-EU.js")
+    @Source(LOCALE_DIR + "summernote-es-EU.min.js")
     TextResource es_EU();
 
-    @Source(LOCALE_DIR + "summernote-fa-IR.js")
+    @Source(LOCALE_DIR + "summernote-fa-IR.min.js")
     TextResource fa_IR();
 
-    @Source(LOCALE_DIR + "summernote-fi-FI.js")
+    @Source(LOCALE_DIR + "summernote-fi-FI.min.js")
     TextResource fi_FI();
 
-    @Source(LOCALE_DIR + "summernote-fr-FR.js")
+    @Source(LOCALE_DIR + "summernote-fr-FR.min.js")
     TextResource fr_FR();
 
-    @Source(LOCALE_DIR + "summernote-gl-ES.js")
+    @Source(LOCALE_DIR + "summernote-gl-ES.min.js")
     TextResource gl_ES();
 
-    @Source(LOCALE_DIR + "summernote-he-IL.js")
+    @Source(LOCALE_DIR + "summernote-he-IL.min.js")
     TextResource he_IL();
 
-    @Source(LOCALE_DIR + "summernote-hr-HR.js")
+    @Source(LOCALE_DIR + "summernote-hr-HR.min.js")
     TextResource hr_HR();
 
-    @Source(LOCALE_DIR + "summernote-hu-HU.js")
+    @Source(LOCALE_DIR + "summernote-hu-HU.min.js")
     TextResource hu_HU();
 
-    @Source(LOCALE_DIR + "summernote-id-ID.js")
+    @Source(LOCALE_DIR + "summernote-id-ID.min.js")
     TextResource id_ID();
 
-    @Source(LOCALE_DIR + "summernote-it-IT.js")
+    @Source(LOCALE_DIR + "summernote-it-IT.min.js")
     TextResource it_IT();
 
-    @Source(LOCALE_DIR + "summernote-ja-JP.js")
+    @Source(LOCALE_DIR + "summernote-ja-JP.min.js")
     TextResource ja_JP();
 
-    @Source(LOCALE_DIR + "summernote-ko-KR.js")
+    @Source(LOCALE_DIR + "summernote-ko-KR.min.js")
     TextResource ko_KR();
 
-    @Source(LOCALE_DIR + "summernote-lt-LT.js")
+    @Source(LOCALE_DIR + "summernote-lt-LT.min.js")
     TextResource lt_LT();
 
-    @Source(LOCALE_DIR + "summernote-lt-LV.js")
+    @Source(LOCALE_DIR + "summernote-lt-LV.min.js")
     TextResource lt_LV();
 
-    @Source(LOCALE_DIR + "summernote-mn-MN.js")
+    @Source(LOCALE_DIR + "summernote-mn-MN.min.js")
     TextResource mn_MN();
 
-    @Source(LOCALE_DIR + "summernote-nb-NO.js")
+    @Source(LOCALE_DIR + "summernote-nb-NO.min.js")
     TextResource nb_NO();
 
-    @Source(LOCALE_DIR + "summernote-nl-NL.js")
+    @Source(LOCALE_DIR + "summernote-nl-NL.min.js")
     TextResource nl_NL();
 
-    @Source(LOCALE_DIR + "summernote-pl-PL.js")
+    @Source(LOCALE_DIR + "summernote-pl-PL.min.js")
     TextResource pl_PL();
 
-    @Source(LOCALE_DIR + "summernote-pt-BR.js")
+    @Source(LOCALE_DIR + "summernote-pt-BR.min.js")
     TextResource pt_BR();
 
-    @Source(LOCALE_DIR + "summernote-pt-PT.js")
+    @Source(LOCALE_DIR + "summernote-pt-PT.min.js")
     TextResource pt_PT();
 
-    @Source(LOCALE_DIR + "summernote-ro-RO.js")
+    @Source(LOCALE_DIR + "summernote-ro-RO.min.js")
     TextResource ro_RO();
 
-    @Source(LOCALE_DIR + "summernote-ru-RU.js")
+    @Source(LOCALE_DIR + "summernote-ru-RU.min.js")
     TextResource ru_RU();
 
-    @Source(LOCALE_DIR + "summernote-sk-SK.js")
+    @Source(LOCALE_DIR + "summernote-sk-SK.min.js")
     TextResource sk_SK();
 
-    @Source(LOCALE_DIR + "summernote-sl-SI.js")
+    @Source(LOCALE_DIR + "summernote-sl-SI.min.js")
     TextResource sl_SI();
 
-    @Source(LOCALE_DIR + "summernote-sr-RS.js")
+    @Source(LOCALE_DIR + "summernote-sr-RS.min.js")
     TextResource sr_RS();
 
-    @Source(LOCALE_DIR + "summernote-sr-RS-Latin.js")
+    @Source(LOCALE_DIR + "summernote-sr-RS-Latin.min.js")
     TextResource sr_RS_Latin();
 
-    @Source(LOCALE_DIR + "summernote-sv-SE.js")
+    @Source(LOCALE_DIR + "summernote-sv-SE.min.js")
     TextResource sv_SE();
 
-    @Source(LOCALE_DIR + "summernote-th-TH.js")
+    @Source(LOCALE_DIR + "summernote-th-TH.min.js")
     TextResource th_TH();
 
-    @Source(LOCALE_DIR + "summernote-tr-TR.js")
+    @Source(LOCALE_DIR + "summernote-tr-TR.min.js")
     TextResource tr_TR();
 
-    @Source(LOCALE_DIR + "summernote-uk-UA.js")
+    @Source(LOCALE_DIR + "summernote-uk-UA.min.js")
     TextResource uk_UA();
 
-    @Source(LOCALE_DIR + "summernote-vi-VN.js")
+    @Source(LOCALE_DIR + "summernote-vi-VN.min.js")
     TextResource vi_VN();
 
-    @Source(LOCALE_DIR + "summernote-zh-CN.js")
+    @Source(LOCALE_DIR + "summernote-zh-CN.min.js")
     TextResource zh_CN();
 
-    @Source(LOCALE_DIR + "summernote-zh-TW.js")
+    @Source(LOCALE_DIR + "summernote-zh-TW.min.js")
     TextResource zh_TW();
 }

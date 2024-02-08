@@ -261,12 +261,6 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
     @Override
     public void setLanguage(final DateTimePickerLanguage language) {
         this.language = language;
-
-        // Inject the JS for the language
-        if (language.getJs() != null) {
-            ScriptInjector.fromString(language.getJs().getText())
-                    .setWindow(ScriptInjector.TOP_WINDOW).inject();
-        }
     }
 
     /** {@inheritDoc} */
