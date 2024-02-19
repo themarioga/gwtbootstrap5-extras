@@ -670,7 +670,7 @@ public class DatePickerBase extends Widget implements HasEnabled, HasId, HasResp
     }-*/;
 
     private native void remove(Element e) /*-{
-        $wnd.jQuery(e).datepicker('remove');
+        $wnd.jQuery(e).datepicker('destroy');
         $wnd.jQuery(e).off('show');
         $wnd.jQuery(e).off('hide');
         $wnd.jQuery(e).off('changeDate');

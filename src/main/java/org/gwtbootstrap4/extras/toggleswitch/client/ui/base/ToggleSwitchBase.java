@@ -316,7 +316,8 @@ public class ToggleSwitchBase extends Widget implements HasSize<SizeType>, HasVa
     private String createIconHtml(IconType iconType) {
         // Fix incorrect handle width when using icons
         setHandleWidth("30");
-        final Icon icon = new Icon(iconType);
+        final Icon icon = new Icon();
+        icon.setType(iconType);
         icon.setSize(IconSize.LARGE);
         return icon.getElement().getString();
     }
