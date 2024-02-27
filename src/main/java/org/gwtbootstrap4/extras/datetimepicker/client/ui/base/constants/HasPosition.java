@@ -31,12 +31,25 @@ public interface HasPosition {
      *
      * @param position position
      */
-    void setPosition(DateTimePickerPosition position);
+    void setHorizontalPosition(DateTimePickerHorizontalPosition position);
 
     /**
      * Gets the position of the date time picker
      *
      * @return position
      */
-    DateTimePickerPosition getPosition();
+    DateTimePickerHorizontalPosition getHorizontalPosition();
+    /**
+     * Set the position of the date time picker
+     *
+     * @param position position
+     */
+    void setVerticalPosition(DateTimePickerVerticalPosition position);
+
+    /**
+     * Gets the position of the date time picker
+     *
+     * @return position
+     */
+    DateTimePickerVerticalPosition getVerticalPosition();
 }

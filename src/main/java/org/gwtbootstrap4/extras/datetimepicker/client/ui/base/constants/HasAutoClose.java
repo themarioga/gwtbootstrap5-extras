@@ -28,5 +28,5 @@ package org.gwtbootstrap4.extras.datetimepicker.client.ui.base.constants;
  * @author Joshua Godi
  */
 public interface HasAutoClose {
-    void setAutoClose(boolean autoClose);
+    void setKeepOpen(boolean autoClose);
 }

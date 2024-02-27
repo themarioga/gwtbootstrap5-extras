@@ -21,19 +21,22 @@ package org.gwtbootstrap4.extras.datetimepicker.client.ui.base.constants;
  */
 
 /**
- * ENUM. Default: 2, 'month'
- * <p/>
- * The view that the datetimepicker should show when it is opened. Accepts values of :
- * <p/>
- * 'hour' for the hour view
- * 'day' for the day view
- * 'month' for month view (the default)
- * 'year' for the 12-month overview
- * 'decade' for the 10-year overview. Useful for date-of-birth datetimepickers.
+ * Position to display the DateTimePicker popup
  *
  * @author Joshua Godi
- * @see org.gwtbootstrap4.extras.datetimepicker.client.ui.base.constants.DateTimePickerView
  */
-public interface HasStartView {
-    void setStartView(DateTimePickerView dateTimePickerView);
+public enum DateTimePickerHorizontalPosition {
+    AUTO("auto"),
+    LEFT("left"),
+    RIGHT("right");
+
+    private final String position;
+
+    DateTimePickerHorizontalPosition(final String position) {
+        this.position = position;
+    }
+
+    public String getPosition() {
+        return position;
+    }
 }

@@ -21,12 +21,22 @@ package org.gwtbootstrap4.extras.datetimepicker.client.ui.base.constants;
  */
 
 /**
- * Boolean. Default: false
- * <p/>
- * If true, highlights the current date.
+ * Position to display the DateTimePicker popup
  *
  * @author Joshua Godi
  */
-public interface HasHighlightToday {
-    void setHighlightToday(boolean highlightToday);
+public enum DateTimePickerVerticalPosition {
+    AUTO("auto"),
+    TOP("top"),
+    BOTTOM("bottom");
+
+    private final String position;
+
+    DateTimePickerVerticalPosition(final String position) {
+        this.position = position;
+    }
+
+    public String getPosition() {
+        return position;
+    }
 }

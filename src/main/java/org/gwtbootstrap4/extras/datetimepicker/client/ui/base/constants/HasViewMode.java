@@ -21,13 +21,19 @@ package org.gwtbootstrap4.extras.datetimepicker.client.ui.base.constants;
  */
 
 /**
- * Enum. Default: HOUR
+ * ENUM. Default: 2, 'month'
  * <p/>
- * The lowest view that the datetimepicker should show.
+ * The view that the datetimepicker should show when it is opened. Accepts values of :
+ * <p/>
+ * 'hour' for the hour view
+ * 'day' for the day view
+ * 'month' for month view (the default)
+ * 'year' for the 12-month overview
+ * 'decade' for the 10-year overview. Useful for date-of-birth datetimepickers.
  *
  * @author Joshua Godi
- * @see org.gwtbootstrap4.extras.datetimepicker.client.ui.base.constants.DateTimePickerView
+ * @see DateTimePickerViewMode
  */
-public interface HasMinView {
-    void setMinView(DateTimePickerView dateTimePickerView);
+public interface HasViewMode {
+    void setViewMode(DateTimePickerViewMode dateTimePickerViewMode);
 }

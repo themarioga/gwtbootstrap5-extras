@@ -21,13 +21,27 @@ package org.gwtbootstrap4.extras.datetimepicker.client.ui.base.constants;
  */
 
 /**
- * Enum. Default: SUNDAY
- * <p/>
- * Day of the week start. SUNDAY - SATURDAY
+ * 0 or 'hour' for the hour view
+ * 1 or 'day' for the day view
+ * 2 or 'month' for month view (the default)
+ * 3 or 'year' for the 12-month overview
+ * 4 or 'decade' for the 10-year overview. Useful for date-of-birth datetimepickers.
  *
  * @author Joshua Godi
- * @see org.gwtbootstrap4.extras.datetimepicker.client.ui.base.constants.DateTimePickerDayOfWeek
  */
-public interface HasWeekStart {
-    void setWeekStart(DateTimePickerDayOfWeek weekStart);
+public enum DateTimePickerViewMode {
+    DAY("days"),
+    MONTH("months"),
+    YEAR("years"),
+    DECADE("decades");
+
+    private final String value;
+
+    DateTimePickerViewMode(final String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }
