@@ -39,7 +39,6 @@ import org.gwtbootstrap4.client.ui.base.helper.StyleHelper;
 import org.gwtbootstrap4.client.ui.base.mixin.BlankValidatorMixin;
 import org.gwtbootstrap4.client.ui.base.mixin.ErrorHandlerMixin;
 import org.gwtbootstrap4.client.ui.constants.DeviceSize;
-import org.gwtbootstrap4.client.ui.form.error.ErrorHandler;
 import org.gwtbootstrap4.client.ui.form.error.ErrorHandlerType;
 import org.gwtbootstrap4.client.ui.form.error.HasErrorHandler;
 import org.gwtbootstrap4.client.ui.form.validator.HasBlankValidator;
@@ -49,12 +48,8 @@ import org.gwtbootstrap4.client.ui.form.validator.Validator;
 import org.gwtbootstrap4.extras.datetimepicker.client.ui.base.constants.*;
 import org.gwtbootstrap4.extras.datetimepicker.client.ui.base.events.ChangeDateEvent;
 import org.gwtbootstrap4.extras.datetimepicker.client.ui.base.events.ChangeDateHandler;
-import org.gwtbootstrap4.extras.datetimepicker.client.ui.base.events.ChangeMonthEvent;
-import org.gwtbootstrap4.extras.datetimepicker.client.ui.base.events.ChangeMonthHandler;
-import org.gwtbootstrap4.extras.datetimepicker.client.ui.base.events.ChangeYearEvent;
-import org.gwtbootstrap4.extras.datetimepicker.client.ui.base.events.ChangeYearHandler;
-import org.gwtbootstrap4.extras.datetimepicker.client.ui.base.events.OutOfRangeEvent;
-import org.gwtbootstrap4.extras.datetimepicker.client.ui.base.events.OutOfRangeHandler;
+import org.gwtbootstrap4.extras.datetimepicker.client.ui.base.events.ErrorEvent;
+import org.gwtbootstrap4.extras.datetimepicker.client.ui.base.events.ErrorHandler;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.editor.client.EditorError;
@@ -90,7 +85,7 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
             this.showing = showing;
         }
 
-        public DatePickerValidatorMixin(DateTimePickerBase inputWidget, ErrorHandler errorHandler) {
+        public DatePickerValidatorMixin(DateTimePickerBase inputWidget, org.gwtbootstrap4.client.ui.form.error.ErrorHandler errorHandler) {
             super(inputWidget, errorHandler);
         }
 
@@ -335,38 +330,14 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
 
     /** {@inheritDoc} */
     @Override
-    public void onChangeYear(final Event e) {
-        fireEvent(new ChangeYearEvent(e));
+    public void onError(final Event e) {
+        fireEvent(new ErrorEvent(e));
     }
 
     /** {@inheritDoc} */
     @Override
-    public HandlerRegistration addChangeYearHandler(final ChangeYearHandler changeYearHandler) {
-        return addHandler(changeYearHandler, ChangeYearEvent.getType());
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void onChangeMonth(final Event e) {
-        fireEvent(new ChangeMonthEvent(e));
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public HandlerRegistration addChangeMonthHandler(final ChangeMonthHandler changeMonthHandler) {
-        return addHandler(changeMonthHandler, ChangeMonthEvent.getType());
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void onOutOfRange(final Event e) {
-        fireEvent(new OutOfRangeEvent(e));
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public HandlerRegistration addOutOfRangeHandler(final OutOfRangeHandler outOfRangeHandler) {
-        return addHandler(outOfRangeHandler, OutOfRangeEvent.getType());
+    public HandlerRegistration addErrorHandler(final ErrorHandler errorHandler) {
+        return addHandler(errorHandler, ErrorEvent.getType());
     }
 
     /** {@inheritDoc} */
@@ -575,22 +546,18 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
     @Override
     protected void onUnload() {
         super.onUnload();
-        if (isInstantiated(getElement())) {
-            remove(getElement());
-        }
+        destroy(getElement());
     }
 
     protected void configure() {
         getElement().setAttribute("data-date-format", format);
 
         // If configuring not for the first time, datetimepicker must be removed first.
-        if (isInstantiated(getElement())) {
-            this.remove(getElement());
-        }
+        this.destroy(getElement());
 
         configure(getElement(), format, language.getCode(), toDaysOfWeekDisabledString(daysOfWeekDisabled), keepOpen,
                 viewMode.getValue(),
-                minDate != null ? minDate.toString() : "false", maxDate != null ? maxDate.toString() : "false",
+                minDate != null ? minDate : "false", maxDate != null ? maxDate : "false",
                 showTodayButton, showClearButton, minuteStep,
                 horizontalPosition.getPosition(), verticalPosition.getPosition());
     }
@@ -600,35 +567,51 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
     }
 
     private native void execute(Element e, String cmd) /*-{
-        $wnd.jQuery(e).datetimepicker(cmd);
+        if ($wnd.jQuery(e).data("DateTimePicker")) {
+            $wnd.jQuery(e).datetimepicker(cmd);
+        }
     }-*/;
 
-    private native void remove(Element e) /*-{
-        $wnd.jQuery(e).datetimepicker('destroy');
+    private native void destroy(Element e) /*-{
+        if ($wnd.jQuery(e).data("DateTimePicker")) {
+            $wnd.jQuery(e).datetimepicker('destroy');
+        }
     }-*/;
 
     private native void clear(Element e) /*-{
-        $wnd.jQuery(e).datetimepicker('clear');
+        if ($wnd.jQuery(e).data("DateTimePicker")) {
+            $wnd.jQuery(e).datetimepicker('clear');
+        }
     }-*/;
 
     private native void toggle(Element e) /*-{
-        $wnd.jQuery(e).datetimepicker('toggle');
+        if ($wnd.jQuery(e).data("DateTimePicker")) {
+            $wnd.jQuery(e).datetimepicker('toggle');
+        }
     }-*/;
 
     private native void show(Element e) /*-{
-        $wnd.jQuery(e).datetimepicker('show');
+        if ($wnd.jQuery(e).data("DateTimePicker")) {
+            $wnd.jQuery(e).datetimepicker('show');
+        }
     }-*/;
 
     private native void hide(Element e) /*-{
-        $wnd.jQuery(e).datetimepicker('hide');
+        if ($wnd.jQuery(e).data("DateTimePicker")) {
+            $wnd.jQuery(e).datetimepicker('hide');
+        }
     }-*/;
 
     private native void disable(Element e) /*-{
-        $wnd.jQuery(e).datetimepicker('disable');
+        if ($wnd.jQuery(e).data("DateTimePicker")) {
+            $wnd.jQuery(e).datetimepicker('disable');
+        }
     }-*/;
 
     private native void enable(Element e) /*-{
-        $wnd.jQuery(e).datetimepicker('enable');
+        if ($wnd.jQuery(e).data("DateTimePicker")) {
+            $wnd.jQuery(e).datetimepicker('enable');
+        }
     }-*/;
 
     protected native void configure(Element e, String format, String locale,
@@ -650,31 +633,31 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
             widgetPositioning: {
                 horizontal: horizontalPosition,
                 vertical: verticalPosition
+            },
+            icons: {
+                time: 'fa fa-clock',
+                date: 'fa fa-calendar-days',
+                up: 'fa fa-circle-up',
+                down: 'fa fa-circle-down',
+                previous: 'fa fa-circle-left',
+                next: 'fa fa-circle-right',
+                today: 'fa fa-calendar-day',
+                clear: 'fa fa-broom',
+                close: 'fa fa-circle-xmark'
             }
         })
-            .on('show', function (e) {
+            .on('dp.show', function (e) {
                 that.@org.gwtbootstrap4.extras.datetimepicker.client.ui.base.DateTimePickerBase::onShow(Lcom/google/gwt/user/client/Event;)(e);
             })
-            .on("hide", function (e) {
+            .on("dp.hide", function (e) {
                 that.@org.gwtbootstrap4.extras.datetimepicker.client.ui.base.DateTimePickerBase::onHide(Lcom/google/gwt/user/client/Event;)(e);
             })
-            .on("changeDate", function (e) {
+            .on("dp.change", function (e) {
                 that.@org.gwtbootstrap4.extras.datetimepicker.client.ui.base.DateTimePickerBase::onChangeDate(Lcom/google/gwt/user/client/Event;)(e);
             })
-            .on("changeYear", function (e) {
-                that.@org.gwtbootstrap4.extras.datetimepicker.client.ui.base.DateTimePickerBase::onChangeYear(Lcom/google/gwt/user/client/Event;)(e);
-            })
-            .on("changeMonth", function (e) {
-                that.@org.gwtbootstrap4.extras.datetimepicker.client.ui.base.DateTimePickerBase::onChangeMonth(Lcom/google/gwt/user/client/Event;)(e);
-            })
-            .on("outOfRange", function (e) {
-                that.@org.gwtbootstrap4.extras.datetimepicker.client.ui.base.DateTimePickerBase::onOutOfRange(Lcom/google/gwt/user/client/Event;)(e);
+            .on("dp.error", function (e) {
+                that.@org.gwtbootstrap4.extras.datetimepicker.client.ui.base.DateTimePickerBase::onError(Lcom/google/gwt/user/client/Event;)(e);
             });
-    }-*/;
-
-    private native boolean isInstantiated(Element e) /*-{
-        if ($wnd.jQuery(e).data("DateTimePicker")) return true;
-        else return false;
     }-*/;
 
     protected String toDaysOfWeekDisabledString(final DateTimePickerDayOfWeek... dateTimePickerDayOfWeeks) {
@@ -764,13 +747,13 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
 
     /** {@inheritDoc} */
     @Override
-    public ErrorHandler getErrorHandler() {
+    public org.gwtbootstrap4.client.ui.form.error.ErrorHandler getErrorHandler() {
         return errorHandlerMixin.getErrorHandler();
     }
 
     /** {@inheritDoc} */
     @Override
-    public void setErrorHandler(ErrorHandler errorHandler) {
+    public void setErrorHandler(org.gwtbootstrap4.client.ui.form.error.ErrorHandler errorHandler) {
         errorHandlerMixin.setErrorHandler(errorHandler);
         validatorMixin.setErrorHandler(errorHandler);
     }

@@ -25,9 +25,7 @@ import com.google.web.bindery.event.shared.HandlerRegistration;
 import org.gwtbootstrap4.client.shared.event.HideHandler;
 import org.gwtbootstrap4.client.shared.event.ShowHandler;
 import org.gwtbootstrap4.extras.datetimepicker.client.ui.base.events.ChangeDateHandler;
-import org.gwtbootstrap4.extras.datetimepicker.client.ui.base.events.ChangeMonthHandler;
-import org.gwtbootstrap4.extras.datetimepicker.client.ui.base.events.ChangeYearHandler;
-import org.gwtbootstrap4.extras.datetimepicker.client.ui.base.events.OutOfRangeHandler;
+import org.gwtbootstrap4.extras.datetimepicker.client.ui.base.events.ErrorHandler;
 
 /**
  * All handlers for the DateTimePicker
@@ -47,15 +45,7 @@ public interface HasDateTimePickerHandlers {
 
     HandlerRegistration addChangeDateHandler(ChangeDateHandler changeDateHandler);
 
-    void onChangeYear(Event e);
+    void onError(Event e);
 
-    HandlerRegistration addChangeYearHandler(ChangeYearHandler changeYearHandler);
-
-    void onChangeMonth(Event e);
-
-    HandlerRegistration addChangeMonthHandler(ChangeMonthHandler changeMonthHandler);
-
-    void onOutOfRange(Event e);
-
-    HandlerRegistration addOutOfRangeHandler(OutOfRangeHandler outOfRangeHandler);
+    HandlerRegistration addErrorHandler(ErrorHandler errorHandler);
 }
