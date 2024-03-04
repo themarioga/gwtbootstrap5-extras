@@ -122,7 +122,7 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
     /**
      * DEFAULT values
      */
-    private String format = "mm/dd/yyyy hh:ii";
+    private String format = "MM/DD/YYYY HH:mm";
     private DateTimePickerDayOfWeek[] daysOfWeekDisabled = {};
     private boolean keepOpen = false;
     private boolean showTodayButton = false;
