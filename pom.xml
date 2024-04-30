@@ -1,85 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.gwtbootstrap4</groupId>
-        <artifactId>gwtbootstrap4-parent</artifactId>
-        <version>0.0.1</version>
-    </parent>
+	<parent>
+		<groupId>org.gwtbootstrap4</groupId>
+		<artifactId>gwtbootstrap4-parent</artifactId>
+		<version>0.1.0</version>
+	</parent>
 
-    <artifactId>gwtbootstrap4-extras</artifactId>
-    <version>0.0.1</version>
-    <name>GwtBootstrap4 Extras</name>
-    <description>Extra, third-party widgets/components for GwtBootstrap4</description>
-    <url>http://gwtbootstrap4.org</url>
+	<artifactId>gwtbootstrap4-extras</artifactId>
+	<name>GwtBootstrap4 Extras</name>
+	<description>Extra, third-party widgets/components for GwtBootstrap4</description>
+	<url>http://gwtbootstrap4.org</url>
+	<packaging>gwt-lib</packaging>
 
-    <scm>
-        <connection>scm:git:git@github.com:gwtbootstrap4/gwtbootstrap4-extras.git</connection>
-        <developerConnection>scm:git:git@github.com:gwtbootstrap4/gwtbootstrap4-extras.git</developerConnection>
-        <url>git@github.com:gwtbootstrap4/gwtbootstrap4-extras.git</url>
-      <tag>HEAD</tag>
-  </scm>
+	<scm>
+		<connection>scm:git:git@github.com:gwtbootstrap4/gwtbootstrap4-extras.git</connection>
+		<developerConnection>scm:git:git@github.com:gwtbootstrap4/gwtbootstrap4-extras.git</developerConnection>
+		<url>git@github.com:gwtbootstrap4/gwtbootstrap4-extras.git</url>
+		<tag>HEAD</tag>
+	</scm>
 
-    <licenses>
-        <license>
-            <name>Apache License Version 2</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-        </license>
-    </licenses>
+	<licenses>
+		<license>
+			<name>Apache License Version 2</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+		</license>
+	</licenses>
 
-    <dependencies>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>gwtbootstrap4</artifactId>
-            <version>0.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.gwtproject</groupId>
-            <artifactId>gwt-user</artifactId>
-            <version>${gwt.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.gwtproject</groupId>
-            <artifactId>gwt-dev</artifactId>
-            <version>${gwt.version}</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>gwtbootstrap4</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.gwtproject</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>${gwt.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.gwtproject</groupId>
+			<artifactId>gwt-dev</artifactId>
+			<version>${gwt.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>apache-jsp</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>gwt-maven-plugin</artifactId>
-                <configuration>
-                    <validateOnly>true</validateOnly>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
-    
-    <repositories>
-        <!-- Required for CI to fetch the latest snapshot releases of gwtbootstrap4 -->
-        <repository>
-            <id>sonatype-nexus-snapshots</id>
-            <url>http://oss.sonatype.org/content/repositories/snapshots</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
-    </repositories>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>net.ltgt.gwt.maven</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<configuration>
+					<moduleName>org.gwtbootstrap4.GwtBootstrap4</moduleName>
+					<moduleShortName>gwtbootstrap4</moduleShortName>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<!-- Required for CI to fetch the latest snapshot releases of gwtbootstrap4 -->
+		<repository>
+			<id>sonatype-nexus-snapshots</id>
+			<url>http://oss.sonatype.org/content/repositories/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
+	</repositories>
 
 </project>
