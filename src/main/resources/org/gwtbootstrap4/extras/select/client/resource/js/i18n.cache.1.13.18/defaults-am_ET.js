@@ -40,7 +40,4 @@
     multipleSeparator: ' ፣ '
   };
 })(jQuery);
-
-
 }));
-//# sourceMappingURL=defaults-am_ET.js.map

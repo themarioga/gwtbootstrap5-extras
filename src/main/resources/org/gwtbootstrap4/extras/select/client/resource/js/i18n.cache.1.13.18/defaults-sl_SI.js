@@ -38,7 +38,4 @@
     multipleSeparator: ', '
   };
 })(jQuery);
-
-
 }));
-//# sourceMappingURL=defaults-sl_SI.js.map

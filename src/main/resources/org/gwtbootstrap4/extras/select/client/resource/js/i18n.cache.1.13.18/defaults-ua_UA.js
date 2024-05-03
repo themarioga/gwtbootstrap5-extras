@@ -33,7 +33,4 @@
     deselectAllText: 'Скасувати вибір усі'
   };
 })(jQuery);
-
-
 }));
-//# sourceMappingURL=defaults-ua_UA.js.map

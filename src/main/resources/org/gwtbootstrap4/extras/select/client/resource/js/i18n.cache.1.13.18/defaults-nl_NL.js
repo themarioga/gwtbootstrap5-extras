@@ -33,7 +33,4 @@
     multipleSeparator: ', '
   };
 })(jQuery);
-
-
 }));
-//# sourceMappingURL=defaults-nl_NL.js.map

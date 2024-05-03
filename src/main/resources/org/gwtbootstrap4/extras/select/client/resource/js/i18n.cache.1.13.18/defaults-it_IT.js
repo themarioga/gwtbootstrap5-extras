@@ -35,7 +35,4 @@
     deselectAllText: 'Deseleziona Tutto'
   };
 })(jQuery);
-
-
 }));
-//# sourceMappingURL=defaults-it_IT.js.map

@@ -40,7 +40,4 @@
     multipleSeparator: ', '
   };
 })(jQuery);
-
-
 }));
-//# sourceMappingURL=defaults-lv_LV.js.map

@@ -40,7 +40,4 @@
     deselectAllText: 'Tout désélectionner'
   };
 })(jQuery);
-
-
 }));
-//# sourceMappingURL=defaults-fr_FR.js.map

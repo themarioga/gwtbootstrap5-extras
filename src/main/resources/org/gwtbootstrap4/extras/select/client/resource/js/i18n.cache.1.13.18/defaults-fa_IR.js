@@ -33,7 +33,4 @@
     multipleSeparator: ', '
   };
 })(jQuery);
-
-
 }));
-//# sourceMappingURL=defaults-fa_IR.js.map

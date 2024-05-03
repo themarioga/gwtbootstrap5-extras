@@ -40,7 +40,4 @@
     multipleSeparator: ', '
   };
 })(jQuery);
-
-
 }));
-//# sourceMappingURL=defaults-nb_NO.js.map

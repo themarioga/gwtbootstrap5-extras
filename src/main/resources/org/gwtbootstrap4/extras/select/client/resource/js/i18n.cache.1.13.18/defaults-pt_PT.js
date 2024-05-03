@@ -33,7 +33,4 @@
     deselectAllText: 'Desmarcar Todos'
   };
 })(jQuery);
-
-
 }));
-//# sourceMappingURL=defaults-pt_PT.js.map

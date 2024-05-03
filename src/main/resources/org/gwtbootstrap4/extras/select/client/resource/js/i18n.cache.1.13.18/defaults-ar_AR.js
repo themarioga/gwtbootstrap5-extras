@@ -45,7 +45,4 @@
     multipleSeparator: '، '
   };
 })(jQuery);
-
-
 }));
-//# sourceMappingURL=defaults-ar_AR.js.map

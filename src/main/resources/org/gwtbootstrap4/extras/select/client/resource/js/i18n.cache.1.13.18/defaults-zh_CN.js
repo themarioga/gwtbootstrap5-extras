@@ -33,7 +33,4 @@
     deselectAllText: '取消全选'
   };
 })(jQuery);
-
-
 }));
-//# sourceMappingURL=defaults-zh_CN.js.map

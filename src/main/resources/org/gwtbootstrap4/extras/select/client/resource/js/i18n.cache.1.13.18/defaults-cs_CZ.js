@@ -33,7 +33,4 @@
     deselectAllText: 'Zrušit výběr'
   };
 })(jQuery);
-
-
 }));
-//# sourceMappingURL=defaults-cs_CZ.js.map

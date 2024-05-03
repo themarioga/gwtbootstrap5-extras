@@ -33,7 +33,4 @@
     deselectAllText: 'Desautatu Guztiak'
   };
 })(jQuery);
-
-
 }));
-//# sourceMappingURL=defaults-eu.js.map
