@@ -33,7 +33,7 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>gwtbootstrap4</artifactId>
-			<version>0.0.1</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.gwtproject</groupId>
