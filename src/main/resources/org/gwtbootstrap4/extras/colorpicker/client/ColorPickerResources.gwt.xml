@@ -21,7 +21,9 @@
 <module>
     <public path="resource">
         <include name="css/bootstrap-colorpicker-3.4.0.min.cache.css"/>
+        <include name="css/colorpicker-responsive.cache.css"/>
     </public>
 
     <stylesheet src="css/bootstrap-colorpicker-3.4.0.min.cache.css"/>
+    <stylesheet src="css/colorpicker-responsive.cache.css"/>
 </module>

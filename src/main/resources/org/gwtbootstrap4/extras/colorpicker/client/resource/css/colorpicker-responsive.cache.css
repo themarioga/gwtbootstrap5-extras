@@ -1,0 +1,20 @@
+/** Color picker */
+.colorpicker-responsive.colorpicker {
+    width: 340px;
+}
+
+.colorpicker-responsive .colorpicker-saturation {
+    width: 300px;
+    height: 300px;
+}
+
+.colorpicker-responsive .colorpicker-hue,
+.colorpicker-responsive .colorpicker-alpha {
+    width: 30px;
+    height: 300px;
+}
+
+.colorpicker-responsive .colorpicker-color,
+.colorpicker-responsive .colorpicker-color div {
+    height: 30px;
+}
