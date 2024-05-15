@@ -20,6 +20,8 @@
   -->
 
 <module rename-to='datetimepicker'>
+    <inherits name="com.google.common.io.Io"/>
+    <inherits name="com.google.common.collect.Collect"/>
     <inherits name="org.gwtbootstrap4.GwtBootstrap4Base"/>
     <inherits name="com.google.gwt.resources.Resources"/>
     <inherits name='org.gwtbootstrap4.extras.datetimepicker.client.DateTimePickerResources'/>

@@ -20,21 +20,26 @@ package org.gwtbootstrap4.extras.datetimepicker.client.ui.base;
  * #L%
  */
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.editor.client.EditorError;
+import com.google.gwt.editor.client.HasEditorErrors;
+import com.google.gwt.editor.client.LeafValueEditor;
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.ui.*;
 import org.gwtbootstrap4.client.shared.event.HideEvent;
 import org.gwtbootstrap4.client.shared.event.HideHandler;
 import org.gwtbootstrap4.client.shared.event.ShowEvent;
 import org.gwtbootstrap4.client.shared.event.ShowHandler;
 import org.gwtbootstrap4.client.ui.TextBox;
-import org.gwtbootstrap4.client.ui.base.HasId;
-import org.gwtbootstrap4.client.ui.base.HasPlaceholder;
-import org.gwtbootstrap4.client.ui.base.HasReadOnly;
-import org.gwtbootstrap4.client.ui.base.HasResponsiveness;
 import org.gwtbootstrap4.client.ui.base.ValueBoxBase;
+import org.gwtbootstrap4.client.ui.base.*;
 import org.gwtbootstrap4.client.ui.base.helper.StyleHelper;
 import org.gwtbootstrap4.client.ui.base.mixin.BlankValidatorMixin;
 import org.gwtbootstrap4.client.ui.base.mixin.ErrorHandlerMixin;
@@ -51,22 +56,8 @@ import org.gwtbootstrap4.extras.datetimepicker.client.ui.base.events.ChangeDateH
 import org.gwtbootstrap4.extras.datetimepicker.client.ui.base.events.ErrorEvent;
 import org.gwtbootstrap4.extras.datetimepicker.client.ui.base.events.ErrorHandler;
 
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.editor.client.EditorError;
-import com.google.gwt.editor.client.HasEditorErrors;
-import com.google.gwt.editor.client.LeafValueEditor;
-import com.google.gwt.event.dom.client.BlurEvent;
-import com.google.gwt.event.dom.client.BlurHandler;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.ui.HasEnabled;
-import com.google.gwt.user.client.ui.HasName;
-import com.google.gwt.user.client.ui.HasValue;
-import com.google.gwt.user.client.ui.HasVisibility;
-import com.google.gwt.user.client.ui.Widget;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author Joshua Godi
@@ -91,38 +82,35 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
 
         @Override
         protected com.google.web.bindery.event.shared.HandlerRegistration setupBlurValidation() {
-            return getInputWidget().addDomHandler(new BlurHandler() {
-                @Override
-                public void onBlur(BlurEvent event) {
-                    getInputWidget().validate(!showing && getValidateOnBlur());
-                }
-            }, BlurEvent.getType());
+            return getInputWidget().addDomHandler(event -> getInputWidget().validate(!showing && getValidateOnBlur()), BlurEvent.getType());
         }
     }
 
     // Check http://www.gwtproject.org/javadoc/latest/com/google/gwt/i18n/client/DateTimeFormat.html
     // for more information on syntax
-    private static final Map<Character, Character> DATE_TIME_FORMAT_MAP = new HashMap<Character, Character>();
+    private static final BiMap<Character, Character> DATE_TIME_FORMAT_MAP = HashBiMap.create();
     static {
-        DATE_TIME_FORMAT_MAP.put('h', 'H'); // 12/24 hours
-        DATE_TIME_FORMAT_MAP.put('H', 'h'); // 12/24 hours
-        DATE_TIME_FORMAT_MAP.put('m', 'M'); // months
-        DATE_TIME_FORMAT_MAP.put('i', 'm'); // minutes
-        DATE_TIME_FORMAT_MAP.put('p', 'a'); // meridian
-        DATE_TIME_FORMAT_MAP.put('P', 'a'); // meridian
+        // (GWT format, MomentJS format)
+        DATE_TIME_FORMAT_MAP.put('y', 'Y'); // years
+        DATE_TIME_FORMAT_MAP.put('M', 'M'); // months
+        DATE_TIME_FORMAT_MAP.put('d', 'D'); // day
+        DATE_TIME_FORMAT_MAP.put('h', 'h'); // 12/24 hours
+        DATE_TIME_FORMAT_MAP.put('H', 'H'); // 12/24 hours
+        DATE_TIME_FORMAT_MAP.put('m', 'm'); // minutes
+        DATE_TIME_FORMAT_MAP.put('s', 's'); // minutes
     }
 
     private final TextBox textBox;
     private DateTimeFormat dateTimeFormat;
     private final DateTimeFormat startEndDateFormat = DateTimeFormat.getFormat("yyyy-MM-dd");
     private LeafValueEditor<Date> editor;
-    private final ErrorHandlerMixin<Date> errorHandlerMixin = new ErrorHandlerMixin<Date>(this);
+    private final ErrorHandlerMixin<Date> errorHandlerMixin = new ErrorHandlerMixin<>(this);
     private final DatePickerValidatorMixin validatorMixin = new DatePickerValidatorMixin(this,
-                                                                                         errorHandlerMixin.getErrorHandler());
+            errorHandlerMixin.getErrorHandler());
     /**
      * DEFAULT values
      */
-    private String format = "MM/DD/YYYY HH:mm";
+    private String format = "mm/dd/yyyy hh:ii";
     private DateTimePickerDayOfWeek[] daysOfWeekDisabled = {};
     private boolean keepOpen = false;
     private boolean showTodayButton = false;
@@ -408,40 +396,31 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
      * @return date time format using bootstrap notation
      */
     private static String toBootstrapDateFormat(final String format) {
-        String bootstrap_format = format;
-
-        // Replace long day name "EEEE" with "DD"
-        bootstrap_format = bootstrap_format.replace("EEEE", "DD");
-        // Replace short day name "EE" with "DD"
-        bootstrap_format = bootstrap_format.replaceAll("E{1,3}", "D");
-        // Replace minutes "m" with "i"
-        bootstrap_format = bootstrap_format.replaceAll("m", "i");
-        // Replace "H" with "h" and vice versa
-        bootstrap_format = bootstrap_format.replaceAll("H", "Q");
-        bootstrap_format = bootstrap_format.replaceAll("h", "H");
-        bootstrap_format = bootstrap_format.replaceAll("Q", "h");
-        // Replace "a" with "P" for AM/PM markers
-        bootstrap_format = bootstrap_format.replaceAll("a", "P");
-
-        // If there are at least 3 Ms there is month name in wording
-        if (bootstrap_format.contains("MMM")) {
-            // Replace long date month "MMMM" with "MM"
-            bootstrap_format = bootstrap_format.replace("MMMM", "MM");
-            // Replace month name "MMM" with "M"
-            bootstrap_format = bootstrap_format.replace("MMM", "M");
-        }
-        else {
-            // Replace month number with leading 0 "MM" with "mm"
-            bootstrap_format = bootstrap_format.replace("MM", "mm");
-            // Replace month number "M" with "m"
-            bootstrap_format = bootstrap_format.replace("M", "m");
-        }
-        if (!bootstrap_format.contains("yy")) {
-            // Replace full year format "y" with "yyyy"
-            bootstrap_format = bootstrap_format.replace("y", "yyyy");
+        final StringBuilder fb = new StringBuilder(format);
+        for (int i = 0; i < fb.length(); i++) {
+            if (DATE_TIME_FORMAT_MAP.containsKey(fb.charAt(i))) {
+                fb.setCharAt(i, DATE_TIME_FORMAT_MAP.get(fb.charAt(i)));
+            }
         }
 
-        return bootstrap_format;
+        return fb.toString();
+    }
+
+    /**
+     * Convert GWT date time format from bootstrap date time format
+     *
+     * @param format date time format using bootstrap notation
+     * @return date time format using GWT notation
+     */
+    private static String fromBootstrapDateFormat(final String format) {
+        final StringBuilder fb = new StringBuilder(format);
+        for (int i = 0; i < fb.length(); i++) {
+            if (DATE_TIME_FORMAT_MAP.containsValue(fb.charAt(i))) {
+                fb.setCharAt(i, DATE_TIME_FORMAT_MAP.inverse().get(fb.charAt(i)));
+            }
+        }
+
+        return fb.toString();
     }
 
     /**
@@ -472,22 +451,11 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
         final Date oldValue = getValue();
 
         // Make the new DateTimeFormat
-        setDateTimeFormat(format);
+        this.dateTimeFormat = DateTimeFormat.getFormat(fromBootstrapDateFormat(format));
 
         if (oldValue != null) {
             setValue(oldValue);
         }
-    }
-
-    private void setDateTimeFormat(final String format) {
-        final StringBuilder fb = new StringBuilder(format);
-        for (int i = 0; i < fb.length(); i++) {
-            if (DATE_TIME_FORMAT_MAP.containsKey(fb.charAt(i))) {
-                fb.setCharAt(i, DATE_TIME_FORMAT_MAP.get(fb.charAt(i)));
-            }
-        }
-
-        this.dateTimeFormat = DateTimeFormat.getFormat(fb.toString());
     }
 
     /** {@inheritDoc} */
@@ -507,12 +475,7 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
     /** {@inheritDoc} */
     @Override
     public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<Date> dateValueChangeHandler) {
-        textBox.addValueChangeHandler(new ValueChangeHandler<String>() {
-            @Override
-            public void onValueChange(ValueChangeEvent<String> event) {
-                ValueChangeEvent.fire(DateTimePickerBase.this, getValue());
-            }
-        });
+        textBox.addValueChangeHandler(event -> ValueChangeEvent.fire(DateTimePickerBase.this, getValue()));
         return addHandler(dateValueChangeHandler, ValueChangeEvent.getType());
     }
 
