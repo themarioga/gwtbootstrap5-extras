@@ -24,6 +24,7 @@ import static org.gwtbootstrap4.extras.select.client.ui.SelectOptions.SHOW_TICK;
 
 import java.util.Map.Entry;
 
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.OptionElement;
 
 /**
@@ -44,7 +45,7 @@ public class Select extends SelectBase<String> {
     @Override
     protected void setSelectedValue(String value) {
         if (isAttached()) {
-            super.setValue(getElement(), value);
+            setSingleValue(getElement(), value);
         } else {
             for (Entry<OptionElement, Option> entry : itemMap.entrySet()) {
                 Option opt = entry.getValue();
@@ -56,7 +57,7 @@ public class Select extends SelectBase<String> {
     @Override
     public String getValue() {
         if (isAttached()) {
-            return super.getValue(getElement());
+            return getSingleValue(getElement());
         }
         for (Entry<OptionElement, Option> entry : itemMap.entrySet()) {
             Option opt = entry.getValue();

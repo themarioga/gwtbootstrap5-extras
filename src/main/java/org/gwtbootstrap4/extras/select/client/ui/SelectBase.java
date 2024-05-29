@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.google.gwt.core.client.*;
 import org.gwtbootstrap4.client.ui.base.ComplexWidget;
 import org.gwtbootstrap4.client.ui.base.HasSize;
 import org.gwtbootstrap4.client.ui.base.HasType;
@@ -55,10 +56,6 @@ import org.gwtbootstrap4.extras.select.client.ui.event.ShowHandler;
 import org.gwtbootstrap4.extras.select.client.ui.event.ShownEvent;
 import org.gwtbootstrap4.extras.select.client.ui.event.ShownHandler;
 
-import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.JsArrayNumber;
-import com.google.gwt.core.client.JsonUtils;
-import com.google.gwt.core.client.ScriptInjector;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NodeList;
@@ -966,11 +963,20 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasValue<T>
         $wnd.jQuery(e).selectpicker(command);
     }-*/;
 
-    protected native String getValue(Element e) /*-{
+    protected native String getSingleValue(Element e) /*-{
         return $wnd.jQuery(e).selectpicker('val');
     }-*/;
 
-    protected native void setValue(Element e, String value) /*-{
+    protected native void setSingleValue(Element e, String value) /*-{
+        $wnd.jQuery(e).selectpicker('val', value);
+    }-*/;
+
+    protected native JsArrayString getMultiplesValues(Element e) /*-{
+        var value = $wnd.jQuery(e).selectpicker('val');
+        return value || [];
+    }-*/;
+
+    protected native void setMultiplesValues(Element e, JsArrayString value) /*-{
         $wnd.jQuery(e).selectpicker('val', value);
     }-*/;
 

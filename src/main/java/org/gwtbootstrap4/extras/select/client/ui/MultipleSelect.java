@@ -184,7 +184,7 @@ public class MultipleSelect extends SelectBase<List<String>> {
     @Override
     public List<String> getValue() {
         if (isAttached()) {
-            JsArrayString arr = getValue(getElement());
+            JsArrayString arr = getMultiplesValues(getElement());
             List<String> result = new ArrayList<>(arr.length());
             for (int i = 0; i < arr.length(); i++) {
                 result.add(arr.get(i));
@@ -211,7 +211,7 @@ public class MultipleSelect extends SelectBase<List<String>> {
             for (final String val : value) {
                 arr.push(val);
             }
-            setValue(getElement(), arr);
+            setMultiplesValues(getElement(), arr);
         } else {
             for (Entry<OptionElement, Option> entry : itemMap.entrySet()) {
                 Option opt = entry.getValue();
@@ -261,14 +261,5 @@ public class MultipleSelect extends SelectBase<List<String>> {
             }
         }
     }
-
-    private native JsArrayString getValue(Element e) /*-{
-        var value = $wnd.jQuery(e).selectpicker('val');
-        return value || [];
-    }-*/;
-
-    private native void setValue(Element e, JsArrayString value) /*-{
-        $wnd.jQuery(e).selectpicker('val', value);
-    }-*/;
 
 }
