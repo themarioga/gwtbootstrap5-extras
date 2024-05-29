@@ -24,7 +24,6 @@ import static org.gwtbootstrap4.extras.select.client.ui.SelectOptions.SHOW_TICK;
 
 import java.util.Map.Entry;
 
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.OptionElement;
 
 /**
@@ -42,48 +41,29 @@ public class Select extends SelectBase<String> {
         return false;
     }
 
-    /**
-     * Set to <code>true</code> to show check mark icon on
-     * standard select boxes.<br>
-     * <br>
-     * Defaults to <code>false</code>.
-     *
-     * @param showTick
-     */
-    public void setShowTick(final boolean showTick) {
-        if (showTick)
-            attrMixin.setAttribute(SHOW_TICK, Boolean.toString(true));
-        else
-            attrMixin.removeAttribute(SHOW_TICK);
-    }
-
-    @Override
-    public String getValue() {
-        if (isAttached()) {
-            return getValue(getElement());
-        }
-        return getSelectedValue();
-    }
-
-    private String getSelectedValue() {
-        for (Entry<OptionElement, Option> entry : itemMap.entrySet()) {
-            Option opt = entry.getValue();
-            if (opt.isSelected())
-                return opt.getValue();
-        }
-        return null;
-    }
-
     @Override
     protected void setSelectedValue(String value) {
         if (isAttached()) {
-            setValue(getElement(), value);
+            super.setValue(getElement(), value);
         } else {
             for (Entry<OptionElement, Option> entry : itemMap.entrySet()) {
                 Option opt = entry.getValue();
                 opt.setSelected(opt.getValue().equals(value));
             }
         }
+    }
+
+    @Override
+    public String getValue() {
+        if (isAttached()) {
+            return super.getValue(getElement());
+        }
+        for (Entry<OptionElement, Option> entry : itemMap.entrySet()) {
+            Option opt = entry.getValue();
+            if (opt.isSelected())
+                return opt.getValue();
+        }
+        return null;
     }
 
     /**
@@ -99,13 +79,5 @@ public class Select extends SelectBase<String> {
         }
         return null;
     }
-
-    private native String getValue(Element e) /*-{
-        return $wnd.jQuery(e).selectpicker('val');
-    }-*/;
-
-    private native void setValue(Element e, String value) /*-{
-        $wnd.jQuery(e).selectpicker('val', value);
-    }-*/;
 
 }
