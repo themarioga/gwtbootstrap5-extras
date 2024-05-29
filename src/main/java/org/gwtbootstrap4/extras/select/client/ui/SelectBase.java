@@ -27,14 +27,25 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.google.gwt.core.client.*;
+import com.google.gwt.editor.client.EditorError;
+import com.google.gwt.editor.client.HasEditorErrors;
 import org.gwtbootstrap4.client.ui.base.ComplexWidget;
 import org.gwtbootstrap4.client.ui.base.HasSize;
 import org.gwtbootstrap4.client.ui.base.HasType;
 import org.gwtbootstrap4.client.ui.base.mixin.AttributeMixin;
+import org.gwtbootstrap4.client.ui.base.mixin.BlankValidatorMixin;
 import org.gwtbootstrap4.client.ui.base.mixin.EnabledMixin;
+import org.gwtbootstrap4.client.ui.base.mixin.ErrorHandlerMixin;
 import org.gwtbootstrap4.client.ui.constants.ButtonSize;
 import org.gwtbootstrap4.client.ui.constants.ButtonType;
 import org.gwtbootstrap4.client.ui.constants.Styles;
+import org.gwtbootstrap4.client.ui.form.error.ErrorHandler;
+import org.gwtbootstrap4.client.ui.form.error.ErrorHandlerType;
+import org.gwtbootstrap4.client.ui.form.error.HasErrorHandler;
+import org.gwtbootstrap4.client.ui.form.validator.HasBlankValidator;
+import org.gwtbootstrap4.client.ui.form.validator.HasValidators;
+import org.gwtbootstrap4.client.ui.form.validator.ValidationChangedEvent;
+import org.gwtbootstrap4.client.ui.form.validator.Validator;
 import org.gwtbootstrap4.extras.select.client.ui.constants.DropdownAlignRight;
 import org.gwtbootstrap4.extras.select.client.ui.constants.LiveSearchStyle;
 import org.gwtbootstrap4.extras.select.client.ui.constants.MenuSize;
@@ -62,8 +73,6 @@ import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.dom.client.OptionElement;
 import com.google.gwt.dom.client.SelectElement;
 import com.google.gwt.editor.client.IsEditor;
-import com.google.gwt.editor.client.LeafValueEditor;
-import com.google.gwt.editor.client.adapters.TakesValueEditor;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -85,9 +94,10 @@ import static org.gwtbootstrap4.extras.select.client.ui.SelectOptions.SHOW_TICK;
  * @author Xiaodong Sun
  */
 public abstract class SelectBase<T> extends ComplexWidget implements HasValue<T>, HasEnabled, Focusable,
-        HasType<ButtonType>, HasSize<ButtonSize>, IsEditor<LeafValueEditor<T>>, HasAllSelectHandlers<T>{
+        HasType<ButtonType>, HasSize<ButtonSize>, IsEditor<SelectEditor<T>>, HasEditorErrors<T>, HasValidators<T>,
+        HasBlankValidator<T>, HasAllSelectHandlers<T>, HasErrorHandler {
 
-    private LeafValueEditor<T> editor;
+    private SelectEditor<T> editor;
     private ButtonType type;
     private ButtonSize size;
 
@@ -105,6 +115,8 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasValue<T>
     protected final Map<OptionElement, Option> itemMap = new HashMap<>(0);
     protected final AttributeMixin<SelectBase<T>> attrMixin = new AttributeMixin<>(this);
     private final EnabledMixin<SelectBase<T>> enabledMixin = new EnabledMixin<>(this);
+    private final ErrorHandlerMixin<T> errorHandlerMixin = new ErrorHandlerMixin<>(this);
+    private final BlankValidatorMixin<SelectBase<T>, T> validatorMixin = new BlankValidatorMixin<>(this, errorHandlerMixin.getErrorHandler());
     private final FocusImpl focusImpl = FocusImpl.getFocusImplForWidget();
 
     /**
@@ -166,6 +178,11 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasValue<T>
         return removed;
     }
 
+    @Override
+    public void reset() {
+        validatorMixin.reset();
+    }
+
     void updateItemMap(Widget widget, boolean toAdd) {
         // Option ==> update with this option
         if (widget instanceof Option) {
@@ -203,6 +220,118 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasValue<T>
      */
     public SelectLanguage getLanguage() {
         return language;
+    }
+
+    /**
+     * Get error handler
+     *
+     * @return e
+     */
+    @Override
+    public ErrorHandler getErrorHandler() {
+        return errorHandlerMixin.getErrorHandler();
+    }
+
+    /**
+     * Set error handler
+     *
+     * @param errorHandler the new error handler
+     */
+    @Override
+    public void setErrorHandler(ErrorHandler errorHandler) {
+        errorHandlerMixin.setErrorHandler(errorHandler);
+        validatorMixin.setErrorHandler(errorHandler);
+    }
+
+    /**
+     * Get error handler type
+     *
+     * @return e
+     */
+    @Override
+    public ErrorHandlerType getErrorHandlerType() {
+        return errorHandlerMixin.getErrorHandlerType();
+    }
+
+    /**
+     * Set error handler type
+     *
+     * @param errorHandlerType the new error handler type
+     */
+    @Override
+    public void setErrorHandlerType(ErrorHandlerType errorHandlerType) {
+        errorHandlerMixin.setErrorHandlerType(errorHandlerType);
+    }
+
+    /**
+     * Get allow blank
+     *
+     * @return e
+     */
+    @Override
+    public boolean getAllowBlank() {
+        return validatorMixin.getAllowBlank();
+    }
+
+    /**
+     * Set allow blank
+     *
+     * @param allowBlank the new allow blank
+     */
+    @Override
+    public void setAllowBlank(boolean allowBlank) {
+        validatorMixin.setAllowBlank(allowBlank);
+    }
+
+    /**
+     * Set validate on blur
+     *
+     * @param validateOnBlur the new validate on blur
+     */
+    @Override
+    public void setValidateOnBlur(boolean validateOnBlur) {
+        validatorMixin.setValidateOnBlur(validateOnBlur);
+    }
+
+    /**
+     * Get validate on blur
+     *
+     * @return e
+     */
+    @Override
+    public boolean getValidateOnBlur() {
+        return validatorMixin.getValidateOnBlur();
+    }
+
+    /**
+     * Add validator
+     *
+     * @param validator the validator
+     */
+    @Override
+    public void addValidator(Validator<T> validator) {
+        validatorMixin.addValidator(validator);
+    }
+
+    /**
+     * Remove validator
+     *
+     * @param validator the validator
+     * @return e
+     */
+    @Override
+    public boolean removeValidator(Validator<T> validator) {
+        return validatorMixin.removeValidator(validator);
+    }
+
+    /**
+     * Set validators
+     *
+     * @param validators the new validators
+     */
+    @Override
+    public void setValidators(Validator<T>... validators) {
+        validatorMixin.setValidators(validators);
     }
 
     /**
@@ -652,11 +781,26 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasValue<T>
     }
 
     @Override
-    public LeafValueEditor<T> asEditor() {
+    public SelectEditor<T> asEditor() {
         if (editor == null) {
-            editor = TakesValueEditor.of(this);
+            editor = SelectEditor.of(this);
         }
         return editor;
+    }
+
+    @Override
+    public void showErrors(List<EditorError> errors) {
+        errorHandlerMixin.showErrors(errors);
+    }
+
+    @Override
+    public boolean validate() {
+        return validatorMixin.validate();
+    }
+
+    @Override
+    public boolean validate(boolean show) {
+        return validatorMixin.validate(show);
     }
 
     @Override
@@ -833,6 +977,11 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasValue<T>
     @Override
     public HandlerRegistration addRefreshedHandler(RefreshedHandler handler) {
         return addHandler(handler, RefreshedEvent.getType());
+    }
+
+    @Override
+    public com.google.web.bindery.event.shared.HandlerRegistration addValidationChangedHandler(ValidationChangedEvent.ValidationChangedHandler handler) {
+        return validatorMixin.addValidationChangedHandler(handler);
     }
 
     /**
