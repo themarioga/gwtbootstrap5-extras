@@ -20,12 +20,9 @@ package org.gwtbootstrap4.extras.select.client.ui;
  * #L%
  */
 
-import static org.gwtbootstrap4.extras.select.client.ui.SelectOptions.SHOW_TICK;
+import com.google.gwt.dom.client.OptionElement;
 
 import java.util.Map.Entry;
-
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.OptionElement;
 
 /**
  * Standard select box.

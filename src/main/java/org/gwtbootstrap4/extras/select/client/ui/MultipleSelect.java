@@ -19,24 +19,17 @@ package org.gwtbootstrap4.extras.select.client.ui;
  * limitations under the License.
  * #L%
  */
-import static org.gwtbootstrap4.extras.select.client.ui.SelectOptions.ACTIONS_BOX;
-import static org.gwtbootstrap4.extras.select.client.ui.SelectOptions.DESELECT_ALL_TEXT;
-import static org.gwtbootstrap4.extras.select.client.ui.SelectOptions.MAX_OPTIONS;
-import static org.gwtbootstrap4.extras.select.client.ui.SelectOptions.MULTIPLE_SEPARATOR;
-import static org.gwtbootstrap4.extras.select.client.ui.SelectOptions.NONE_SELECTED_TEXT;
-import static org.gwtbootstrap4.extras.select.client.ui.SelectOptions.SELECTED_TEXT_FORMAT;
-import static org.gwtbootstrap4.extras.select.client.ui.SelectOptions.SELECT_ALL_TEXT;
+
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArrayString;
+import com.google.gwt.dom.client.OptionElement;
+import org.gwtbootstrap4.extras.select.client.ui.constants.SelectedTextFormat;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
-import org.gwtbootstrap4.extras.select.client.ui.constants.SelectedTextFormat;
-
-import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.JsArrayString;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.OptionElement;
+import static org.gwtbootstrap4.extras.select.client.ui.SelectOptions.*;
 
 /**
  * Multiple select box.
