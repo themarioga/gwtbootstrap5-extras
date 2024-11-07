@@ -6,9 +6,9 @@ cache:
   directories:
   - $HOME/.m2
 before_install:
-# install the gwtbootstrap4 library before we build the extras
-- git clone https://github.com/gwtbootstrap4/gwtbootstrap4.git
-- cd gwtbootstrap4
+# install the gwtbootstrap5 library before we build the extras
+- git clone https://github.com/gwtbootstrap5/gwtbootstrap5.git
+- cd gwtbootstrap5
 - mvn install -DskipTests=true -DdryRun=true
 - cd ..
 install: true
