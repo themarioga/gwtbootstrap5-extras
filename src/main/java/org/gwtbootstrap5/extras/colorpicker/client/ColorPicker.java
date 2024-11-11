@@ -41,7 +41,7 @@ public class ColorPicker extends Widget implements HasValue<String>, HasChangeHa
 
     public ColorPicker() {
         colorPickerDiv = new Div();
-        colorPickerDiv.addStyleName(Styles.ROW + " " + Styles.INPUT_GROUP_APPEND);
+        colorPickerDiv.addStyleName(Styles.ROW);
 
         setElement((Element) colorPickerDiv.getElement());
         initColorPicker(colorPickerDiv.getElement());
