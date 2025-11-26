@@ -31,7 +31,7 @@ public interface DateTimePickerClientBundle extends ClientBundle {
 
     DateTimePickerClientBundle INSTANCE = GWT.create(DateTimePickerClientBundle.class);
 
-    String VERSION = "6.9.4";
+    String VERSION = "6.10.4";
     String LOCALES_DIR = "resource/js/locales.cache." + VERSION + "/";
 
     @Source("resource/js/tempus-dominus-" + VERSION + ".min.cache.js")

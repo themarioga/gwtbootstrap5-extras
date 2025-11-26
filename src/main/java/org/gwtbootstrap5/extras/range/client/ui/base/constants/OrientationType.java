@@ -1,10 +1,12 @@
-package org.gwtbootstrap5.extras.bootbox.client;
+package org.gwtbootstrap5.extras.range.client.ui.base.constants;
+
+import org.gwtbootstrap5.client.ui.constants.Type;
 
 /*
  * #%L
  * GwtBootstrap5
  * %%
- * Copyright (C) 2013 - 2014 GwtBootstrap5
+ * Copyright (C) 2013 - 2015 GwtBootstrap5
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,17 +22,24 @@ package org.gwtbootstrap5.extras.bootbox.client;
  * #L%
  */
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.resources.client.ClientBundle;
-import com.google.gwt.resources.client.TextResource;
-
 /**
- * @author Sven Jacobs
+ * Slider orientation : horizontal or vertical.
+ *
+ * @author Xiaodong SUN
  */
-interface BootboxClientBundle extends ClientBundle {
+public enum OrientationType implements Type {
 
-    BootboxClientBundle INSTANCE = GWT.create(BootboxClientBundle.class);
+    HORIZONTAL("horizontal"),
+    VERTICAL("vertical"),
+    ;
 
-    @Source("resource/js/bootbox-6.0.4.min.cache.js")
-    TextResource bootbox();
+    private final String type;
+
+    private OrientationType(final String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
 }

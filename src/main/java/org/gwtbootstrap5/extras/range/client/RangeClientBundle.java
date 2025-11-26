@@ -1,10 +1,10 @@
-package org.gwtbootstrap5.extras.bootbox.client;
+package org.gwtbootstrap5.extras.range.client;
 
 /*
  * #%L
  * GwtBootstrap5
  * %%
- * Copyright (C) 2013 - 2014 GwtBootstrap5
+ * Copyright (C) 2013 - 2016 GwtBootstrap5
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,12 +25,12 @@ import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.TextResource;
 
 /**
- * @author Sven Jacobs
+ * @author Xiaodong SUN
  */
-interface BootboxClientBundle extends ClientBundle {
+interface RangeClientBundle extends ClientBundle {
 
-    BootboxClientBundle INSTANCE = GWT.create(BootboxClientBundle.class);
+    RangeClientBundle INSTANCE = GWT.create(RangeClientBundle.class);
 
-    @Source("resource/js/bootbox-6.0.4.min.cache.js")
-    TextResource bootbox();
+    @Source("resource/js/bootstrap-slider-11.0.2.min.cache.js")
+    TextResource slider();
 }

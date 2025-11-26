@@ -1,10 +1,10 @@
-package org.gwtbootstrap5.extras.bootbox.client;
+package org.gwtbootstrap5.extras.range.client.ui.base;
 
 /*
  * #%L
  * GwtBootstrap5
  * %%
- * Copyright (C) 2013 - 2014 GwtBootstrap5
+ * Copyright (C) 2013 - 2015 GwtBootstrap5
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,17 +20,20 @@ package org.gwtbootstrap5.extras.bootbox.client;
  * #L%
  */
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.resources.client.ClientBundle;
-import com.google.gwt.resources.client.TextResource;
-
 /**
- * @author Sven Jacobs
+ * Formatter callback to display the tool-tip text. Defaults to the slider
+ * value.
+ *
+ * @param <T> slider value type
+ * @author Xiaodong SUN
  */
-interface BootboxClientBundle extends ClientBundle {
+public interface FormatterCallback<T> {
 
-    BootboxClientBundle INSTANCE = GWT.create(BootboxClientBundle.class);
-
-    @Source("resource/js/bootbox-6.0.4.min.cache.js")
-    TextResource bootbox();
+    /**
+     * Returns the formatted tool-tip text to be displayed.
+     *
+     * @param value the slider value
+     * @return the formatted tool-tip text to be displayed.
+     */
+    String formatTooltip(T value);
 }
