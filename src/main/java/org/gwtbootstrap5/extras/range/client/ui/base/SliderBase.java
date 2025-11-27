@@ -101,7 +101,7 @@ public abstract class SliderBase<T> extends Widget implements
     /**
      * Sets formatter option if defined when attaching to the DOM.
      *
-     * @param options
+     * @param options e
      */
     protected abstract void setFormatterOption(JavaScriptObject options);
 
@@ -132,7 +132,7 @@ public abstract class SliderBase<T> extends Widget implements
     /**
      * Sets the minimum possible value.
      *
-     * @param min
+     * @param min e
      */
     public void setMin(final double min) {
         updateSlider(SliderOption.MIN, min);
@@ -145,7 +145,7 @@ public abstract class SliderBase<T> extends Widget implements
     /**
      * Sets the maximum possible value.
      *
-     * @param max
+     * @param max e
      */
     public void setMax(final double max) {
         updateSlider(SliderOption.MAX, max);
@@ -158,7 +158,7 @@ public abstract class SliderBase<T> extends Widget implements
     /**
      * Sets the increment step.
      *
-     * @param step
+     * @param step e
      */
     public void setStep(final double step) {
         updateSlider(SliderOption.STEP, step);
@@ -173,7 +173,7 @@ public abstract class SliderBase<T> extends Widget implements
      * <br>
      * Defaults to the number of digits after the decimal of step value.
      *
-     * @param precision
+     * @param precision e
      */
     public void setPrecision(final double precision) {
         updateSlider(SliderOption.PRECISION, precision);
@@ -186,7 +186,7 @@ public abstract class SliderBase<T> extends Widget implements
     /**
      * Sets the orientation.
      *
-     * @param orientation
+     * @param orientation e
      * @see OrientationType
      */
     public void setOrientation(final OrientationType orientation) {
@@ -201,7 +201,7 @@ public abstract class SliderBase<T> extends Widget implements
      * Make range slider if set to <code>true</code>. If initial value is scalar,
      * max will be used for second value.
      *
-     * @param range
+     * @param range e
      */
     protected void setRange(final boolean range) {
         updateSlider(SliderOption.RANGE, range);
@@ -214,7 +214,7 @@ public abstract class SliderBase<T> extends Widget implements
     /**
      * Sets the selection type.
      *
-     * @param selection
+     * @param selection e
      * @see SelectionType
      */
     public void setSelection(final SelectionType selection) {
@@ -228,7 +228,7 @@ public abstract class SliderBase<T> extends Widget implements
     /**
      * Sets the tool-tip type.
      *
-     * @param tooltip
+     * @param tooltip e
      * @see TooltipType
      */
     public void setTooltip(final TooltipType tooltip) {
@@ -243,7 +243,7 @@ public abstract class SliderBase<T> extends Widget implements
      * Show one too-tip if set to <code>false</code>, otherwise
      * show two tool-tips one for each handler.
      *
-     * @param tooltipSplit
+     * @param tooltipSplit e
      */
     public void setTooltipSplit(final boolean tooltipSplit) {
         updateSlider(SliderOption.TOOLTIP_SPLIT, tooltipSplit);
@@ -258,7 +258,7 @@ public abstract class SliderBase<T> extends Widget implements
     /**
      * Sets the tool-tip position.
      *
-     * @param position
+     * @param position e
      * @see TooltipPosition
      */
     public void setTooltipPosition(final TooltipPosition position) {
@@ -272,7 +272,7 @@ public abstract class SliderBase<T> extends Widget implements
     /**
      * Sets the handle shape.
      *
-     * @param handle
+     * @param handle e
      * @see HandleType
      */
     public void setHandle(final HandleType handle) {
@@ -286,7 +286,7 @@ public abstract class SliderBase<T> extends Widget implements
     /**
      * Sets whether or not the slider should be reversed.
      *
-     * @param reversed
+     * @param reversed e
      */
     public void setReversed(final boolean reversed) {
         updateSlider(SliderOption.REVERSED, reversed);
@@ -316,7 +316,7 @@ public abstract class SliderBase<T> extends Widget implements
     /**
      * Sets the formatter callback.
      *
-     * @param formatterCallback
+     * @param formatterCallback e
      */
     public void setFormatter(final FormatterCallback<T> formatterCallback) {
         this.formatterCallback = formatterCallback;
@@ -329,7 +329,7 @@ public abstract class SliderBase<T> extends Widget implements
     /**
      * Sets the callback function of the {@link SliderOption#FORMATTER} attribute.
      *
-     * @param element
+     * @param element e
      */
     protected abstract void setFormatter(Element element);
 
@@ -343,8 +343,8 @@ public abstract class SliderBase<T> extends Widget implements
      * Formats the slider value to string value to be displayed
      * as tool-tip text.
      *
-     * @param value
-     * @return
+     * @param value e
+     * @return e
      */
     protected abstract String format(final T value);
 
@@ -361,7 +361,7 @@ public abstract class SliderBase<T> extends Widget implements
      * By default the arrow keys are oriented by arrow up/right to the
      * higher slider value, arrow down/left to the lower slider value.
      *
-     * @param naturalArrowKeys
+     * @param naturalArrowKeys e
      */
     public void setNaturalArrowKeys(final boolean naturalArrowKeys) {
         updateSlider(SliderOption.NATURAL_ARROW_KEYS, naturalArrowKeys);
@@ -377,7 +377,7 @@ public abstract class SliderBase<T> extends Widget implements
      * <br>
      * This option overwrites min and max options.
      *
-     * @param ticks
+     * @param ticks e
      */
     public void setTicks(final List<Double> ticks) {
         updateSliderForNumberArray(SliderOption.TICKS, ticks);
@@ -391,7 +391,7 @@ public abstract class SliderBase<T> extends Widget implements
      * Defines the positions of the tick values in percentages.<br>
      * The first value should always be 0, the last value should always be 100 percent.
      *
-     * @param ticksPositions
+     * @param ticksPositions e
      */
     public void setTicksPositions(final List<Double> ticksPositions) {
         updateSliderForNumberArray(SliderOption.TICKS_POSITIONS, ticksPositions);
@@ -406,7 +406,7 @@ public abstract class SliderBase<T> extends Widget implements
      * <br>
      * Accepts HTML input.
      *
-     * @param ticksLabels
+     * @param ticksLabels e
      */
     public void setTicksLabels(final List<String> ticksLabels) {
         updateSliderForStringArray(SliderOption.TICKS_LABELS, ticksLabels);
@@ -420,7 +420,7 @@ public abstract class SliderBase<T> extends Widget implements
      * Sets the snap bounds of a tick. Snaps to the tick if value
      * is within these bounds.
      *
-     * @param ticksSnapBounds
+     * @param ticksSnapBounds e
      */
     public void setTicksSnapBounds(final double ticksSnapBounds) {
         updateSlider(SliderOption.TICKS_SNAP_BOUNDS, ticksSnapBounds);
@@ -434,7 +434,7 @@ public abstract class SliderBase<T> extends Widget implements
      * Focus the appropriate slider handle after a value change.
      * Defaults to false.
      *
-     * @param focus
+     * @param focus e
      */
     public void setFocusHandle(final boolean focus) {
         updateSlider(SliderOption.FOCUS, focus);
@@ -447,7 +447,7 @@ public abstract class SliderBase<T> extends Widget implements
     /**
      * Sets the slider scale type.
      *
-     * @param scale
+     * @param scale e
      * @see ScaleType
      */
     public void setScale(final ScaleType scale) {
@@ -508,8 +508,8 @@ public abstract class SliderBase<T> extends Widget implements
      * Sets the given value to the slider. This method is only relevant if the
      * slider has been initialized and it will NOT fire the <b>slide</b> event.
      *
-     * @param e
-     * @param value
+     * @param e e
+     * @param value e
      */
     protected abstract void setValue(Element e, T value);
 
@@ -525,8 +525,8 @@ public abstract class SliderBase<T> extends Widget implements
     /**
      * Returns the value by invoking the JSNI <strong>getValue</strong> command.
      *
-     * @param e
-     * @return
+     * @param e e
+     * @return e
      */
     protected abstract T getValue(Element e);
 
@@ -534,8 +534,8 @@ public abstract class SliderBase<T> extends Widget implements
      * Converts the value of the {@link SliderOption#VALUE} attribute to the
      * slider value.
      *
-     * @param value
-     * @return
+     * @param value e
+     * @return e
      */
     protected abstract T convertValue(String value);
 
@@ -685,7 +685,7 @@ public abstract class SliderBase<T> extends Widget implements
         }
         String value = attributeMixin.getAttribute(option.getDataAttribute());
         if (value != null && !value.isEmpty()) {
-            return Boolean.valueOf(value);
+            return Boolean.parseBoolean(value);
         }
         return defaultValue;
     }
@@ -696,7 +696,7 @@ public abstract class SliderBase<T> extends Widget implements
         }
         String value = attributeMixin.getAttribute(option.getDataAttribute());
         if (value != null && !value.isEmpty()) {
-            return Double.valueOf(value);
+            return Double.parseDouble(value);
         }
         return defaultValue;
     }
@@ -742,7 +742,6 @@ public abstract class SliderBase<T> extends Widget implements
     }
 
     private List<String> getStringArrayAttribute(SliderOption option, List<String> defaultValue) {
-
         // Get array attribute
         JsArrayString array = null;
         if (isAttached()) {
@@ -853,122 +852,122 @@ public abstract class SliderBase<T> extends Widget implements
      */
     private native void bindSliderEvents(Element e) /*-{
         var slider = this;
-        $wnd.jQuery(e).on(@org.gwtbootstrap5.extras.slider.client.ui.base.event.HasAllSlideHandlers::SLIDE_EVENT, function(event) {
-            slider.@org.gwtbootstrap5.extras.slider.client.ui.base.SliderBase::onSlide(Lcom/google/gwt/user/client/Event;)(event);
+        $wnd.jQuery(e).on(@org.gwtbootstrap5.extras.range.client.ui.base.event.HasAllSlideHandlers::SLIDE_EVENT, function(event) {
+            slider.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::onSlide(Lcom/google/gwt/user/client/Event;)(event);
         });
-        $wnd.jQuery(e).on(@org.gwtbootstrap5.extras.slider.client.ui.base.event.HasAllSlideHandlers::SLIDE_START_EVENT, function(event) {
-            slider.@org.gwtbootstrap5.extras.slider.client.ui.base.SliderBase::onSlideStart(Lcom/google/gwt/user/client/Event;)(event);
+        $wnd.jQuery(e).on(@org.gwtbootstrap5.extras.range.client.ui.base.event.HasAllSlideHandlers::SLIDE_START_EVENT, function(event) {
+            slider.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::onSlideStart(Lcom/google/gwt/user/client/Event;)(event);
         });
-        $wnd.jQuery(e).on(@org.gwtbootstrap5.extras.slider.client.ui.base.event.HasAllSlideHandlers::SLIDE_STOP_EVENT, function(event) {
-            slider.@org.gwtbootstrap5.extras.slider.client.ui.base.SliderBase::onSlideStop(Lcom/google/gwt/user/client/Event;)(event);
+        $wnd.jQuery(e).on(@org.gwtbootstrap5.extras.range.client.ui.base.event.HasAllSlideHandlers::SLIDE_STOP_EVENT, function(event) {
+            slider.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::onSlideStop(Lcom/google/gwt/user/client/Event;)(event);
         });
-        $wnd.jQuery(e).on(@org.gwtbootstrap5.extras.slider.client.ui.base.event.HasAllSlideHandlers::SLIDE_CHANGE_EVENT, function(event) {
-            slider.@org.gwtbootstrap5.extras.slider.client.ui.base.SliderBase::onSlideChange(Lcom/google/gwt/user/client/Event;)(event);
+        $wnd.jQuery(e).on(@org.gwtbootstrap5.extras.range.client.ui.base.event.HasAllSlideHandlers::SLIDE_CHANGE_EVENT, function(event) {
+            slider.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::onSlideChange(Lcom/google/gwt/user/client/Event;)(event);
         });
-        $wnd.jQuery(e).on(@org.gwtbootstrap5.extras.slider.client.ui.base.event.HasAllSlideHandlers::SLIDE_ENABLED_EVENT, function(event) {
-            @org.gwtbootstrap5.extras.slider.client.ui.base.event.SlideEnabledEvent::fire(Lorg/gwtbootstrap5/extras/slider/client/ui/base/event/HasSlideEnabledHandlers;)(slider);
+        $wnd.jQuery(e).on(@org.gwtbootstrap5.extras.range.client.ui.base.event.HasAllSlideHandlers::SLIDE_ENABLED_EVENT, function(event) {
+            @org.gwtbootstrap5.extras.range.client.ui.base.event.SlideEnabledEvent::fire(Lorg/gwtbootstrap5/extras/range/client/ui/base/event/HasSlideEnabledHandlers;)(slider);
         });
-        $wnd.jQuery(e).on(@org.gwtbootstrap5.extras.slider.client.ui.base.event.HasAllSlideHandlers::SLIDE_DISABLED_EVENT, function(event) {
-            @org.gwtbootstrap5.extras.slider.client.ui.base.event.SlideDisabledEvent::fire(Lorg/gwtbootstrap5/extras/slider/client/ui/base/event/HasSlideDisabledHandlers;)(slider);
+        $wnd.jQuery(e).on(@org.gwtbootstrap5.extras.range.client.ui.base.event.HasAllSlideHandlers::SLIDE_DISABLED_EVENT, function(event) {
+            @org.gwtbootstrap5.extras.range.client.ui.base.event.SlideDisabledEvent::fire(Lorg/gwtbootstrap5/extras/range/client/ui/base/event/HasSlideDisabledHandlers;)(slider);
         });
     }-*/;
 
     /**
      * Unbinds the slider events.
      *
-     * @param e
+     * @param e e
      */
     private native void unbindSliderEvents(Element e) /*-{
-        $wnd.jQuery(e).off(@org.gwtbootstrap5.extras.slider.client.ui.base.event.HasAllSlideHandlers::SLIDE_EVENT);
-        $wnd.jQuery(e).off(@org.gwtbootstrap5.extras.slider.client.ui.base.event.HasAllSlideHandlers::SLIDE_START_EVENT);
-        $wnd.jQuery(e).off(@org.gwtbootstrap5.extras.slider.client.ui.base.event.HasAllSlideHandlers::SLIDE_STOP_EVENT);
-        $wnd.jQuery(e).off(@org.gwtbootstrap5.extras.slider.client.ui.base.event.HasAllSlideHandlers::SLIDE_CHANGE_EVENT);
-        $wnd.jQuery(e).off(@org.gwtbootstrap5.extras.slider.client.ui.base.event.HasAllSlideHandlers::SLIDE_ENABLED_EVENT);
-        $wnd.jQuery(e).off(@org.gwtbootstrap5.extras.slider.client.ui.base.event.HasAllSlideHandlers::SLIDE_DISABLED_EVENT);
+        $wnd.jQuery(e).off(@org.gwtbootstrap5.extras.range.client.ui.base.event.HasAllSlideHandlers::SLIDE_EVENT);
+        $wnd.jQuery(e).off(@org.gwtbootstrap5.extras.range.client.ui.base.event.HasAllSlideHandlers::SLIDE_START_EVENT);
+        $wnd.jQuery(e).off(@org.gwtbootstrap5.extras.range.client.ui.base.event.HasAllSlideHandlers::SLIDE_STOP_EVENT);
+        $wnd.jQuery(e).off(@org.gwtbootstrap5.extras.range.client.ui.base.event.HasAllSlideHandlers::SLIDE_CHANGE_EVENT);
+        $wnd.jQuery(e).off(@org.gwtbootstrap5.extras.range.client.ui.base.event.HasAllSlideHandlers::SLIDE_ENABLED_EVENT);
+        $wnd.jQuery(e).off(@org.gwtbootstrap5.extras.range.client.ui.base.event.HasAllSlideHandlers::SLIDE_DISABLED_EVENT);
     }-*/;
 
     private native boolean isEnabled(Element e) /*-{
-        if (this.@org.gwtbootstrap5.extras.slider.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
-            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.slider.client.ui.base.SliderCommand::IS_ENABLED);
-        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.slider.client.ui.base.SliderCommand::IS_ENABLED);
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
+            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::IS_ENABLED);
+        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::IS_ENABLED);
     }-*/;
 
     private native void sliderCommand(Element e, String cmd) /*-{
-        if (this.@org.gwtbootstrap5.extras.slider.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
             $wnd.jQuery(e).slider(cmd);
         else
             $wnd.jQuery(e).bootstrapSlider(cmd);
     }-*/;
 
     private native Element getElement(Element e) /*-{
-        if (this.@org.gwtbootstrap5.extras.slider.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
-            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.slider.client.ui.base.SliderCommand::GET_ELEMENT);
-        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.slider.client.ui.base.SliderCommand::GET_ELEMENT);
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
+            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_ELEMENT);
+        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_ELEMENT);
     }-*/;
 
     private native void setAttribute(Element e, String attr, String value) /*-{
-        if (this.@org.gwtbootstrap5.extras.slider.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
-            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.slider.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
+            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
         else
-            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.slider.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
+            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
     }-*/;
 
     private native void setAttribute(Element e, String attr, boolean value) /*-{
-        if (this.@org.gwtbootstrap5.extras.slider.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
-            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.slider.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
+            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
         else
-            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.slider.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
+            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
     }-*/;
 
     private native void setAttribute(Element e, String attr, double value) /*-{
-        if (this.@org.gwtbootstrap5.extras.slider.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
-            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.slider.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
+            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
         else
-            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.slider.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
+            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
     }-*/;
 
     private native void setAttribute(Element e, String attr, JsArrayNumber value) /*-{
-        if (this.@org.gwtbootstrap5.extras.slider.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
-            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.slider.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
+            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
         else
-            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.slider.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
+            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
     }-*/;
 
     private native void setAttribute(Element e, String attr, JsArrayString value) /*-{
-        if (this.@org.gwtbootstrap5.extras.slider.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
-            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.slider.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
+            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
         else
-            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.slider.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
+            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
     }-*/;
 
     private native String getStringAttribute(Element e, String attr) /*-{
-        if (this.@org.gwtbootstrap5.extras.slider.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
-            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.slider.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
-        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.slider.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
+            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
+        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
     }-*/;
 
     private native boolean getBooleanAttribute(Element e, String attr) /*-{
-        if (this.@org.gwtbootstrap5.extras.slider.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
-            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.slider.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
-        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.slider.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
+            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
+        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
     }-*/;
 
     private native double getDoubleAttribute(Element e, String attr) /*-{
-        if (this.@org.gwtbootstrap5.extras.slider.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
-            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.slider.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
-        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.slider.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
+            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
+        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
     }-*/;
 
     private native JsArrayNumber getNumberArrayAttribute(Element e, String attr) /*-{
-        if (this.@org.gwtbootstrap5.extras.slider.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
-            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.slider.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
-        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.slider.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
+            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
+        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
     }-*/;
 
     private native JsArrayString getStringArrayAttribute(Element e, String attr) /*-{
-        if (this.@org.gwtbootstrap5.extras.slider.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
-            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.slider.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
-        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.slider.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
+            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
+        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
     }-*/;
 
 }
