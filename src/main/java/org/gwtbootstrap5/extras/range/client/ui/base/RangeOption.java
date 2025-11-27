@@ -29,9 +29,9 @@ package org.gwtbootstrap5.extras.range.client.ui.base;
  * data attribute.
  *
  * @author Xiaodong SUN
- * @see https://github.com/seiyria/bootstrap-slider#options
+ * @see <a href="https://github.com/seiyria/bootstrap-slider#options">...</a>
  */
-enum SliderOption {
+enum RangeOption {
 
     ID("id"),
     MIN("min"),
@@ -55,8 +55,7 @@ enum SliderOption {
     TICKS_LABELS("ticks_labels"),
     TICKS_SNAP_BOUNDS("ticks_snap_bounds"),
     SCALE("scale"),
-    FOCUS("focus"),
-    ;
+    FOCUS("focus");
 
     private final String name;
     private final String dataAttrName;
@@ -65,7 +64,7 @@ enum SliderOption {
     /**
      * @param name the option name
      */
-    private SliderOption(final String name) {
+    RangeOption(final String name) {
         this.name = name;
         this.dataAttrName = name.replaceAll("_", "-");
     }

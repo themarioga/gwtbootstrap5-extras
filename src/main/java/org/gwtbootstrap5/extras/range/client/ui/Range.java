@@ -33,6 +33,7 @@ public class Range {
     private double maxValue;
 
     protected Range() {
+        // Nada
     }
 
     /**

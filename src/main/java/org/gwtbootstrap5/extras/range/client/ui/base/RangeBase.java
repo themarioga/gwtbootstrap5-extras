@@ -69,10 +69,10 @@ import com.google.gwt.user.client.ui.Widget;
  *
  * @param <T> slider value type
  *
- * @see https://github.com/seiyria/bootstrap-slider
+ * @see <a href="https://github.com/seiyria/bootstrap-slider">...</a>
  * @author Xiaodong Sun
  */
-public abstract class SliderBase<T> extends Widget implements
+public abstract class RangeBase<T> extends Widget implements
         HasValue<T>, IsEditor<LeafValueEditor<T>>, HasEnabled, HasId,
         HasResponsiveness, HasAllSlideHandlers<T> {
 
@@ -80,9 +80,9 @@ public abstract class SliderBase<T> extends Widget implements
     private LeafValueEditor<T> editor;
     private boolean sliderNamespaceAvailable = true;
 
-    private final AttributeMixin<SliderBase<T>> attributeMixin = new AttributeMixin<SliderBase<T>>(this);
+    private final AttributeMixin<RangeBase<T>> attributeMixin = new AttributeMixin<RangeBase<T>>(this);
 
-    protected SliderBase() {
+    protected RangeBase() {
         setElement(Document.get().createTextInputElement());
     }
 
@@ -109,7 +109,7 @@ public abstract class SliderBase<T> extends Widget implements
     protected void onUnload() {
         super.onUnload();
         unbindSliderEvents(getElement());
-        sliderCommand(getElement(), SliderCommand.DESTROY);
+        sliderCommand(getElement(), RangeCommand.DESTROY);
     }
 
     /**
@@ -117,16 +117,16 @@ public abstract class SliderBase<T> extends Widget implements
      */
     @Override
     public void setId(final String id) {
-        updateSlider(SliderOption.ID, id);
+        updateSlider(RangeOption.ID, id);
     }
 
     @Override
     public String getId() {
-        return getStringAttribute(SliderOption.ID);
+        return getStringAttribute(RangeOption.ID);
     }
 
     public double getMin() {
-        return getDoubleAttribute(SliderOption.MIN, 0);
+        return getDoubleAttribute(RangeOption.MIN, 0);
     }
 
     /**
@@ -135,11 +135,11 @@ public abstract class SliderBase<T> extends Widget implements
      * @param min e
      */
     public void setMin(final double min) {
-        updateSlider(SliderOption.MIN, min);
+        updateSlider(RangeOption.MIN, min);
     }
 
     public double getMax() {
-        return getDoubleAttribute(SliderOption.MAX, 10);
+        return getDoubleAttribute(RangeOption.MAX, 10);
     }
 
     /**
@@ -148,11 +148,11 @@ public abstract class SliderBase<T> extends Widget implements
      * @param max e
      */
     public void setMax(final double max) {
-        updateSlider(SliderOption.MAX, max);
+        updateSlider(RangeOption.MAX, max);
     }
 
     public double getStep() {
-        return getDoubleAttribute(SliderOption.STEP, 1);
+        return getDoubleAttribute(RangeOption.STEP, 1);
     }
 
     /**
@@ -161,11 +161,11 @@ public abstract class SliderBase<T> extends Widget implements
      * @param step e
      */
     public void setStep(final double step) {
-        updateSlider(SliderOption.STEP, step);
+        updateSlider(RangeOption.STEP, step);
     }
 
     public double getPrecision() {
-        return getDoubleAttribute(SliderOption.PRECISION, 0);
+        return getDoubleAttribute(RangeOption.PRECISION, 0);
     }
 
     /**
@@ -176,11 +176,11 @@ public abstract class SliderBase<T> extends Widget implements
      * @param precision e
      */
     public void setPrecision(final double precision) {
-        updateSlider(SliderOption.PRECISION, precision);
+        updateSlider(RangeOption.PRECISION, precision);
     }
 
     public OrientationType getOrientation() {
-        return getEnumAttribute(SliderOption.ORIENTATION, OrientationType.class, OrientationType.HORIZONTAL);
+        return getEnumAttribute(RangeOption.ORIENTATION, OrientationType.class, OrientationType.HORIZONTAL);
     }
 
     /**
@@ -190,11 +190,11 @@ public abstract class SliderBase<T> extends Widget implements
      * @see OrientationType
      */
     public void setOrientation(final OrientationType orientation) {
-        updateSlider(SliderOption.ORIENTATION, orientation.getType());
+        updateSlider(RangeOption.ORIENTATION, orientation.getType());
     }
 
     protected boolean isRange() {
-        return getBooleanAttribute(SliderOption.RANGE, false);
+        return getBooleanAttribute(RangeOption.RANGE, false);
     }
 
     /**
@@ -204,11 +204,11 @@ public abstract class SliderBase<T> extends Widget implements
      * @param range e
      */
     protected void setRange(final boolean range) {
-        updateSlider(SliderOption.RANGE, range);
+        updateSlider(RangeOption.RANGE, range);
     }
 
     public SelectionType getSelection() {
-        return getEnumAttribute(SliderOption.SELECTION, SelectionType.class, SelectionType.BEFORE);
+        return getEnumAttribute(RangeOption.SELECTION, SelectionType.class, SelectionType.BEFORE);
     }
 
     /**
@@ -218,11 +218,11 @@ public abstract class SliderBase<T> extends Widget implements
      * @see SelectionType
      */
     public void setSelection(final SelectionType selection) {
-        updateSlider(SliderOption.SELECTION, selection.getType());
+        updateSlider(RangeOption.SELECTION, selection.getType());
     }
 
     public TooltipType getTooltip() {
-        return getEnumAttribute(SliderOption.TOOLTIP, TooltipType.class, TooltipType.SHOW);
+        return getEnumAttribute(RangeOption.TOOLTIP, TooltipType.class, TooltipType.SHOW);
     }
 
     /**
@@ -232,11 +232,11 @@ public abstract class SliderBase<T> extends Widget implements
      * @see TooltipType
      */
     public void setTooltip(final TooltipType tooltip) {
-        updateSlider(SliderOption.TOOLTIP, tooltip.getType());
+        updateSlider(RangeOption.TOOLTIP, tooltip.getType());
     }
 
     public boolean isTooltipSplit() {
-        return getBooleanAttribute(SliderOption.TOOLTIP_SPLIT, false);
+        return getBooleanAttribute(RangeOption.TOOLTIP_SPLIT, false);
     }
 
     /**
@@ -246,13 +246,13 @@ public abstract class SliderBase<T> extends Widget implements
      * @param tooltipSplit e
      */
     public void setTooltipSplit(final boolean tooltipSplit) {
-        updateSlider(SliderOption.TOOLTIP_SPLIT, tooltipSplit);
+        updateSlider(RangeOption.TOOLTIP_SPLIT, tooltipSplit);
     }
 
     public TooltipPosition getTooltipPosition() {
         TooltipPosition defaultPosition = getOrientation() == OrientationType.HORIZONTAL ?
                 TooltipPosition.TOP : TooltipPosition.RIGHT;
-        return getEnumAttribute(SliderOption.TOOLTIP_POSITION, TooltipPosition.class, defaultPosition);
+        return getEnumAttribute(RangeOption.TOOLTIP_POSITION, TooltipPosition.class, defaultPosition);
     }
 
     /**
@@ -262,11 +262,11 @@ public abstract class SliderBase<T> extends Widget implements
      * @see TooltipPosition
      */
     public void setTooltipPosition(final TooltipPosition position) {
-        updateSlider(SliderOption.TOOLTIP_POSITION, position.getPosition());
+        updateSlider(RangeOption.TOOLTIP_POSITION, position.getPosition());
     }
 
     public HandleType getHandle() {
-        return getEnumAttribute(SliderOption.HANDLE, HandleType.class, HandleType.ROUND);
+        return getEnumAttribute(RangeOption.HANDLE, HandleType.class, HandleType.ROUND);
     }
 
     /**
@@ -276,11 +276,11 @@ public abstract class SliderBase<T> extends Widget implements
      * @see HandleType
      */
     public void setHandle(final HandleType handle) {
-        updateSlider(SliderOption.HANDLE, handle.getType());
+        updateSlider(RangeOption.HANDLE, handle.getType());
     }
 
     public boolean isReversed() {
-        return getBooleanAttribute(SliderOption.REVERSED, false);
+        return getBooleanAttribute(RangeOption.REVERSED, false);
     }
 
     /**
@@ -289,7 +289,7 @@ public abstract class SliderBase<T> extends Widget implements
      * @param reversed e
      */
     public void setReversed(final boolean reversed) {
-        updateSlider(SliderOption.REVERSED, reversed);
+        updateSlider(RangeOption.REVERSED, reversed);
     }
 
     @Override
@@ -297,19 +297,19 @@ public abstract class SliderBase<T> extends Widget implements
         if (isAttached()) {
             return isEnabled(getElement());
         }
-        return getBooleanAttribute(SliderOption.ENABLED, true);
+        return getBooleanAttribute(RangeOption.ENABLED, true);
     }
 
     @Override
     public void setEnabled(final boolean enabled) {
         if (isAttached()) {
             if (enabled) {
-                sliderCommand(getElement(), SliderCommand.ENABLE);
+                sliderCommand(getElement(), RangeCommand.ENABLE);
             } else {
-                sliderCommand(getElement(), SliderCommand.DISABLE);
+                sliderCommand(getElement(), RangeCommand.DISABLE);
             }
         } else {
-            updateSlider(SliderOption.ENABLED, enabled);
+            updateSlider(RangeOption.ENABLED, enabled);
         }
     }
 
@@ -327,7 +327,7 @@ public abstract class SliderBase<T> extends Widget implements
     }
 
     /**
-     * Sets the callback function of the {@link SliderOption#FORMATTER} attribute.
+     * Sets the callback function of the {@link RangeOption#FORMATTER} attribute.
      *
      * @param element e
      */
@@ -349,7 +349,7 @@ public abstract class SliderBase<T> extends Widget implements
     protected abstract String format(final T value);
 
     public boolean isNaturalArrowKeys() {
-        return getBooleanAttribute(SliderOption.NATURAL_ARROW_KEYS, false);
+        return getBooleanAttribute(RangeOption.NATURAL_ARROW_KEYS, false);
     }
 
     /**
@@ -364,11 +364,11 @@ public abstract class SliderBase<T> extends Widget implements
      * @param naturalArrowKeys e
      */
     public void setNaturalArrowKeys(final boolean naturalArrowKeys) {
-        updateSlider(SliderOption.NATURAL_ARROW_KEYS, naturalArrowKeys);
+        updateSlider(RangeOption.NATURAL_ARROW_KEYS, naturalArrowKeys);
     }
 
     public List<Double> getTicks() {
-        return getNumberArrayAttribute(SliderOption.TICKS, Collections.<Double>emptyList());
+        return getNumberArrayAttribute(RangeOption.TICKS, Collections.<Double>emptyList());
     }
 
     /**
@@ -380,11 +380,11 @@ public abstract class SliderBase<T> extends Widget implements
      * @param ticks e
      */
     public void setTicks(final List<Double> ticks) {
-        updateSliderForNumberArray(SliderOption.TICKS, ticks);
+        updateSliderForNumberArray(RangeOption.TICKS, ticks);
     }
 
     public List<Double> getTicksPositions() {
-        return getNumberArrayAttribute(SliderOption.TICKS_POSITIONS, Collections.<Double>emptyList());
+        return getNumberArrayAttribute(RangeOption.TICKS_POSITIONS, Collections.<Double>emptyList());
     }
 
     /**
@@ -394,11 +394,11 @@ public abstract class SliderBase<T> extends Widget implements
      * @param ticksPositions e
      */
     public void setTicksPositions(final List<Double> ticksPositions) {
-        updateSliderForNumberArray(SliderOption.TICKS_POSITIONS, ticksPositions);
+        updateSliderForNumberArray(RangeOption.TICKS_POSITIONS, ticksPositions);
     }
 
     public List<String> getTicksLabels() {
-        return getStringArrayAttribute(SliderOption.TICKS_LABELS, Collections.<String>emptyList());
+        return getStringArrayAttribute(RangeOption.TICKS_LABELS, Collections.<String>emptyList());
     }
 
     /**
@@ -409,11 +409,11 @@ public abstract class SliderBase<T> extends Widget implements
      * @param ticksLabels e
      */
     public void setTicksLabels(final List<String> ticksLabels) {
-        updateSliderForStringArray(SliderOption.TICKS_LABELS, ticksLabels);
+        updateSliderForStringArray(RangeOption.TICKS_LABELS, ticksLabels);
     }
 
     public double getTicksSnapBounds() {
-        return getDoubleAttribute(SliderOption.TICKS_SNAP_BOUNDS, 0);
+        return getDoubleAttribute(RangeOption.TICKS_SNAP_BOUNDS, 0);
     }
 
     /**
@@ -423,11 +423,11 @@ public abstract class SliderBase<T> extends Widget implements
      * @param ticksSnapBounds e
      */
     public void setTicksSnapBounds(final double ticksSnapBounds) {
-        updateSlider(SliderOption.TICKS_SNAP_BOUNDS, ticksSnapBounds);
+        updateSlider(RangeOption.TICKS_SNAP_BOUNDS, ticksSnapBounds);
     }
 
     public ScaleType getScale() {
-        return getEnumAttribute(SliderOption.SCALE, ScaleType.class, ScaleType.LINEAR);
+        return getEnumAttribute(RangeOption.SCALE, ScaleType.class, ScaleType.LINEAR);
     }
 
     /**
@@ -437,11 +437,11 @@ public abstract class SliderBase<T> extends Widget implements
      * @param focus e
      */
     public void setFocusHandle(final boolean focus) {
-        updateSlider(SliderOption.FOCUS, focus);
+        updateSlider(RangeOption.FOCUS, focus);
     }
 
     public boolean getFocusHandle() {
-        return getBooleanAttribute(SliderOption.FOCUS, false);
+        return getBooleanAttribute(RangeOption.FOCUS, false);
     }
 
     /**
@@ -451,7 +451,7 @@ public abstract class SliderBase<T> extends Widget implements
      * @see ScaleType
      */
     public void setScale(final ScaleType scale) {
-        updateSlider(SliderOption.SCALE, scale.getType());
+        updateSlider(RangeOption.SCALE, scale.getType());
     }
 
     @Override
@@ -495,7 +495,7 @@ public abstract class SliderBase<T> extends Widget implements
             setValue(getElement(), value);
         } else {
             String attrVal = (value == null) ? null : value.toString();
-            attributeMixin.setAttribute(SliderOption.VALUE.getDataAttribute(), attrVal);
+            attributeMixin.setAttribute(RangeOption.VALUE.getDataAttribute(), attrVal);
         }
 
         if (fireEvents) {
@@ -518,7 +518,7 @@ public abstract class SliderBase<T> extends Widget implements
         if (isAttached()) {
             return getValue(getElement());
         }
-        String attrVal = attributeMixin.getAttribute(SliderOption.VALUE.getDataAttribute());
+        String attrVal = attributeMixin.getAttribute(RangeOption.VALUE.getDataAttribute());
         return convertValue(attrVal);
     }
 
@@ -531,7 +531,7 @@ public abstract class SliderBase<T> extends Widget implements
     protected abstract T getValue(Element e);
 
     /**
-     * Converts the value of the {@link SliderOption#VALUE} attribute to the
+     * Converts the value of the {@link RangeOption#VALUE} attribute to the
      * slider value.
      *
      * @param value e
@@ -553,7 +553,7 @@ public abstract class SliderBase<T> extends Widget implements
      */
     public void toggle() {
         if (isAttached()) {
-            sliderCommand(getElement(), SliderCommand.TOGGLE);
+            sliderCommand(getElement(), RangeCommand.TOGGLE);
         } else {
             setEnabled(!isEnabled());
         }
@@ -565,7 +565,7 @@ public abstract class SliderBase<T> extends Widget implements
      */
     public void refresh() {
         if (isAttached()) {
-            sliderCommand(getElement(), SliderCommand.REFEESH);
+            sliderCommand(getElement(), RangeCommand.REFRESH);
         }
     }
 
@@ -575,7 +575,7 @@ public abstract class SliderBase<T> extends Widget implements
      */
     public void relayout() {
         if (isAttached()) {
-            sliderCommand(getElement(), SliderCommand.RELAYOUT);
+            sliderCommand(getElement(), RangeCommand.RELAYOUT);
         }
     }
 
@@ -617,7 +617,7 @@ public abstract class SliderBase<T> extends Widget implements
         return addHandler(handler, SlideDisabledEvent.getType());
     }
 
-    private void updateSlider(SliderOption option, String value) {
+    private void updateSlider(RangeOption option, String value) {
         if (isAttached()) {
             setAttribute(getElement(), option.getName(), value);
             refresh();
@@ -626,7 +626,7 @@ public abstract class SliderBase<T> extends Widget implements
         }
     }
 
-    private void updateSlider(SliderOption option, boolean value) {
+    private void updateSlider(RangeOption option, boolean value) {
         if (isAttached()) {
             setAttribute(getElement(), option.getName(), value);
             refresh();
@@ -635,7 +635,7 @@ public abstract class SliderBase<T> extends Widget implements
         }
     }
 
-    private void updateSlider(SliderOption option, double value) {
+    private void updateSlider(RangeOption option, double value) {
         if (isAttached()) {
             setAttribute(getElement(), option.getName(), value);
             refresh();
@@ -644,7 +644,7 @@ public abstract class SliderBase<T> extends Widget implements
         }
     }
 
-    private void updateSliderForNumberArray(SliderOption option, List<Double> value) {
+    private void updateSliderForNumberArray(RangeOption option, List<Double> value) {
         JsArrayNumber array = JavaScriptObject.createArray().cast();
         for (Double val : value) {
             array.push(val);
@@ -658,7 +658,7 @@ public abstract class SliderBase<T> extends Widget implements
         }
     }
 
-    private void updateSliderForStringArray(SliderOption option, List<String> value) {
+    private void updateSliderForStringArray(RangeOption option, List<String> value) {
         JsArrayString array = JavaScriptObject.createArray().cast();
         for (String val : value) {
             array.push(val);
@@ -672,14 +672,14 @@ public abstract class SliderBase<T> extends Widget implements
         }
     }
 
-    private String getStringAttribute(SliderOption option) {
+    private String getStringAttribute(RangeOption option) {
         if (isAttached()) {
             return getStringAttribute(getElement(), option.getName());
         }
         return attributeMixin.getAttribute(option.getDataAttribute());
     }
 
-    private boolean getBooleanAttribute(SliderOption option, boolean defaultValue) {
+    private boolean getBooleanAttribute(RangeOption option, boolean defaultValue) {
         if (isAttached()) {
             return getBooleanAttribute(getElement(), option.getName());
         }
@@ -690,7 +690,7 @@ public abstract class SliderBase<T> extends Widget implements
         return defaultValue;
     }
 
-    private double getDoubleAttribute(SliderOption option, double defaultValue) {
+    private double getDoubleAttribute(RangeOption option, double defaultValue) {
         if (isAttached()) {
             return getDoubleAttribute(getElement(), option.getName());
         }
@@ -701,7 +701,7 @@ public abstract class SliderBase<T> extends Widget implements
         return defaultValue;
     }
 
-    private <E extends Enum<E>> E getEnumAttribute(SliderOption option, Class<E> clazz, E defaultValue) {
+    private <E extends Enum<E>> E getEnumAttribute(RangeOption option, Class<E> clazz, E defaultValue) {
         String value;
         if (isAttached()) {
             value = getStringAttribute(getElement(), option.getName());
@@ -715,7 +715,7 @@ public abstract class SliderBase<T> extends Widget implements
         }
     }
 
-    private List<Double> getNumberArrayAttribute(SliderOption option, List<Double> defaultValue) {
+    private List<Double> getNumberArrayAttribute(RangeOption option, List<Double> defaultValue) {
 
         // Get array attribute
         JsArrayNumber array = null;
@@ -741,7 +741,7 @@ public abstract class SliderBase<T> extends Widget implements
         return list;
     }
 
-    private List<String> getStringArrayAttribute(SliderOption option, List<String> defaultValue) {
+    private List<String> getStringArrayAttribute(RangeOption option, List<String> defaultValue) {
         // Get array attribute
         JsArrayString array = null;
         if (isAttached()) {
@@ -775,7 +775,7 @@ public abstract class SliderBase<T> extends Widget implements
     }-*/;
 
     private native void initSlider(Element e, JavaScriptObject options) /*-{
-        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.RangeBase::isSliderNamespaceAvailable()())
             $wnd.jQuery(e).slider(options);
         else
             $wnd.jQuery(e).bootstrapSlider(options);
@@ -853,16 +853,16 @@ public abstract class SliderBase<T> extends Widget implements
     private native void bindSliderEvents(Element e) /*-{
         var slider = this;
         $wnd.jQuery(e).on(@org.gwtbootstrap5.extras.range.client.ui.base.event.HasAllSlideHandlers::SLIDE_EVENT, function(event) {
-            slider.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::onSlide(Lcom/google/gwt/user/client/Event;)(event);
+            slider.@org.gwtbootstrap5.extras.range.client.ui.base.RangeBase::onSlide(Lcom/google/gwt/user/client/Event;)(event);
         });
         $wnd.jQuery(e).on(@org.gwtbootstrap5.extras.range.client.ui.base.event.HasAllSlideHandlers::SLIDE_START_EVENT, function(event) {
-            slider.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::onSlideStart(Lcom/google/gwt/user/client/Event;)(event);
+            slider.@org.gwtbootstrap5.extras.range.client.ui.base.RangeBase::onSlideStart(Lcom/google/gwt/user/client/Event;)(event);
         });
         $wnd.jQuery(e).on(@org.gwtbootstrap5.extras.range.client.ui.base.event.HasAllSlideHandlers::SLIDE_STOP_EVENT, function(event) {
-            slider.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::onSlideStop(Lcom/google/gwt/user/client/Event;)(event);
+            slider.@org.gwtbootstrap5.extras.range.client.ui.base.RangeBase::onSlideStop(Lcom/google/gwt/user/client/Event;)(event);
         });
         $wnd.jQuery(e).on(@org.gwtbootstrap5.extras.range.client.ui.base.event.HasAllSlideHandlers::SLIDE_CHANGE_EVENT, function(event) {
-            slider.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::onSlideChange(Lcom/google/gwt/user/client/Event;)(event);
+            slider.@org.gwtbootstrap5.extras.range.client.ui.base.RangeBase::onSlideChange(Lcom/google/gwt/user/client/Event;)(event);
         });
         $wnd.jQuery(e).on(@org.gwtbootstrap5.extras.range.client.ui.base.event.HasAllSlideHandlers::SLIDE_ENABLED_EVENT, function(event) {
             @org.gwtbootstrap5.extras.range.client.ui.base.event.SlideEnabledEvent::fire(Lorg/gwtbootstrap5/extras/range/client/ui/base/event/HasSlideEnabledHandlers;)(slider);
@@ -887,87 +887,87 @@ public abstract class SliderBase<T> extends Widget implements
     }-*/;
 
     private native boolean isEnabled(Element e) /*-{
-        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
-            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::IS_ENABLED);
-        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::IS_ENABLED);
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.RangeBase::isSliderNamespaceAvailable()())
+            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::IS_ENABLED);
+        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::IS_ENABLED);
     }-*/;
 
     private native void sliderCommand(Element e, String cmd) /*-{
-        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.RangeBase::isSliderNamespaceAvailable()())
             $wnd.jQuery(e).slider(cmd);
         else
             $wnd.jQuery(e).bootstrapSlider(cmd);
     }-*/;
 
     private native Element getElement(Element e) /*-{
-        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
-            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_ELEMENT);
-        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_ELEMENT);
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.RangeBase::isSliderNamespaceAvailable()())
+            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::GET_ELEMENT);
+        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::GET_ELEMENT);
     }-*/;
 
     private native void setAttribute(Element e, String attr, String value) /*-{
-        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
-            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.RangeBase::isSliderNamespaceAvailable()())
+            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::SET_ATTRIBUTE, attr, value);
         else
-            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
+            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::SET_ATTRIBUTE, attr, value);
     }-*/;
 
     private native void setAttribute(Element e, String attr, boolean value) /*-{
-        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
-            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.RangeBase::isSliderNamespaceAvailable()())
+            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::SET_ATTRIBUTE, attr, value);
         else
-            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
+            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::SET_ATTRIBUTE, attr, value);
     }-*/;
 
     private native void setAttribute(Element e, String attr, double value) /*-{
-        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
-            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.RangeBase::isSliderNamespaceAvailable()())
+            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::SET_ATTRIBUTE, attr, value);
         else
-            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
+            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::SET_ATTRIBUTE, attr, value);
     }-*/;
 
     private native void setAttribute(Element e, String attr, JsArrayNumber value) /*-{
-        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
-            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.RangeBase::isSliderNamespaceAvailable()())
+            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::SET_ATTRIBUTE, attr, value);
         else
-            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
+            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::SET_ATTRIBUTE, attr, value);
     }-*/;
 
     private native void setAttribute(Element e, String attr, JsArrayString value) /*-{
-        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
-            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.RangeBase::isSliderNamespaceAvailable()())
+            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::SET_ATTRIBUTE, attr, value);
         else
-            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, value);
+            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::SET_ATTRIBUTE, attr, value);
     }-*/;
 
     private native String getStringAttribute(Element e, String attr) /*-{
-        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
-            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
-        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.RangeBase::isSliderNamespaceAvailable()())
+            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::GET_ATTRIBUTE, attr);
+        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::GET_ATTRIBUTE, attr);
     }-*/;
 
     private native boolean getBooleanAttribute(Element e, String attr) /*-{
-        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
-            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
-        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.RangeBase::isSliderNamespaceAvailable()())
+            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::GET_ATTRIBUTE, attr);
+        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::GET_ATTRIBUTE, attr);
     }-*/;
 
     private native double getDoubleAttribute(Element e, String attr) /*-{
-        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
-            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
-        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.RangeBase::isSliderNamespaceAvailable()())
+            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::GET_ATTRIBUTE, attr);
+        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::GET_ATTRIBUTE, attr);
     }-*/;
 
     private native JsArrayNumber getNumberArrayAttribute(Element e, String attr) /*-{
-        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
-            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
-        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.RangeBase::isSliderNamespaceAvailable()())
+            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::GET_ATTRIBUTE, attr);
+        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::GET_ATTRIBUTE, attr);
     }-*/;
 
     private native JsArrayString getStringArrayAttribute(Element e, String attr) /*-{
-        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.SliderBase::isSliderNamespaceAvailable()())
-            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
-        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_ATTRIBUTE, attr);
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.base.RangeBase::isSliderNamespaceAvailable()())
+            return $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::GET_ATTRIBUTE, attr);
+        return $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::GET_ATTRIBUTE, attr);
     }-*/;
 
 }

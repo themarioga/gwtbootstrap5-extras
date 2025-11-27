@@ -20,7 +20,7 @@ package org.gwtbootstrap5.extras.range.client.ui;
  * #L%
  */
 
-import org.gwtbootstrap5.extras.range.client.ui.base.SliderBase;
+import org.gwtbootstrap5.extras.range.client.ui.base.RangeBase;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Element;
@@ -32,7 +32,7 @@ import com.google.gwt.user.client.Event;
  *
  * @author Xiaodong SUN
  */
-public class Slider extends SliderBase<Double> {
+public class Slider extends RangeBase<Double> {
 
     /**
      * Creates a numerical slider.
@@ -60,18 +60,18 @@ public class Slider extends SliderBase<Double> {
     protected native void setValue(Element e, Double value) /*-{
         var doubleValue = value.@java.lang.Double::doubleValue()();
         if (this.@org.gwtbootstrap5.extras.range.client.ui.Slider::isSliderNamespaceAvailable()())
-            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_VALUE, doubleValue);
+            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::SET_VALUE, doubleValue);
         else
-            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_VALUE, doubleValue);
+            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::SET_VALUE, doubleValue);
     }-*/;
 
     @Override
     protected native Double getValue(Element e) /*-{
         var value;
         if (this.@org.gwtbootstrap5.extras.range.client.ui.Slider::isSliderNamespaceAvailable()())
-            value = $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_VALUE);
+            value = $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::GET_VALUE);
         else
-            value = $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_VALUE);
+            value = $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::GET_VALUE);
         return @java.lang.Double::new(D)(value);
     }-*/;
 
@@ -87,15 +87,15 @@ public class Slider extends SliderBase<Double> {
     @Override
     protected native void setFormatter(Element e) /*-{
         var slider = this;
-        var attr = @org.gwtbootstrap5.extras.range.client.ui.base.SliderOption::FORMATTER;
+        var attr = @org.gwtbootstrap5.extras.range.client.ui.base.RangeOption::FORMATTER;
         var formatter = function(value) {
             var val = @java.lang.Double::new(D)(value);
             return slider.@org.gwtbootstrap5.extras.range.client.ui.Slider::formatTooltip(Ljava/lang/Double;)(val);
         };
         if (this.@org.gwtbootstrap5.extras.range.client.ui.Slider::isSliderNamespaceAvailable()())
-            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, formatter);
+            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::SET_ATTRIBUTE, attr, formatter);
         else
-            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, formatter);
+            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::SET_ATTRIBUTE, attr, formatter);
     }-*/;
 
     @Override

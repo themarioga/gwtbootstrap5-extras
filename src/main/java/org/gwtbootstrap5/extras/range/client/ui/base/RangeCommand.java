@@ -24,22 +24,22 @@ package org.gwtbootstrap5.extras.range.client.ui.base;
  * Boostrap slider commands.
  *
  * @author Xiaodong SUN
- * @see https://github.com/seiyria/bootstrap-slider#functions
+ * @see <a href="https://github.com/seiyria/bootstrap-slider#functions">...</a>
  */
-public interface SliderCommand {
+public interface RangeCommand {
 
-    static final String GET_VALUE = "getValue";
-    static final String SET_VALUE = "setValue";
-    static final String GET_ELEMENT = "getElement";
-    static final String DESTROY = "destroy";
-    static final String DISABLE = "disable";
-    static final String ENABLE = "enable";
-    static final String TOGGLE = "toggle";
-    static final String IS_ENABLED = "isEnabled";
-    static final String SET_ATTRIBUTE = "setAttribute";
-    static final String GET_ATTRIBUTE = "getAttribute";
-    static final String REFEESH = "refresh";
-    static final String ON = "on";
-    static final String RELAYOUT = "relayout";
+    String ON = "on";
+    String GET_VALUE = "getValue";
+    String SET_VALUE = "setValue";
+    String GET_ELEMENT = "getElement";
+    String DESTROY = "destroy";
+    String DISABLE = "disable";
+    String ENABLE = "enable";
+    String TOGGLE = "toggle";
+    String IS_ENABLED = "isEnabled";
+    String SET_ATTRIBUTE = "setAttribute";
+    String GET_ATTRIBUTE = "getAttribute";
+    String REFRESH = "refresh";
+    String RELAYOUT = "relayout";
 
 }

@@ -20,7 +20,7 @@ package org.gwtbootstrap5.extras.range.client.ui;
  * #L%
  */
 
-import org.gwtbootstrap5.extras.range.client.ui.base.SliderBase;
+import org.gwtbootstrap5.extras.range.client.ui.base.RangeBase;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Element;
@@ -32,7 +32,7 @@ import com.google.gwt.user.client.Event;
  *
  * @author Xiaodong SUN
  */
-public class RangeSlider extends SliderBase<Range> {
+public class RangeSlider extends RangeBase<Range> {
 
     /**
      * Creates a range slider.
@@ -62,54 +62,12 @@ public class RangeSlider extends SliderBase<Range> {
      *
      * @param min min
      * @param max max
-     * @param range range
+     * @param value value
      */
     @UiConstructor
     public RangeSlider(final double min, final double max, final String value) {
         this(min, max, Range.fromString(value));
     }
-
-    @Override
-    protected native void setValue(Element e, Range value) /*-{
-        var range = value.@org.gwtbootstrap5.extras.range.client.ui.Range::toJsArray()();
-        if (this.@org.gwtbootstrap5.extras.range.client.ui.RangeSlider::isSliderNamespaceAvailable()())
-            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_VALUE, range);
-        else
-            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_VALUE, range);
-    }-*/;
-
-    @Override
-    protected native Range getValue(Element e) /*-{
-        var range;
-        if (this.@org.gwtbootstrap5.extras.range.client.ui.RangeSlider::isSliderNamespaceAvailable()())
-            range = $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_VALUE);
-        else
-            range = $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::GET_VALUE);
-        return @org.gwtbootstrap5.extras.range.client.ui.Range::new(Lcom/google/gwt/core/client/JsArrayNumber;)(range);
-    }-*/;
-
-    @Override
-    protected native void setFormatterOption(JavaScriptObject options) /*-{
-        var slider = this;
-        options.formatter = function(value) {
-            var range = @org.gwtbootstrap5.extras.range.client.ui.Range::new(Lcom/google/gwt/core/client/JsArrayNumber;)(value);
-            return slider.@org.gwtbootstrap5.extras.range.client.ui.RangeSlider::formatTooltip(Lorg/gwtbootstrap5/extras/range/client/ui/Range;)(range);
-        };
-    }-*/;
-
-    @Override
-    protected native void setFormatter(Element e) /*-{
-        var slider = this;
-        var attr = @org.gwtbootstrap5.extras.range.client.ui.base.SliderOption::FORMATTER;
-        var formatter = function(value) {
-            var range = @org.gwtbootstrap5.extras.range.client.ui.Range::new(Lcom/google/gwt/core/client/JsArrayNumber;)(value);
-            return slider.@org.gwtbootstrap5.extras.range.client.ui.RangeSlider::formatTooltip(Lorg/gwtbootstrap5/extras/range/client/ui/Range;)(range);
-        };
-        if (this.@org.gwtbootstrap5.extras.range.client.ui.RangeSlider::isSliderNamespaceAvailable()())
-            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, formatter);
-        else
-            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.SliderCommand::SET_ATTRIBUTE, attr, formatter);
-    }-*/;
 
     @Override
     protected String format(Range value) {
@@ -120,6 +78,48 @@ public class RangeSlider extends SliderBase<Range> {
     protected Range convertValue(String value) {
         return Range.fromString(value);
     }
+
+    @Override
+    protected native void setValue(Element e, Range value) /*-{
+        var range = value.@org.gwtbootstrap5.extras.range.client.ui.Range::toJsArray()();
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.RangeSlider::isSliderNamespaceAvailable()())
+            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::SET_VALUE, range);
+        else
+            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::SET_VALUE, range);
+    }-*/;
+
+    @Override
+    protected native Range getValue(Element e) /*-{
+        var range;
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.RangeSlider::isSliderNamespaceAvailable()())
+            range = $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::GET_VALUE);
+        else
+            range = $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::GET_VALUE);
+        return @org.gwtbootstrap5.extras.range.client.ui.Range::new(Lcom/google/gwt/core/client/JsArrayNumber;)(range);
+    }-*/;
+
+    @Override
+    protected native void setFormatterOption(JavaScriptObject options) /*-{
+        var slider = this;
+        options.formatter = function(value) {
+            var range = @org.gwtbootstrap5.extras.range.client.ui.Range::new(Lcom/google/gwt/core/client/JsArrayNumber;)(value);
+            return slider.@org.gwtbootstrap5.extras.range.client.ui.base.RangeBase::formatTooltip(Lorg/gwtbootstrap5/extras/range/client/ui/Range;)(range);
+        };
+    }-*/;
+
+    @Override
+    protected native void setFormatter(Element e) /*-{
+        var slider = this;
+        var attr = @org.gwtbootstrap5.extras.range.client.ui.base.RangeOption::FORMATTER;
+        var formatter = function(value) {
+            var range = @org.gwtbootstrap5.extras.range.client.ui.Range::new(Lcom/google/gwt/core/client/JsArrayNumber;)(value);
+            return slider.@org.gwtbootstrap5.extras.range.client.ui.RangeSlider::formatTooltip(Lorg/gwtbootstrap5/extras/range/client/ui/Range;)(range);
+        };
+        if (this.@org.gwtbootstrap5.extras.range.client.ui.RangeSlider::isSliderNamespaceAvailable()())
+            $wnd.jQuery(e).slider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::SET_ATTRIBUTE, attr, formatter);
+        else
+            $wnd.jQuery(e).bootstrapSlider(@org.gwtbootstrap5.extras.range.client.ui.base.RangeCommand::SET_ATTRIBUTE, attr, formatter);
+    }-*/;
 
     @Override
     protected native void onSlide(Event event) /*-{
