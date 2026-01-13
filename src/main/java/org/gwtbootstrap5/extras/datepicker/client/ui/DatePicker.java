@@ -1,10 +1,10 @@
-package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants;
+package org.gwtbootstrap5.extras.datepicker.client.ui;
 
 /*
  * #%L
  * GwtBootstrap5
  * %%
- * Copyright (C) 2013 GwtBootstrap5
+ * Copyright (C) 2025 GwtBootstrap5
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,19 +20,27 @@ package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants;
  * #L%
  */
 
-import java.util.Date;
+import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerBase;
 
 /**
- * Date. Default: End of time
- * <p/>
- * The latest date that may be selected; all later dates will be disabled.
- *
- * @author Joshua Godi
+ * @author themarioga
  */
-public interface HasEndDate {
-    void setEndDate(Date endDate);
+public class DatePicker extends DateTimePickerBase {
 
-    void setEndDate(String endDate);
+    public DatePicker() {
+        super();
 
-    void clearEndDate();
+        allowRanges = false;
+        showDatePicker = true;
+        showTimePicker = false;
+    }
+
+    public void setAllowRanges(boolean allowRanges) {
+        this.allowRanges = allowRanges;
+    }
+
+    public boolean getAllowRanges() {
+        return allowRanges;
+    }
+
 }

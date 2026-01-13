@@ -21,14 +21,31 @@ package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants;
  */
 
 /**
- * Enum, Array enums. Default: none
- * <p/>
- * Days of the week that should be disabled. Values are enum of DateTimePickerDayOfWeek.
- * Multiple values should be comma-separated. Example: disable weekends: SUNDAY, MONDAY.
+ * Position to display the DateTimePicker popup
  *
  * @author Joshua Godi
- * @see org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants.DateTimePickerDayOfWeek
  */
-public interface HasDaysOfWeekDisabled {
-    void setDaysOfWeekDisabled(DateTimePickerDayOfWeek... daysOfWeekDisabled);
+public enum DateTimePickerToolbarPlacement {
+    TOP("top"),
+    BOTTOM("bottom");
+
+    private final String position;
+
+    DateTimePickerToolbarPlacement(final String position) {
+        this.position = position;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public static DateTimePickerToolbarPlacement fromValue(final String position) {
+        for (DateTimePickerToolbarPlacement mode : values()) {
+            if (mode.getPosition().equalsIgnoreCase(position)) {
+                return mode;
+            }
+        }
+
+        return null;
+    }
 }

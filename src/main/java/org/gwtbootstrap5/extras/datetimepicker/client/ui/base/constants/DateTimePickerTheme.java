@@ -21,15 +21,32 @@ package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants;
  */
 
 /**
- * Setter and getter for the language of the date time picker
- * <p/>
- * Be sure to load one language, it will use whatever is loaded last
+ * Theme to display the DateTimePicker popup
  *
  * @author Joshua Godi
- * @see org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants.DateTimePickerLanguage
  */
-public interface HasLanguage {
-    void setLanguage(DateTimePickerLanguage language);
+public enum DateTimePickerTheme {
+    AUTO("auto"),
+    LIGHT("light"),
+    DARK("dark");
 
-    DateTimePickerLanguage getLanguage();
+    private final String theme;
+
+    DateTimePickerTheme(final String theme) {
+        this.theme = theme;
+    }
+
+    public String getTheme() {
+        return theme;
+    }
+
+    public static DateTimePickerTheme fromValue(final String value) {
+        for (DateTimePickerTheme mode : values()) {
+            if (mode.getTheme().equalsIgnoreCase(value)) {
+                return mode;
+            }
+        }
+
+        return null;
+    }
 }

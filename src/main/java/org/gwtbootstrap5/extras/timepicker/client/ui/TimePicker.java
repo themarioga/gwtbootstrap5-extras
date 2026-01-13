@@ -1,10 +1,10 @@
-package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants;
+package org.gwtbootstrap5.extras.timepicker.client.ui;
 
 /*
  * #%L
  * GwtBootstrap5
  * %%
- * Copyright (C) 2013 - 2014 GwtBootstrap5
+ * Copyright (C) 2025 GwtBootstrap5
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,27 +20,19 @@ package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants;
  * #L%
  */
 
+import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerBase;
+
 /**
- * Day of the week enum for easy access
- *
- * @author Joshua Godi
+ * @author themarioga
  */
-public enum DateTimePickerDayOfWeek {
-    SUNDAY(0),
-    MONDAY(1),
-    TUESDAY(2),
-    WEDNESDAY(3),
-    THURSDAY(4),
-    FRIDAY(5),
-    SATURDAY(6);
+public class TimePicker extends DateTimePickerBase {
 
-    private final int value;
+    public TimePicker() {
+        super();
 
-    DateTimePickerDayOfWeek(final int value) {
-        this.value = value;
+        allowRanges = false;
+        showDatePicker = false;
+        showTimePicker = true;
     }
 
-    public int getValue() {
-        return value;
-    }
 }

@@ -21,35 +21,15 @@ package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants;
  */
 
 /**
- * Default: BOTTOM_RIGHT
+ * Setter and getter for the language of the date time picker
+ * <p/>
+ * Be sure to load one language, it will use whatever is loaded last
  *
  * @author Joshua Godi
+ * @see DateTimePickerLocale
  */
-public interface HasPosition {
-    /**
-     * Set the position of the date time picker
-     *
-     * @param position position
-     */
-    void setHorizontalPosition(DateTimePickerHorizontalPosition position);
+public interface HasLocalization {
+    void setLocale(DateTimePickerLocale locale);
 
-    /**
-     * Gets the position of the date time picker
-     *
-     * @return position
-     */
-    DateTimePickerHorizontalPosition getHorizontalPosition();
-    /**
-     * Set the position of the date time picker
-     *
-     * @param position position
-     */
-    void setVerticalPosition(DateTimePickerVerticalPosition position);
-
-    /**
-     * Gets the position of the date time picker
-     *
-     * @return position
-     */
-    DateTimePickerVerticalPosition getVerticalPosition();
+    DateTimePickerLocale getLocale();
 }

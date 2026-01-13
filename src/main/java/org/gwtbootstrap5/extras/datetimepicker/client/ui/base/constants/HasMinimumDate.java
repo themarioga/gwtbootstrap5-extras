@@ -4,7 +4,7 @@ package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants;
  * #%L
  * GwtBootstrap5
  * %%
- * Copyright (C) 2013 - 2014 GwtBootstrap5
+ * Copyright (C) 2025 GwtBootstrap5
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,23 +20,17 @@ package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants;
  * #L%
  */
 
+import java.util.Date;
+
 /**
- * Position to display the DateTimePicker popup
+ * Date. Default: Beginning of time
+ * <p/>
+ * The earliest date that may be selected; all earlier dates will be disabled.
  *
  * @author Joshua Godi
  */
-public enum DateTimePickerVerticalPosition {
-    AUTO("auto"),
-    TOP("top"),
-    BOTTOM("bottom");
+public interface HasMinimumDate {
+    void setMinDate(Date minDate);
 
-    private final String position;
-
-    DateTimePickerVerticalPosition(final String position) {
-        this.position = position;
-    }
-
-    public String getPosition() {
-        return position;
-    }
+    void clearMinDate();
 }

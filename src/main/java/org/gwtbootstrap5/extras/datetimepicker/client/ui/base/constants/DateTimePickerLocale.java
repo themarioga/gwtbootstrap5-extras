@@ -27,7 +27,7 @@ import org.gwtbootstrap5.extras.datetimepicker.client.DateTimePickerClientBundle
 /**
  * @author Joshua Godi
  */
-public enum DateTimePickerLanguage {
+public enum DateTimePickerLocale {
     AR("ar", DateTimePickerClientBundle.INSTANCE.ar()),
     AR_SA("ar-SA", DateTimePickerClientBundle.INSTANCE.ar_SA()),
     CA("ca", DateTimePickerClientBundle.INSTANCE.ca()),
@@ -59,7 +59,7 @@ public enum DateTimePickerLanguage {
     private final String code;
     private final TextResource js;
 
-    DateTimePickerLanguage(final String code, final TextResource js) {
+    DateTimePickerLocale(final String code, final TextResource js) {
         this.js = js;
         this.code = code;
     }

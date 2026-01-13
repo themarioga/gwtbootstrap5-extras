@@ -32,7 +32,6 @@ import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.*;
 import org.gwtbootstrap5.client.shared.event.HideEvent;
@@ -64,10 +63,11 @@ import java.util.List;
 /**
  * @author Joshua Godi
  * @author Steven Jardine
+ * @author themarioga
  */
 public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnly, HasId, HasResponsiveness, HasVisibility,
-        HasPlaceholder, HasAutoClose, HasDaysOfWeekDisabled, HasEndDate, HasFormat, HasMinuteStep, HasShowTodayButton,
-        HasShowClearButton, HasStartDate, HasDateTimePickerHandlers, HasLanguage, HasName, HasValue<Date>, HasPosition,
+        HasPlaceholder, HasAutoClose, HasMaximumDate, HasMinuteStep, HasShowTodayButton,
+        HasShowClearButton, HasMinimumDate, HasDateTimePickerHandlers, HasLocalization, HasName, HasValue<Date>,
         HasViewMode, LeafValueEditor<Date>, HasEditorErrors<Date>, HasErrorHandler, HasValidators<Date>,
         HasBlankValidator<Date> {
 
@@ -103,44 +103,43 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
     }
 
     private final TextBox textBox;
-    private DateTimeFormat dateTimeFormat;
     private JavaScriptObject tempusDominus;
-    private final DateTimeFormat startEndDateFormat = DateTimeFormat.getFormat("yyyy-MM-dd");
     private LeafValueEditor<Date> editor;
     private final ErrorHandlerMixin<Date> errorHandlerMixin = new ErrorHandlerMixin<>(this);
     private final DatePickerValidatorMixin validatorMixin = new DatePickerValidatorMixin(this,
             errorHandlerMixin.getErrorHandler());
-    /**
-     * DEFAULT values
-     */
-    private String format = "dd/MM/yyyy hh:mm";
-    private DateTimePickerDayOfWeek[] daysOfWeekDisabled = {};
-    private boolean keepOpen = false;
-    private boolean showTodayButton = false;
-    private boolean showClearButton = false;
-    private int minuteStep = 5;
-    private DateTimePickerViewMode viewMode = DateTimePickerViewMode.DAY;
-    private DateTimePickerLanguage language = DateTimePickerLanguage.EN;
-    private DateTimePickerHorizontalPosition horizontalPosition = DateTimePickerHorizontalPosition.RIGHT;
-    private DateTimePickerVerticalPosition verticalPosition = DateTimePickerVerticalPosition.BOTTOM;
-    private String minDate = null;
-    private String maxDate = null;
+    private final DateTimePickerProperties properties = new DateTimePickerProperties();
+
+    protected Boolean allowRanges;
+    protected Boolean showDatePicker;
+    protected Boolean showTimePicker;
 
     public DateTimePickerBase() {
         textBox = new TextBox();
         setElement((Element) textBox.getElement());
-        setFormat(format);
     }
 
-    public TextBox getTextBox() {
-        return textBox;
+    /**
+     * Call this whenever changing any settings: minView, startView, format, etc. If you are changing
+     * format and date value, the updates must take in such order:
+     * <p/>
+     * 1. DateTimePicker.reload()
+     * 2. DateTimePicker.setValue(newDate); // Date newDate.
+     * <p/>
+     * Otherwise date value is not updated.
+     */
+    public void reload() {
+        configure();
     }
 
-    public void setAlignment(final ValueBoxBase.TextAlignment align) {
-        textBox.setAlignment(align);
+    public void show() {
+        show(tempusDominus);
     }
 
-    /** {@inheritDoc} */
+    public void hide() {
+        hide(tempusDominus);
+    }
+
     @Override
     public void setPlaceholder(final String placeHolder) {
         textBox.setPlaceholder(placeHolder);
@@ -150,14 +149,6 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
     @Override
     public String getPlaceholder() {
         return textBox.getPlaceholder();
-    }
-
-    public void setReadOnly(final boolean readOnly) {
-        textBox.setReadOnly(readOnly);
-    }
-
-    public boolean isReadOnly() {
-        return textBox.isReadOnly();
     }
 
     /** {@inheritDoc} */
@@ -196,6 +187,16 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
         return textBox.getName();
     }
 
+    @Override
+    public void setReadOnly(final boolean readOnly) {
+        textBox.setReadOnly(readOnly);
+    }
+
+    @Override
+    public boolean isReadOnly() {
+        return textBox.isReadOnly();
+    }
+
     /** {@inheritDoc} */
     @Override
     public void setVisibleOn(final DeviceSize deviceSize) {
@@ -206,79 +207,6 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
     @Override
     public void setHiddenOn(final DeviceSize deviceSize) {
         StyleHelper.setHiddenOn(this, deviceSize);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void setLanguage(final DateTimePickerLanguage language) {
-        this.language = language;
-
-        // Inject the JS for the language
-        if (language.getJs() != null) {
-            ScriptInjector.fromString(language.getJs().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
-        }
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public DateTimePickerLanguage getLanguage() {
-        return language;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void setHorizontalPosition(final DateTimePickerHorizontalPosition horizontalPosition) {
-        this.horizontalPosition = horizontalPosition;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public DateTimePickerHorizontalPosition getHorizontalPosition() {
-        return horizontalPosition;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void setVerticalPosition(final DateTimePickerVerticalPosition verticalPosition) {
-        this.verticalPosition = verticalPosition;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public DateTimePickerVerticalPosition getVerticalPosition() {
-        return verticalPosition;
-    }
-
-    @Override
-    public void setViewMode(DateTimePickerViewMode dateTimePickerViewMode) {
-        this.viewMode = dateTimePickerViewMode;
-    }
-
-    /**
-     * Call this whenever changing any settings: minView, startView, format, etc. If you are changing
-     * format and date value, the updates must take in such order:
-     * <p/>
-     * 1. DateTimePicker.reload()
-     * 2. DateTimePicker.setValue(newDate); // Date newDate.
-     * <p/>
-     * Otherwise date value is not updated.
-     */
-    public void reload() {
-        configure();
-    }
-
-    public void show() {
-        show(tempusDominus);
-    }
-
-    public void hide() {
-        hide(tempusDominus);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void setKeepOpen(final boolean keepOpen) {
-        this.keepOpen = keepOpen;
     }
 
     /** {@inheritDoc} */
@@ -336,309 +264,72 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
 
     /** {@inheritDoc} */
     @Override
-    public void setDaysOfWeekDisabled(final DateTimePickerDayOfWeek... daysOfWeekDisabled) {
-        this.daysOfWeekDisabled = daysOfWeekDisabled;
+    public void setLocale(final DateTimePickerLocale locale) {
+        properties.setLocale(locale);
+
+        loadLocale(locale);
+
+        setLocale(locale.getCode());
     }
 
     /** {@inheritDoc} */
     @Override
-    public void setStartDate(final Date startDate) {
-        // Has to be in the format YYYY-MM-DD
-        setStartDate(startEndDateFormat.format(startDate));
+    public DateTimePickerLocale getLocale() {
+        return properties.getLocale();
+    }
+
+    @Override
+    public void setViewMode(DateTimePickerViewMode viewMode) {
+        properties.setViewMode(viewMode);
     }
 
     /** {@inheritDoc} */
     @Override
-    public void setStartDate(final String startDate) {
-        this.minDate = startDate;
+    public void setKeepOpen(final boolean keepOpen) {
+        properties.setKeepOpen(keepOpen);
     }
 
     /** {@inheritDoc} */
     @Override
-    public void clearStartDate() {
-        this.minDate = null;
+    public void setMinDate(final Date minDate) {
+        properties.setMinDate(minDate);
     }
 
     /** {@inheritDoc} */
     @Override
-    public void setEndDate(final Date endDate) {
-        this.maxDate = startEndDateFormat.format(endDate);
+    public void clearMinDate() {
+       setMinDate(null);
     }
 
     /** {@inheritDoc} */
     @Override
-    public void setEndDate(final String endDate) {
-        this.maxDate = endDate;
+    public void setMaxDate(final Date maxDate) {
+        properties.setMaxDate(maxDate);
     }
 
     /** {@inheritDoc} */
     @Override
-    public void clearEndDate() {
-        this.maxDate = null;
+    public void clearMaxDate() {
+        setMaxDate(null);
     }
 
     /** {@inheritDoc} */
     @Override
     public void setMinuteStep(final int minuteStep) {
-        this.minuteStep = minuteStep;
+        properties.setMinuteStepping(minuteStep);
     }
 
     /** {@inheritDoc} */
     @Override
     public void setShowTodayButton(final boolean showTodayButton) {
-        this.showTodayButton = showTodayButton;
+        properties.setShowTodayButton(showTodayButton);
     }
 
     /** {@inheritDoc} */
     @Override
     public void setShowClearButton(final boolean showClearButton) {
-        this.showClearButton = showClearButton;
+        properties.setShowClearButton(showClearButton);
     }
-
-    /**
-     * Convert GWT date time format to bootstrap date time format
-     *
-     * @param format date time format using GWT notation
-     * @return date time format using bootstrap notation
-     */
-    private static String toBootstrapDateFormat(final String format) {
-        final StringBuilder fb = new StringBuilder(format);
-        for (int i = 0; i < fb.length(); i++) {
-            if (DATE_TIME_FORMAT_MAP.containsKey(fb.charAt(i))) {
-                fb.setCharAt(i, DATE_TIME_FORMAT_MAP.get(fb.charAt(i)));
-            }
-        }
-
-        return fb.toString();
-    }
-
-    /**
-     * Convert GWT date time format from bootstrap date time format
-     *
-     * @param format date time format using bootstrap notation
-     * @return date time format using GWT notation
-     */
-    private static String fromBootstrapDateFormat(final String format) {
-        final StringBuilder fb = new StringBuilder(format);
-        for (int i = 0; i < fb.length(); i++) {
-            if (DATE_TIME_FORMAT_MAP.containsValue(fb.charAt(i))) {
-                fb.setCharAt(i, DATE_TIME_FORMAT_MAP.inverse().get(fb.charAt(i)));
-            }
-        }
-
-        return fb.toString();
-    }
-
-    /**
-     * Sets format of the date using GWT notation
-     *
-     * @param format date time format in GWT notation
-     */
-    public void setGWTFormat(final String format) {
-        this.format = toBootstrapDateFormat(format);
-
-        // Get the old value
-        final Date oldValue = getValue();
-
-        // Make the new DateTimeFormat
-        this.dateTimeFormat = DateTimeFormat.getFormat(format);
-
-        if (oldValue != null) {
-            setValue(oldValue);
-        }
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void setFormat(final String format) {
-        this.format = format;
-
-        // Get the old value
-        final Date oldValue = getValue();
-
-        // Make the new DateTimeFormat
-        this.dateTimeFormat = DateTimeFormat.getFormat(fromBootstrapDateFormat(format));
-
-        if (oldValue != null) {
-            setValue(oldValue);
-        }
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public Date getValue() {
-        try {
-            return dateTimeFormat != null && textBox.getValue() != null ? dateTimeFormat.parse(textBox.getValue()) : null;
-        } catch (final Exception e) {
-            return null;
-        }
-    }
-
-    public String getBaseValue() {
-        return textBox.getValue();
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<Date> dateValueChangeHandler) {
-        textBox.addValueChangeHandler(event -> ValueChangeEvent.fire(DateTimePickerBase.this, getValue()));
-        return addHandler(dateValueChangeHandler, ValueChangeEvent.getType());
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void setValue(final Date value) {
-        setValue(value, false);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void setValue(final Date value, final boolean fireEvents) {
-        errorHandlerMixin.clearErrors();
-        textBox.setValue(value != null ? dateTimeFormat.format(value) : null);
-
-        configure();
-
-        if (fireEvents) {
-            ValueChangeEvent.fire(DateTimePickerBase.this, value);
-        }
-    }
-
-    public void loadLocale(String locale) {
-        loadLocale(DateTimePickerLanguage.getLocale(locale));
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    protected void onLoad() {
-        super.onLoad();
-        configure();
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    protected void onUnload() {
-        super.onUnload();
-        destroy(tempusDominus);
-    }
-
-    protected void configure() {
-        getElement().setAttribute("data-date-format", format);
-
-        // If configuring not for the first time, datetimepicker must be removed first.
-        this.destroy(tempusDominus);
-
-        tempusDominus = configure(getElement(), format, language.getCode(),
-                keepOpen, viewMode.getValue(),
-                showTodayButton, showClearButton,
-                minDate != null ? minDate : "false", maxDate != null ? maxDate : "false", toDaysOfWeekDisabledString(daysOfWeekDisabled),
-                minuteStep);
-    }
-
-    private native void destroy(JavaScriptObject td) /*-{
-        if (td) {
-            td.dispose();
-        }
-    }-*/;
-
-    private native void clear(JavaScriptObject td) /*-{
-        if (td) {
-            td.clear();
-        }
-    }-*/;
-
-    private native void disable(JavaScriptObject td) /*-{
-        if (td) {
-            td.disable();
-        }
-    }-*/;
-
-    private native void enable(JavaScriptObject td) /*-{
-        if (td) {
-            td.enable();
-        }
-    }-*/;
-
-    private native void toggle(JavaScriptObject td) /*-{
-        if (td) {
-            td.toggle();
-        }
-    }-*/;
-
-    private native void show(JavaScriptObject td) /*-{
-        if (td) {
-            td.show();
-        }
-    }-*/;
-
-    private native void hide(JavaScriptObject td) /*-{
-        if (td) {
-            td.hide();
-        }
-    }-*/;
-
-    protected native JavaScriptObject configure(Element e, String format, String locale,
-                                    boolean keepOpen, String viewMode,
-                                    boolean showTodayButton, boolean showClearButton,
-                                    String minDate, String maxDate, String daysOfWeekDisabled,
-                                    int stepping) /*-{
-        var that = this;
-        var timepicker = new tempusDominus.TempusDominus(e, {
-            localization: {
-                format: format,
-                locale: locale
-            },
-            display: {
-                icons: {
-                    type: 'icons',
-                    time: 'fa-solid fa-clock',
-                    date: 'fa-solid fa-calendar',
-                    up: 'fa-solid fa-arrow-up',
-                    down: 'fa-solid fa-arrow-down',
-                    previous: 'fa-solid fa-chevron-left',
-                    next: 'fa-solid fa-chevron-right',
-                    today: 'fa-solid fa-calendar-check',
-                    clear: 'fa-solid fa-trash',
-                    close: 'fa-solid fa-xmark'
-                },
-                keepOpen: keepOpen,
-                viewMode: viewMode,
-                buttons: {
-                    today: showTodayButton,
-                    clear: showClearButton
-                }
-            },
-            restrictions: {
-                minDate: (minDate === "false") ? false : minDate,
-                maxDate: (maxDate === "false") ? false : maxDate,
-                disabledDates: daysOfWeekDisabled.split(",")
-            },
-            stepping: stepping
-        });
-
-        $wnd.jQuery(e).on('show.td', function (e) {
-            that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerBase::onShow(Lcom/google/gwt/user/client/Event;)(e);
-        })
-        .on("hide.td", function (e) {
-            that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerBase::onHide(Lcom/google/gwt/user/client/Event;)(e);
-        })
-        .on("change.td", function (e) {
-            that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerBase::onChangeDate(Lcom/google/gwt/user/client/Event;)(e);
-        })
-        .on("error.td", function (e) {
-            that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerBase::onError(Lcom/google/gwt/user/client/Event;)(e);
-        });
-
-        return timepicker;
-    }-*/;
-
-    private native void loadLocale(JavaScriptObject locale) /*-{
-        //load the locale
-        tempusDominus.loadLocale(locale);
-
-        //globally
-        tempusDominus.locale(locale.name); //set the default options to use from the plugin
-    }-*/;
 
     /** {@inheritDoc} */
     @Override
@@ -737,23 +428,225 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
         errorHandlerMixin.showErrors(errors);
     }
 
-    protected String toDaysOfWeekDisabledString(final DateTimePickerDayOfWeek... dateTimePickerDayOfWeeks) {
-        this.daysOfWeekDisabled = dateTimePickerDayOfWeeks;
+    /** {@inheritDoc} */
+    @Override
+    public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<Date> dateValueChangeHandler) {
+        textBox.addValueChangeHandler(event -> ValueChangeEvent.fire(DateTimePickerBase.this, getValue()));
+        return addHandler(dateValueChangeHandler, ValueChangeEvent.getType());
+    }
 
-        final StringBuilder builder = new StringBuilder();
-
-        if (dateTimePickerDayOfWeeks != null) {
-            int i = 0;
-            for (final DateTimePickerDayOfWeek dayOfWeek : dateTimePickerDayOfWeeks) {
-                builder.append(dayOfWeek.getValue());
-
-                i++;
-                if (i < dateTimePickerDayOfWeeks.length) {
-                    builder.append(",");
-                }
-            }
+    /** {@inheritDoc} */
+    @Override
+    public Date getValue() {
+        try {
+            return getViewDate(tempusDominus);
+        } catch (final Exception e) {
+            return null;
         }
-        return builder.toString();
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void setValue(final Date value) {
+        setValue(value, false);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void setValue(final Date value, final boolean fireEvents) {
+        errorHandlerMixin.clearErrors();
+        setViewDate(tempusDominus, value);
+
+        configure();
+
+        if (fireEvents) {
+            ValueChangeEvent.fire(DateTimePickerBase.this, value);
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+        configure();
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    protected void onUnload() {
+        super.onUnload();
+        destroy(tempusDominus);
+    }
+
+    protected void configure() {
+        if (allowRanges == null || showDatePicker == null || showTimePicker == null)
+            throw new IllegalArgumentException("allowRanges, showDatePicker and showTimePicker cannot be null");
+
+        // If configuring not for the first time, datetimepicker must be removed first.
+        destroy(tempusDominus);
+
+        loadLocale(properties.getLocale());
+
+        tempusDominus = configure(getElement(), allowRanges, showDatePicker, showTimePicker, properties);
+
+        setLocale(properties.getLocale().getCode());
+    }
+
+    protected native void destroy(JavaScriptObject td) /*-{
+        if (td) {
+            td.dispose();
+        }
+    }-*/;
+
+    protected native void clear(JavaScriptObject td) /*-{
+        if (td) {
+            td.clear();
+        }
+    }-*/;
+
+    protected native void disable(JavaScriptObject td) /*-{
+        if (td) {
+            td.disable();
+        }
+    }-*/;
+
+    protected native void enable(JavaScriptObject td) /*-{
+        if (td) {
+            td.enable();
+        }
+    }-*/;
+
+    protected native void toggle(JavaScriptObject td) /*-{
+        if (td) {
+            td.toggle();
+        }
+    }-*/;
+
+    protected native void show(JavaScriptObject td) /*-{
+        if (td) {
+            td.show();
+        }
+    }-*/;
+
+    protected native void hide(JavaScriptObject td) /*-{
+        if (td) {
+            td.hide();
+        }
+    }-*/;
+
+    protected native Date getViewDate(JavaScriptObject td) /*-{
+        if (td) {
+            return td.viewDate;
+        }
+
+        return null;
+    }-*/;
+
+    protected native void setViewDate(JavaScriptObject td, Date date) /*-{
+        if (td) {
+            td.viewDate = date;
+        }
+    }-*/;
+
+    protected native JavaScriptObject configure(Element e, boolean allowRanges, boolean showDatePicker, boolean showTimePicker, DateTimePickerProperties properties) /*-{
+        var that = this;
+        var timepicker = new tempusDominus.TempusDominus(e, {
+            dateRange: allowRanges,
+            allowInputToggle: properties.allowInputToggle,
+            keepInvalid: properties.keepInvalid,
+            multipleDates: properties.multipleDates,
+            multipleDatesSeparator: properties.multipleDatesSeparator,
+            prompTimeOnDateChange: properties.prompTimeOnDateChange,
+            promptTimeOnDateChangeTransitionDelay: properties.promptTimeOnDateChangeTransitionDelay,
+            stepping: properties.minuteStepping,
+            display: {
+                sideBySide: properties.sideBySide,
+                calendarWeeks: properties.calendarWeeks,
+                inline: properties.inline,
+                allowKeyboardNavigation: properties.allowKeyboardNavigation,
+                keepOpen: properties.keepOpen,
+                viewMode: properties.viewMode,
+                toolbarPlacement: properties.toolbarPlacement,
+                theme: properties.theme,
+                buttons: {
+                    today: properties.showTodayButton,
+                    clear: properties.showClearButton,
+                    close: properties.showCloseButton
+                },
+                components: {
+                    calendar: showDatePicker,
+                    date: properties.componentDateEnabled,
+                    month: properties.componentMonthEnabled,
+                    year: properties.componentYearEnabled,
+                    decades: properties.componentDecadesEnabled,
+                    clock: showTimePicker,
+                    hours: properties.componentHoursEnabled,
+                    minutes: properties.componentMinutesEnabled,
+                    seconds: properties.componentSecondsEnabled
+                }
+            },
+            restrictions: {
+                minDate: properties.minDate,
+                maxDate: properties.maxDate
+            },
+            debug: properties.debug
+        });
+
+        $wnd.jQuery(e).on('show.td', function (e) {
+            that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerBase::onShow(Lcom/google/gwt/user/client/Event;)(e);
+        })
+        .on("hide.td", function (e) {
+            that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerBase::onHide(Lcom/google/gwt/user/client/Event;)(e);
+        })
+        .on("change.td", function (e) {
+            that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerBase::onChangeDate(Lcom/google/gwt/user/client/Event;)(e);
+        })
+        .on("error.td", function (e) {
+            that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerBase::onError(Lcom/google/gwt/user/client/Event;)(e);
+        });
+
+        return timepicker;
+    }-*/;
+
+    private void loadLocale(DateTimePickerLocale locale) {
+        // Inject the JS for the language
+        if (locale.getJs() != null) {
+            ScriptInjector.fromString(locale.getJs().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
+        }
+
+        loadLocale(DateTimePickerLocale.getLocale(locale.getCode()));
+    }
+
+    private native void loadLocale(JavaScriptObject locale) /*-{
+        //load the locale
+        tempusDominus.loadLocale(locale);
+
+        //globally
+        tempusDominus.locale(locale.name); //set the default options to use from the plugin
+    }-*/;
+
+    private void setLocale(String langCode) {
+        setLocale(getElement(), langCode);
+    }
+
+    private native void setLocale(JavaScriptObject td, String langCode) /*-{
+        td.locale(langCode);
+    }-*/;
+
+    public void setAlignment(final ValueBoxBase.TextAlignment align) {
+        textBox.setAlignment(align);
+    }
+
+    public DateTimePickerProperties getProperties() {
+        return properties;
+    }
+
+    public String getBaseValue() {
+        return textBox.getValue();
+    }
+
+    public TextBox getTextBox() {
+        return textBox;
     }
 
 }

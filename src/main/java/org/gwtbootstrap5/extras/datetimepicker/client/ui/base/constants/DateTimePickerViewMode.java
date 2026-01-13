@@ -30,7 +30,8 @@ package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants;
  * @author Joshua Godi
  */
 public enum DateTimePickerViewMode {
-    DAY("days"),
+    CLOCK("clock"),
+    CALENDAR("calendar"),
     MONTH("months"),
     YEAR("years"),
     DECADE("decades");
@@ -44,4 +45,15 @@ public enum DateTimePickerViewMode {
     public String getValue() {
         return value;
     }
+
+    public static DateTimePickerViewMode fromValue(String value) {
+        for (DateTimePickerViewMode mode : values()) {
+            if (mode.getValue().equalsIgnoreCase(value)) {
+                return mode;
+            }
+        }
+
+        return null;
+    }
+
 }

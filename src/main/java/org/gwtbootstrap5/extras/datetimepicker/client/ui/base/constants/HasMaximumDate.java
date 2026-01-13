@@ -4,7 +4,7 @@ package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants;
  * #%L
  * GwtBootstrap5
  * %%
- * Copyright (C) 2016 GwtBootstrap5
+ * Copyright (C) 2025 GwtBootstrap5
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,24 +20,17 @@ package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants;
  * #L%
  */
 
+import java.util.Date;
+
 /**
- * Format the view type on the DateTimePicker pop-up.
+ * Date. Default: End of time
+ * <p/>
+ * The latest date that may be selected; all later dates will be disabled.
  *
- * @author Xiaodong Sun
+ * @author Joshua Godi
  */
-public enum DateTimePickerFormatViewType {
+public interface HasMaximumDate {
+    void setMaxDate(Date maxDate);
 
-    DATE_TIME("datetme"),
-    TIME("time"),
-    ;
-
-    private final String value;
-
-    private DateTimePickerFormatViewType(final String value) {
-        this.value = value;
-    }
-
-    public String getValue() {
-        return value;
-    }
+    void clearMaxDate();
 }

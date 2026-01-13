@@ -23,7 +23,7 @@ package org.gwtbootstrap5.extras.range.client.ui.base;
 /**
  * Boostrap slider options enumeration type.<br>
  * <br>
- * Options can be passed either as a data (<code>data-slider-foo</code>)
+ * Options can be passed either as a data (<code>data-bs-slider-foo</code>)
  * attribute, or as part of an object in the slider call. The only exception
  * here is the <strong>formatter</strong> option, that can not be passed as a
  * data attribute.
@@ -59,7 +59,7 @@ enum RangeOption {
 
     private final String name;
     private final String dataAttrName;
-    private final static String DATA_ATTRIBUTE_PREFIX = "data-slider-";
+    private final static String DATA_ATTRIBUTE_PREFIX = "data-bs-slider-";
 
     /**
      * @param name the option name

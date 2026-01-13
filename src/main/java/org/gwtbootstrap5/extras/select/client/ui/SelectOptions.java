@@ -33,7 +33,7 @@ import com.google.gwt.core.client.JavaScriptObject;
  */
 class SelectOptions extends JavaScriptObject {
 
-    private static final String DATA_PREFIX = "data-";
+    private static final String DATA_PREFIX = "data-bs-";
 
     // Select (<select data-xx="xx">) options
     static final String ACTIONS_BOX = DATA_PREFIX + "actions-box";
