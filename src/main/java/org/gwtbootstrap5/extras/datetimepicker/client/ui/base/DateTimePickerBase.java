@@ -265,6 +265,8 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
     /** {@inheritDoc} */
     @Override
     public void setLocale(final DateTimePickerLocale locale) {
+        if (locale == null) return;
+
         properties.setLocale(locale);
 
         loadLocale(locale);
@@ -550,7 +552,7 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
 
     protected native JavaScriptObject configure(Element e, boolean allowRanges, boolean showDatePicker, boolean showTimePicker, DateTimePickerProperties properties) /*-{
         var that = this;
-        var timepicker = new tempusDominus.TempusDominus(e, {
+        var timepicker = new $wnd.tempusDominus.TempusDominus(e, {
             dateRange: allowRanges,
             allowInputToggle: properties.allowInputToggle,
             keepInvalid: properties.keepInvalid,
@@ -614,19 +616,22 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
             ScriptInjector.fromString(locale.getJs().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
         }
 
-        loadLocale(DateTimePickerLocale.getLocale(locale.getCode()));
+        JavaScriptObject jso = DateTimePickerLocale.getLocale(locale.getCode());
+
+        loadLocale(jso);
     }
 
     private native void loadLocale(JavaScriptObject locale) /*-{
         //load the locale
-        tempusDominus.loadLocale(locale);
+        $wnd.tempusDominus.loadLocale(locale);
 
         //globally
-        tempusDominus.locale(locale.name); //set the default options to use from the plugin
+        $wnd.tempusDominus.locale(locale.name); //set the default options to use from the plugin
     }-*/;
 
     private void setLocale(String langCode) {
-        setLocale(getElement(), langCode);
+        if (tempusDominus == null) return;
+        setLocale(tempusDominus, langCode);
     }
 
     private native void setLocale(JavaScriptObject td, String langCode) /*-{

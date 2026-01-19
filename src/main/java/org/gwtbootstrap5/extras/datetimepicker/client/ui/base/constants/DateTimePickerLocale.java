@@ -74,57 +74,57 @@ public enum DateTimePickerLocale {
 
     public static native JavaScriptObject getLocale(String lang) /*-{
         if (lang === "ar") {
-            return tempusDominus.locale.ar;
+            return $wnd.tempusDominus.locales.ar;
         } else if (lang === "ar-SA") {
-            return tempusDominus.locale.ar_SA;
+            return $wnd.tempusDominus.locales.ar_SA;
         } else if (lang === "ca") {
-            return tempusDominus.locale.ca;
+            return $wnd.tempusDominus.locales.ca;
         } else if (lang === "cs") {
-            return tempusDominus.locale.cs;
+            return $wnd.tempusDominus.locales.cs;
         } else if (lang === "de") {
-            return tempusDominus.locale.de;
+            return $wnd.tempusDominus.locales.de;
         } else if (lang === "es") {
-            return tempusDominus.locale.es;
+            return $wnd.tempusDominus.locales.es;
         } else if (lang === "fi") {
-            return tempusDominus.locale.fi;
+            return $wnd.tempusDominus.locales.fi;
         } else if (lang === "fr") {
-            return tempusDominus.locale.fr;
+            return $wnd.tempusDominus.locales.fr;
         } else if (lang === "hr") {
-            return tempusDominus.locale.hr;
+            return $wnd.tempusDominus.locales.hr;
         } else if (lang === "hy") {
-            return tempusDominus.locale.hy;
+            return $wnd.tempusDominus.locales.hy;
         } else if (lang === "it") {
-            return tempusDominus.locale.it;
+            return $wnd.tempusDominus.locales.it;
         } else if (lang === "nl") {
-            return tempusDominus.locale.nl;
+            return $wnd.tempusDominus.locales.nl;
         } else if (lang === "pl") {
-            return tempusDominus.locale.pl;
+            return $wnd.tempusDominus.locales.pl;
         } else if (lang === "pt-PT") {
-            return tempusDominus.locale.pt_PT;
+            return $wnd.tempusDominus.locales.pt_PT;
         } else if (lang === "ro") {
-            return tempusDominus.locale.ro;
+            return $wnd.tempusDominus.locales.ro;
         } else if (lang === "ru") {
-            return tempusDominus.locale.ru;
+            return $wnd.tempusDominus.locales.ru;
         } else if (lang === "sk") {
-            return tempusDominus.locale.sk;
+            return $wnd.tempusDominus.locales.sk;
         } else if (lang === "sl") {
-            return tempusDominus.locale.sl;
+            return $wnd.tempusDominus.locales.sl;
         } else if (lang === "sr") {
-            return tempusDominus.locale.sr;
+            return $wnd.tempusDominus.locales.sr;
         } else if (lang === "sr-latin") {
-            return tempusDominus.locale.sr_Latn;
+            return $wnd.tempusDominus.locales.sr_Latn;
         } else if (lang === "tr") {
-            return tempusDominus.locale.tr;
+            return $wnd.tempusDominus.locales.tr;
         } else if (lang === "uk") {
-            return tempusDominus.locale.uk;
+            return $wnd.tempusDominus.locales.uk;
         } else if (lang === "zh-CN") {
-            return tempusDominus.locale.zh_CN;
+            return $wnd.tempusDominus.locales.zh_CN;
         } else if (lang === "zh-HK") {
-            return tempusDominus.locale.zh_HK;
+            return $wnd.tempusDominus.locales.zh_HK;
         } else if (lang === "zh-MO") {
-            return tempusDominus.locale.zh_MO;
+            return $wnd.tempusDominus.locales.zh_MO;
         } else if (lang === "zh-TW") {
-            return tempusDominus.locale.zh_TW;
+            return $wnd.tempusDominus.locales.zh_TW;
         }
     }-*/;
 
