@@ -35,6 +35,13 @@ public class DatePicker extends DateTimePickerBase {
         showTimePicker = false;
     }
 
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+
+        setFormat("L");
+    }
+
     public void setAllowRanges(boolean allowRanges) {
         this.allowRanges = allowRanges;
     }

@@ -35,4 +35,11 @@ public class TimePicker extends DateTimePickerBase {
         showTimePicker = true;
     }
 
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+
+        setFormat("LT");
+    }
+
 }

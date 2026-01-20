@@ -20,47 +20,48 @@ package org.gwtbootstrap5.extras.datetimepicker.client.ui.base;
  * #L%
  */
 
-import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants.DateTimePickerLocale;
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsDate;
+import jsinterop.annotations.JsType;
 import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants.DateTimePickerTheme;
 import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants.DateTimePickerToolbarPlacement;
 import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants.DateTimePickerViewMode;
 
-import java.util.Date;
-
+@JsType
 public class DateTimePickerProperties {
 
-    private Boolean allowInputToggle = false;
-    private Boolean keepInvalid = false;
-    private Boolean multipleDates = false;
+    private boolean allowInputToggle = false;
+    private boolean keepInvalid = false;
+    private boolean multipleDates = false;
     private String multipleDatesSeparator = "; ";
-    private Boolean promptTimeOnDateChange = false;
-    private Integer promptTimeOnDateChangeTransitionDelay = 200;
-    private Integer minuteStepping = 1;
-    private Boolean debug = false;
+    private boolean promptTimeOnDateChange = false;
+    private int promptTimeOnDateChangeTransitionDelay = 200;
+    private int minuteStepping = 1;
+    private boolean debug = false;
 
     // Display
-    private Boolean sideBySide = false;
-    private Boolean calendarWeeks = false;
-    private Boolean inline = false;
-    private Boolean allowKeyboardNavigation = true;
-    private Boolean keepOpen = false;
-    private String viewMode = DateTimePickerViewMode.CALENDAR.getValue();
-    private String toolbarPlacement = DateTimePickerToolbarPlacement.BOTTOM.getPosition();
-    private String theme = DateTimePickerTheme.AUTO.getTheme();
-    private Boolean showTodayButton = false;
-    private Boolean showClearButton = false;
-    private Boolean showCloseButton = false;
-    private Boolean componentDateEnabled = true;
-    private Boolean componentMonthEnabled = true;
-    private Boolean componentYearEnabled = true;
-    private Boolean componentDecadesEnabled = true;
-    private Boolean componentHoursEnabled = true;
-    private Boolean componentMinutesEnabled = true;
-    private Boolean componentSecondsEnabled = false;
+    private boolean sideBySide = false;
+    private boolean calendarWeeks = false;
+    private boolean inline = false;
+    private boolean allowKeyboardNavigation = true;
+    private boolean keepOpen = false;
+    private String viewMode = "calendar";
+    private String toolbarPlacement = "bottom";
+    private String theme = "auto";
+    private boolean showTodayButton = false;
+    private boolean showClearButton = false;
+    private boolean showCloseButton = false;
+    private boolean componentDateEnabled = true;
+    private boolean componentMonthEnabled = true;
+    private boolean componentYearEnabled = true;
+    private boolean componentDecadesEnabled = true;
+    private boolean componentHoursEnabled = true;
+    private boolean componentMinutesEnabled = true;
+    private boolean componentSecondsEnabled = false;
 
     // Restrictions
-    private Date minDate = null;
-    private Date maxDate = null;
+    private JsDate minDate = null;
+    private JsDate maxDate = null;
     //ToDo: DisabledDates
     //ToDo: EnabledDates
     //ToDo: DaysOfWeekDisabled
@@ -68,30 +69,27 @@ public class DateTimePickerProperties {
     //ToDo: DisabledHours
     //ToDo: EnabledHours
 
-    // Localization
-    private DateTimePickerLocale locale = DateTimePickerLocale.EN;
-
-    public Boolean getAllowInputToggle() {
+    public boolean getAllowInputToggle() {
         return allowInputToggle;
     }
 
-    public void setAllowInputToggle(Boolean allowInputToggle) {
+    public void setAllowInputToggle(boolean allowInputToggle) {
         this.allowInputToggle = allowInputToggle;
     }
 
-    public Boolean getKeepInvalid() {
+    public boolean getKeepInvalid() {
         return keepInvalid;
     }
 
-    public void setKeepInvalid(Boolean keepInvalid) {
+    public void setKeepInvalid(boolean keepInvalid) {
         this.keepInvalid = keepInvalid;
     }
 
-    public Boolean getMultipleDates() {
+    public boolean getMultipleDates() {
         return multipleDates;
     }
 
-    public void setMultipleDates(Boolean multipleDates) {
+    public void setMultipleDates(boolean multipleDates) {
         this.multipleDates = multipleDates;
     }
 
@@ -103,216 +101,251 @@ public class DateTimePickerProperties {
         this.multipleDatesSeparator = multipleDatesSeparator;
     }
 
-    public Boolean getPromptTimeOnDateChange() {
+    public boolean getPromptTimeOnDateChange() {
         return promptTimeOnDateChange;
     }
 
-    public void setPromptTimeOnDateChange(Boolean promptTimeOnDateChange) {
+    public void setPromptTimeOnDateChange(boolean promptTimeOnDateChange) {
         this.promptTimeOnDateChange = promptTimeOnDateChange;
     }
 
-    public Integer getPromptTimeOnDateChangeTransitionDelay() {
+    public int getPromptTimeOnDateChangeTransitionDelay() {
         return promptTimeOnDateChangeTransitionDelay;
     }
 
-    public void setPromptTimeOnDateChangeTransitionDelay(Integer promptTimeOnDateChangeTransitionDelay) {
+    public void setPromptTimeOnDateChangeTransitionDelay(int promptTimeOnDateChangeTransitionDelay) {
         this.promptTimeOnDateChangeTransitionDelay = promptTimeOnDateChangeTransitionDelay;
     }
 
-    public Integer getMinuteStepping() {
+    public int getMinuteStepping() {
         return minuteStepping;
     }
 
-    public void setMinuteStepping(Integer minuteStepping) {
+    public void setMinuteStepping(int minuteStepping) {
         this.minuteStepping = minuteStepping;
     }
 
-    public Boolean getDebug() {
+    public boolean getDebug() {
         return debug;
     }
 
-    public void setDebug(Boolean debug) {
+    public void setDebug(boolean debug) {
         this.debug = debug;
     }
 
-    public Boolean getSideBySide() {
+    public boolean getSideBySide() {
         return sideBySide;
     }
 
-    public void setSideBySide(Boolean sideBySide) {
+    public void setSideBySide(boolean sideBySide) {
         this.sideBySide = sideBySide;
     }
 
-    public Boolean getCalendarWeeks() {
+    public boolean getCalendarWeeks() {
         return calendarWeeks;
     }
 
-    public void setCalendarWeeks(Boolean calendarWeeks) {
+    public void setCalendarWeeks(boolean calendarWeeks) {
         this.calendarWeeks = calendarWeeks;
     }
 
-    public Boolean getInline() {
+    public boolean getInline() {
         return inline;
     }
 
-    public void setInline(Boolean inline) {
+    public void setInline(boolean inline) {
         this.inline = inline;
     }
 
-    public Boolean getAllowKeyboardNavigation() {
+    public boolean getAllowKeyboardNavigation() {
         return allowKeyboardNavigation;
     }
 
-    public void setAllowKeyboardNavigation(Boolean allowKeyboardNavigation) {
+    public void setAllowKeyboardNavigation(boolean allowKeyboardNavigation) {
         this.allowKeyboardNavigation = allowKeyboardNavigation;
     }
 
-    public Boolean getKeepOpen() {
+    public boolean getKeepOpen() {
         return keepOpen;
     }
 
-    public void setKeepOpen(Boolean keepOpen) {
+    public void setKeepOpen(boolean keepOpen) {
         this.keepOpen = keepOpen;
     }
 
-    public DateTimePickerViewMode getViewMode() {
-        return DateTimePickerViewMode.fromValue(viewMode);
-    }
-
-    public void setViewMode(DateTimePickerViewMode viewMode) {
-        this.viewMode = viewMode.getValue();
-    }
-
-    public DateTimePickerToolbarPlacement getToolbarPlacement() {
-        return DateTimePickerToolbarPlacement.fromValue(toolbarPlacement);
-    }
-
-    public void setToolbarPlacement(DateTimePickerToolbarPlacement toolbarPlacement) {
-        this.toolbarPlacement = toolbarPlacement.getPosition();
-    }
-
-    public DateTimePickerTheme getTheme() {
-        return DateTimePickerTheme.fromValue(theme);
-    }
-
-    public void setTheme(DateTimePickerTheme theme) {
-        this.theme = theme.getTheme();
-    }
-
-    public Boolean getShowTodayButton() {
-        return showTodayButton;
-    }
-
-    public void setShowTodayButton(Boolean showTodayButton) {
-        this.showTodayButton = showTodayButton;
-    }
-
-    public Boolean getShowClearButton() {
-        return showClearButton;
-    }
-
-    public void setShowClearButton(Boolean showClearButton) {
-        this.showClearButton = showClearButton;
-    }
-
-    public Boolean getShowCloseButton() {
-        return showCloseButton;
-    }
-
-    public void setShowCloseButton(Boolean showCloseButton) {
-        this.showCloseButton = showCloseButton;
-    }
-
-    public Boolean getComponentDateEnabled() {
-        return componentDateEnabled;
-    }
-
-    public void setComponentDateEnabled(Boolean componentDateEnabled) {
-        this.componentDateEnabled = componentDateEnabled;
-    }
-
-    public Boolean getComponentMonthEnabled() {
-        return componentMonthEnabled;
-    }
-
-    public void setComponentMonthEnabled(Boolean componentMonthEnabled) {
-        this.componentMonthEnabled = componentMonthEnabled;
-    }
-
-    public Boolean getComponentYearEnabled() {
-        return componentYearEnabled;
-    }
-
-    public void setComponentYearEnabled(Boolean componentYearEnabled) {
-        this.componentYearEnabled = componentYearEnabled;
-    }
-
-    public Boolean getComponentDecadesEnabled() {
-        return componentDecadesEnabled;
-    }
-
-    public void setComponentDecadesEnabled(Boolean componentDecadesEnabled) {
-        this.componentDecadesEnabled = componentDecadesEnabled;
-    }
-
-    public Boolean getComponentHoursEnabled() {
-        return componentHoursEnabled;
-    }
-
-    public void setComponentHoursEnabled(Boolean componentHoursEnabled) {
-        this.componentHoursEnabled = componentHoursEnabled;
-    }
-
-    public Boolean getComponentMinutesEnabled() {
-        return componentMinutesEnabled;
-    }
-
-    public void setComponentMinutesEnabled(Boolean componentMinutesEnabled) {
-        this.componentMinutesEnabled = componentMinutesEnabled;
-    }
-
-    public Boolean getComponentSecondsEnabled() {
-        return componentSecondsEnabled;
-    }
-
-    public void setComponentSecondsEnabled(Boolean componentSecondsEnabled) {
-        this.componentSecondsEnabled = componentSecondsEnabled;
-    }
-
-    public void setTheme(String theme) {
-        this.theme = theme;
-    }
-
-    public void setToolbarPlacement(String toolbarPlacement) {
-        this.toolbarPlacement = toolbarPlacement;
+    public String getViewMode() {
+        return viewMode;
     }
 
     public void setViewMode(String viewMode) {
         this.viewMode = viewMode;
     }
 
-    public Date getMinDate() {
+    public String getToolbarPlacement() {
+        return toolbarPlacement;
+    }
+
+    public void setToolbarPlacement(String toolbarPlacement) {
+        this.toolbarPlacement = toolbarPlacement;
+    }
+
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
+
+    public boolean getShowTodayButton() {
+        return showTodayButton;
+    }
+
+    public void setShowTodayButton(boolean showTodayButton) {
+        this.showTodayButton = showTodayButton;
+    }
+
+    public boolean getShowClearButton() {
+        return showClearButton;
+    }
+
+    public void setShowClearButton(boolean showClearButton) {
+        this.showClearButton = showClearButton;
+    }
+
+    public boolean getShowCloseButton() {
+        return showCloseButton;
+    }
+
+    public void setShowCloseButton(boolean showCloseButton) {
+        this.showCloseButton = showCloseButton;
+    }
+
+    public boolean getComponentDateEnabled() {
+        return componentDateEnabled;
+    }
+
+    public void setComponentDateEnabled(boolean componentDateEnabled) {
+        this.componentDateEnabled = componentDateEnabled;
+    }
+
+    public boolean getComponentMonthEnabled() {
+        return componentMonthEnabled;
+    }
+
+    public void setComponentMonthEnabled(boolean componentMonthEnabled) {
+        this.componentMonthEnabled = componentMonthEnabled;
+    }
+
+    public boolean getComponentYearEnabled() {
+        return componentYearEnabled;
+    }
+
+    public void setComponentYearEnabled(boolean componentYearEnabled) {
+        this.componentYearEnabled = componentYearEnabled;
+    }
+
+    public boolean getComponentDecadesEnabled() {
+        return componentDecadesEnabled;
+    }
+
+    public void setComponentDecadesEnabled(boolean componentDecadesEnabled) {
+        this.componentDecadesEnabled = componentDecadesEnabled;
+    }
+
+    public boolean getComponentHoursEnabled() {
+        return componentHoursEnabled;
+    }
+
+    public void setComponentHoursEnabled(boolean componentHoursEnabled) {
+        this.componentHoursEnabled = componentHoursEnabled;
+    }
+
+    public boolean getComponentMinutesEnabled() {
+        return componentMinutesEnabled;
+    }
+
+    public void setComponentMinutesEnabled(boolean componentMinutesEnabled) {
+        this.componentMinutesEnabled = componentMinutesEnabled;
+    }
+
+    public boolean getComponentSecondsEnabled() {
+        return componentSecondsEnabled;
+    }
+
+    public void setComponentSecondsEnabled(boolean componentSecondsEnabled) {
+        this.componentSecondsEnabled = componentSecondsEnabled;
+    }
+
+    public JsDate getMinDate() {
         return minDate;
     }
 
-    public void setMinDate(Date minDate) {
+    public void setMinDate(JsDate minDate) {
         this.minDate = minDate;
     }
 
-    public Date getMaxDate() {
+    public JsDate getMaxDate() {
         return maxDate;
     }
 
-    public void setMaxDate(Date maxDate) {
+    public void setMaxDate(JsDate maxDate) {
         this.maxDate = maxDate;
     }
 
-    public DateTimePickerLocale getLocale() {
-        return locale;
-    }
+    public native JavaScriptObject toJavaScript() /*-{
+        var that = this;
+        var obj = {
+            allowInputToggle: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getAllowInputToggle()(),
+            keepInvalid: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getKeepInvalid()(),
+            multipleDates: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getMultipleDates()(),
+            multipleDatesSeparator: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getMultipleDatesSeparator()(),
+            promptTimeOnDateChange: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getPromptTimeOnDateChange()(),
+            promptTimeOnDateChangeTransitionDelay: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getPromptTimeOnDateChangeTransitionDelay()(),
+            stepping: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getMinuteStepping()(),
+            display: {
+                sideBySide: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getSideBySide()(),
+                calendarWeeks: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getCalendarWeeks()(),
+                inline: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getInline()(),
+                keyboardNavigation: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getAllowKeyboardNavigation()(),
+                keepOpen: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getKeepOpen()(),
+                viewMode: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getViewMode()(),
+                toolbarPlacement: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getToolbarPlacement()(),
+                theme: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getTheme()(),
+                buttons: {
+                    today: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getShowTodayButton()(),
+                    clear: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getShowClearButton()(),
+                    close: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getShowCloseButton()()
+                },
+                components: {
+                    date: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getComponentDateEnabled()(),
+                    month: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getComponentMonthEnabled()(),
+                    year: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getComponentYearEnabled()(),
+                    decades: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getComponentDecadesEnabled()(),
+                    hours: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getComponentHoursEnabled()(),
+                    minutes: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getComponentMinutesEnabled()(),
+                    seconds: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getComponentSecondsEnabled()()
+                }
+            },
+            restrictions: {
+                minDate: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getMinDate()(),
+                maxDate: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getMaxDate()()
+            },
+            debug: that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerProperties::getMaxDate()()
+        };
 
-    public void setLocale(DateTimePickerLocale locale) {
-        this.locale = locale;
-    }
+        function removeEmpty(obj) {
+            return Object.keys(obj)
+                .filter(function (k) {
+                    return obj[k] != null;
+                })
+                .reduce(function (acc, k) {
+                    acc[k] = typeof obj[k] === "object" ? removeEmpty(obj[k]) : obj[k];
+                    return acc;
+                }, {});
+        }
+
+        return removeEmpty(obj);
+    }-*/;
 
 }

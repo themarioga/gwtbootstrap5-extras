@@ -23,6 +23,7 @@ package org.gwtbootstrap5.extras.datetimepicker.client.ui.base;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsDate;
 import com.google.gwt.core.client.ScriptInjector;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.editor.client.EditorError;
@@ -109,6 +110,7 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
     private final DatePickerValidatorMixin validatorMixin = new DatePickerValidatorMixin(this,
             errorHandlerMixin.getErrorHandler());
     private final DateTimePickerProperties properties = new DateTimePickerProperties();
+    private DateTimePickerLocale locale = DateTimePickerLocale.EN;
 
     protected Boolean allowRanges;
     protected Boolean showDatePicker;
@@ -267,22 +269,22 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
     public void setLocale(final DateTimePickerLocale locale) {
         if (locale == null) return;
 
-        properties.setLocale(locale);
-
         loadLocale(locale);
 
         setLocale(locale.getCode());
+
+        this.locale = locale;
     }
 
     /** {@inheritDoc} */
     @Override
     public DateTimePickerLocale getLocale() {
-        return properties.getLocale();
+        return locale;
     }
 
     @Override
     public void setViewMode(DateTimePickerViewMode viewMode) {
-        properties.setViewMode(viewMode);
+        properties.setViewMode(viewMode.getValue());
     }
 
     /** {@inheritDoc} */
@@ -294,25 +296,25 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
     /** {@inheritDoc} */
     @Override
     public void setMinDate(final Date minDate) {
-        properties.setMinDate(minDate);
+        properties.setMinDate(JsDate.create(minDate.getTime()));
     }
 
     /** {@inheritDoc} */
     @Override
     public void clearMinDate() {
-       setMinDate(null);
+        properties.setMinDate(null);
     }
 
     /** {@inheritDoc} */
     @Override
     public void setMaxDate(final Date maxDate) {
-        properties.setMaxDate(maxDate);
+        properties.setMaxDate(JsDate.create(maxDate.getTime()));
     }
 
     /** {@inheritDoc} */
     @Override
     public void clearMaxDate() {
-        setMaxDate(null);
+        properties.setMaxDate(null);
     }
 
     /** {@inheritDoc} */
@@ -441,7 +443,7 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
     @Override
     public Date getValue() {
         try {
-            return getViewDate(tempusDominus);
+            return new Date((long) getViewDate(tempusDominus).getTime());
         } catch (final Exception e) {
             return null;
         }
@@ -457,9 +459,12 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
     @Override
     public void setValue(final Date value, final boolean fireEvents) {
         errorHandlerMixin.clearErrors();
-        setViewDate(tempusDominus, value);
 
-        configure();
+        if (value == null) {
+            clear(tempusDominus);
+        } else {
+            setViewDate(tempusDominus, JsDate.create(value.getTime()));
+        }
 
         if (fireEvents) {
             ValueChangeEvent.fire(DateTimePickerBase.this, value);
@@ -480,6 +485,10 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
         destroy(tempusDominus);
     }
 
+    protected void setFormat(String format) {
+        changeFormat(tempusDominus, format);
+    }
+
     protected void configure() {
         if (allowRanges == null || showDatePicker == null || showTimePicker == null)
             throw new IllegalArgumentException("allowRanges, showDatePicker and showTimePicker cannot be null");
@@ -487,11 +496,11 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
         // If configuring not for the first time, datetimepicker must be removed first.
         destroy(tempusDominus);
 
-        loadLocale(properties.getLocale());
+        loadLocale(locale);
 
-        tempusDominus = configure(getElement(), allowRanges, showDatePicker, showTimePicker, properties);
+        tempusDominus = configure(getElement(), allowRanges, showDatePicker, showTimePicker, properties.toJavaScript());
 
-        setLocale(properties.getLocale().getCode());
+        setLocale(locale);
     }
 
     protected native void destroy(JavaScriptObject td) /*-{
@@ -536,7 +545,13 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
         }
     }-*/;
 
-    protected native Date getViewDate(JavaScriptObject td) /*-{
+    protected native void changeFormat(JavaScriptObject td, String format) /*-{
+        if (td) {
+            td.updateOptions({localization: {format: format}})
+        }
+    }-*/;
+
+    protected native JsDate getViewDate(JavaScriptObject td) /*-{
         if (td) {
             return td.viewDate;
         }
@@ -544,55 +559,24 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
         return null;
     }-*/;
 
-    protected native void setViewDate(JavaScriptObject td, Date date) /*-{
+    protected native void setViewDate(JavaScriptObject td, JsDate date) /*-{
         if (td) {
-            td.viewDate = date;
+            if (date) {
+                td.viewDate = $wnd.tempusDominus.DateTime.convert(date);
+            } else {
+                td.clear();
+            }
         }
     }-*/;
 
-    protected native JavaScriptObject configure(Element e, boolean allowRanges, boolean showDatePicker, boolean showTimePicker, DateTimePickerProperties properties) /*-{
+    protected native JavaScriptObject configure(Element e, boolean allowRanges, boolean showDatePicker, boolean showTimePicker, JavaScriptObject properties) /*-{
         var that = this;
-        var timepicker = new $wnd.tempusDominus.TempusDominus(e, {
-            dateRange: allowRanges,
-            allowInputToggle: properties.allowInputToggle,
-            keepInvalid: properties.keepInvalid,
-            multipleDates: properties.multipleDates,
-            multipleDatesSeparator: properties.multipleDatesSeparator,
-            prompTimeOnDateChange: properties.prompTimeOnDateChange,
-            promptTimeOnDateChangeTransitionDelay: properties.promptTimeOnDateChangeTransitionDelay,
-            stepping: properties.minuteStepping,
-            display: {
-                sideBySide: properties.sideBySide,
-                calendarWeeks: properties.calendarWeeks,
-                inline: properties.inline,
-                allowKeyboardNavigation: properties.allowKeyboardNavigation,
-                keepOpen: properties.keepOpen,
-                viewMode: properties.viewMode,
-                toolbarPlacement: properties.toolbarPlacement,
-                theme: properties.theme,
-                buttons: {
-                    today: properties.showTodayButton,
-                    clear: properties.showClearButton,
-                    close: properties.showCloseButton
-                },
-                components: {
-                    calendar: showDatePicker,
-                    date: properties.componentDateEnabled,
-                    month: properties.componentMonthEnabled,
-                    year: properties.componentYearEnabled,
-                    decades: properties.componentDecadesEnabled,
-                    clock: showTimePicker,
-                    hours: properties.componentHoursEnabled,
-                    minutes: properties.componentMinutesEnabled,
-                    seconds: properties.componentSecondsEnabled
-                }
-            },
-            restrictions: {
-                minDate: properties.minDate,
-                maxDate: properties.maxDate
-            },
-            debug: properties.debug
-        });
+
+        properties.dateRange = allowRanges;
+        properties.display.components.calendar = showDatePicker;
+        properties.display.components.clock = showTimePicker;
+
+        var timepicker = new $wnd.tempusDominus.TempusDominus(e, properties);
 
         $wnd.jQuery(e).on('show.td', function (e) {
             that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerBase::onShow(Lcom/google/gwt/user/client/Event;)(e);

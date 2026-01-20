@@ -34,6 +34,9 @@ public interface DateTimePickerClientBundle extends ClientBundle {
     String VERSION = "6.10.4";
     String LOCALES_DIR = "resource/js/locales.cache." + VERSION + "/";
 
+    @Source("resource/js/popper-2.11.6.min.cache.js")
+    TextResource popper();
+
     @Source("resource/js/tempus-dominus-" + VERSION + ".min.cache.js")
     TextResource dateTimePicker();
 
