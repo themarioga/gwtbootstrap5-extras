@@ -20,7 +20,7 @@ package org.gwtbootstrap5.extras.select.client.ui;
  * #L%
  */
 
-import org.gwtbootstrap5.client.ui.constants.IconTypeSolid;
+import org.gwtbootstrap5.extras.fontawesome.client.ui.IconTypeFASolid;
 import org.gwtbootstrap5.client.ui.constants.Styles;
 
 import com.google.gwt.core.client.JavaScriptObject;
@@ -84,7 +84,7 @@ class SelectOptions extends JavaScriptObject {
      */
     static SelectOptions newOptions() {
         SelectOptions options = JavaScriptObject.createObject().cast();
-        options.init(Styles.FONT_AWESOME_BASE, IconTypeSolid.CHECK.getCssName());
+        options.init(Styles.FONT_AWESOME_BASE, IconTypeFASolid.CHECK.getCssName());
         return options;
     }
 

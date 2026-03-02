@@ -37,6 +37,7 @@ import com.google.gwt.dom.client.OptionElement;
 import com.google.gwt.user.client.TakesValue;
 import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.HasName;
+import org.gwtbootstrap5.client.ui.util.IconUtil;
 
 /**
  * Select option widget.
@@ -127,7 +128,7 @@ public class Option extends AbstractTextWidget implements HasName, TakesValue<St
     /**
      * Adds key words to improve the searchability.
      *
-     * @param tokens
+     * @param tokens tokens
      */
     public void setTokens(final String tokens) {
         if (tokens != null)
@@ -139,7 +140,7 @@ public class Option extends AbstractTextWidget implements HasName, TakesValue<St
     /**
      * Returns the search key words.
      *
-     * @return
+     * @return tokens
      */
     public String getTokens() {
         String tokens = attrMixin.getAttribute(TOKENS);
@@ -149,7 +150,7 @@ public class Option extends AbstractTextWidget implements HasName, TakesValue<St
     /**
      * Turns the option into a divider.
      *
-     * @param divider
+     * @param divider divider
      */
     public void setDivider(final boolean divider) {
         if (divider)
@@ -170,7 +171,7 @@ public class Option extends AbstractTextWidget implements HasName, TakesValue<St
     /**
      * Set the specified sub-text to the option.
      *
-     * @param subtext
+     * @param subtext subtext
      */
     public void setSubtext(final String subtext) {
         if (subtext != null)
@@ -182,7 +183,7 @@ public class Option extends AbstractTextWidget implements HasName, TakesValue<St
     /**
      * Returns the sub-text of the option.
      *
-     * @return
+     * @return subtext
      */
     public String getSubtext() {
         String subtext = attrMixin.getAttribute(SUBTEXT);
@@ -192,7 +193,7 @@ public class Option extends AbstractTextWidget implements HasName, TakesValue<St
     /**
      * Add an icon to the option.
      *
-     * @param iconType
+     * @param iconType iconType
      */
     public void setIcon(final IconType iconType) {
         if (iconType != null)
@@ -204,16 +205,16 @@ public class Option extends AbstractTextWidget implements HasName, TakesValue<St
     /**
      * Returns the icon of the option; may be <code>null</code>.
      *
-     * @return
+     * @return icon
      */
     public IconType getIcon() {
-        return IconType.fromStyleName(attrMixin.getAttribute(ICON));
+        return IconUtil.getInstance().fromStyleName(attrMixin.getAttribute(ICON));
     }
 
     /**
      * Inserts custom HTML into the option.
      *
-     * @param content
+     * @param content content
      */
     public void setContent(final String content) {
         if (content != null)
@@ -237,7 +238,7 @@ public class Option extends AbstractTextWidget implements HasName, TakesValue<St
      * <br>
      * Defaults to <code>false</code>.
      *
-     * @param hidden
+     * @param hidden hidden
      */
     public void setHidden(final boolean hidden) {
         if (hidden)

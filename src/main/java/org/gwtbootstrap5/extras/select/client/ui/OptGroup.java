@@ -36,6 +36,7 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.OptionElement;
 import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.Widget;
+import org.gwtbootstrap5.client.ui.util.IconUtil;
 
 /**
  * Select option group widget.
@@ -57,7 +58,7 @@ public class OptGroup extends ComplexWidget implements HasEnabled {
     /**
      * Set the label of the option group.
      *
-     * @param label
+     * @param label label
      */
     public void setLabel(final String label) {
         if (label != null)
@@ -89,7 +90,7 @@ public class OptGroup extends ComplexWidget implements HasEnabled {
     /**
      * Set the specified sub-text to the option.
      *
-     * @param subtext
+     * @param subtext subtext
      */
     public void setSubtext(final String subtext) {
         if (subtext != null)
@@ -101,7 +102,7 @@ public class OptGroup extends ComplexWidget implements HasEnabled {
     /**
      * Returns the sub-text of the option.
      *
-     * @return
+     * @return subtext
      */
     public String getSubtext() {
         String subtext = attrMixin.getAttribute(SUBTEXT);
@@ -111,7 +112,7 @@ public class OptGroup extends ComplexWidget implements HasEnabled {
     /**
      * Add an icon to the option.
      *
-     * @param iconType
+     * @param iconType iconType
      */
     public void setIcon(final IconType iconType) {
         if (iconType != null)
@@ -123,10 +124,10 @@ public class OptGroup extends ComplexWidget implements HasEnabled {
     /**
      * Returns the icon of the option; may be <code>null</code>.
      *
-     * @return
+     * @return icon
      */
     public IconType getIcon() {
-        return IconType.fromStyleName(attrMixin.getAttribute(ICON));
+        return IconUtil.getInstance().fromStyleName(attrMixin.getAttribute(ICON));
     }
 
     /**
@@ -135,7 +136,7 @@ public class OptGroup extends ComplexWidget implements HasEnabled {
      * When set to a strict negative value (less than zero), this
      * options will be deactivated.
      *
-     * @param maxOptions
+     * @param maxOptions maxOptions
      */
     public void setMaxOptions(final int maxOptions) {
         attrMixin.setAttribute(MAX_OPTIONS, Integer.toString(maxOptions));
@@ -163,7 +164,6 @@ public class OptGroup extends ComplexWidget implements HasEnabled {
     }
 
     private void updateItemMap(Widget widget, boolean toAdd) {
-
         // Not option element ==> ignore it
         if (!(widget instanceof Option))
             return;
