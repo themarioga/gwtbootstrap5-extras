@@ -20,8 +20,6 @@ package org.gwtbootstrap5.extras.datetimepicker.client.ui.base;
  * #L%
  */
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsDate;
 import com.google.gwt.core.client.ScriptInjector;
@@ -33,6 +31,7 @@ import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.*;
 import org.gwtbootstrap5.client.shared.event.HideEvent;
@@ -87,20 +86,6 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
         protected com.google.web.bindery.event.shared.HandlerRegistration setupBlurValidation() {
             return getInputWidget().addDomHandler(event -> getInputWidget().validate(!showing && getValidateOnBlur()), BlurEvent.getType());
         }
-    }
-
-    // Check http://www.gwtproject.org/javadoc/latest/com/google/gwt/i18n/client/DateTimeFormat.html
-    // for more information on syntax
-    private static final BiMap<Character, Character> DATE_TIME_FORMAT_MAP = HashBiMap.create();
-    static {
-        // (GWT format, MomentJS format)
-        DATE_TIME_FORMAT_MAP.put('y', 'Y'); // years
-        DATE_TIME_FORMAT_MAP.put('M', 'M'); // months
-        DATE_TIME_FORMAT_MAP.put('d', 'D'); // day
-        DATE_TIME_FORMAT_MAP.put('h', 'h'); // 12/24 hours
-        DATE_TIME_FORMAT_MAP.put('H', 'H'); // 12/24 hours
-        DATE_TIME_FORMAT_MAP.put('m', 'm'); // minutes
-        DATE_TIME_FORMAT_MAP.put('s', 's'); // minutes
     }
 
     private final TextBox textBox;
@@ -439,6 +424,10 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
         return addHandler(dateValueChangeHandler, ValueChangeEvent.getType());
     }
 
+    public void clear() {
+        clear(tempusDominus);
+    }
+
     /** {@inheritDoc} */
     @Override
     public Date getValue() {
@@ -461,7 +450,7 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
         errorHandlerMixin.clearErrors();
 
         if (value == null) {
-            clear(tempusDominus);
+            clear();
         } else {
             setViewDate(tempusDominus, JsDate.create(value.getTime()));
         }
@@ -562,7 +551,9 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
     protected native void setViewDate(JavaScriptObject td, JsDate date) /*-{
         if (td) {
             if (date) {
-                td.viewDate = $wnd.tempusDominus.DateTime.convert(date);
+                var obj = $wnd.tempusDominus.DateTime.convert(date);
+                td.viewDate = obj;
+                td.dates.setValue(obj);
             } else {
                 td.clear();
             }
@@ -622,8 +613,16 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
         td.locale(langCode);
     }-*/;
 
+    private native String getFormat(JavaScriptObject td) /*-{
+        return td.options.localization.format;
+    }-*/;
+
     public void setAlignment(final ValueBoxBase.TextAlignment align) {
         textBox.setAlignment(align);
+    }
+
+    public String getFormat() {
+        return getFormat(tempusDominus);
     }
 
     public DateTimePickerProperties getProperties() {
