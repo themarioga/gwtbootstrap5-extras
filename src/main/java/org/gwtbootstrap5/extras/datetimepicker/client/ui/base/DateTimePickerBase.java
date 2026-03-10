@@ -31,7 +31,6 @@ import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.*;
 import org.gwtbootstrap5.client.shared.event.HideEvent;
@@ -432,7 +431,12 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
     @Override
     public Date getValue() {
         try {
-            return new Date((long) getViewDate(tempusDominus).getTime());
+            JsDate jsDate = getValue(tempusDominus);
+            if (jsDate != null) {
+                return new Date((long) jsDate.getTime());
+            }
+
+            return null;
         } catch (final Exception e) {
             return null;
         }
@@ -452,7 +456,7 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
         if (value == null) {
             clear();
         } else {
-            setViewDate(tempusDominus, JsDate.create(value.getTime()));
+            setValue(tempusDominus, JsDate.create(value.getTime()));
         }
 
         if (fireEvents) {
@@ -549,6 +553,22 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
     }-*/;
 
     protected native void setViewDate(JavaScriptObject td, JsDate date) /*-{
+        if (td) {
+            if (date) {
+                td.viewDate = $wnd.tempusDominus.DateTime.convert(date);
+            }
+        }
+    }-*/;
+
+    protected native JsDate getValue(JavaScriptObject td) /*-{
+        if (td) {
+            return td.dates.lastPicked;
+        }
+
+        return null;
+    }-*/;
+
+    protected native void setValue(JavaScriptObject td, JsDate date) /*-{
         if (td) {
             if (date) {
                 var obj = $wnd.tempusDominus.DateTime.convert(date);
