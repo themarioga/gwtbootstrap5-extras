@@ -178,8 +178,7 @@ public class OptGroup extends ComplexWidget implements HasEnabled {
 
         // Update select item map
         Widget parent = getParent();
-        if (parent != null && parent instanceof SelectBase) {
-            SelectBase<?> select = (SelectBase<?>) parent;
+        if (parent instanceof SelectBase<?> select) {
             select.updateItemMap(option, toAdd);
         }
     }

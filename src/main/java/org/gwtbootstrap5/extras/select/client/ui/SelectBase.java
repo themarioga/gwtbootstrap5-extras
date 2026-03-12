@@ -100,6 +100,7 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasValue<T>
     private SelectEditor<T> editor;
     private ButtonType type;
     private ButtonSize size;
+    private Boolean eventsBinded = false;
 
     /**
      * Default language: {@link SelectLanguage#EN}
@@ -147,13 +148,13 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasValue<T>
                 .setWindow(ScriptInjector.TOP_WINDOW).inject();
         }
         initialize(getElement(), options);
-        bindSelectEvents(getElement());
+        bindSelectEvents();
     }
 
     @Override
     protected void onUnload() {
         super.onUnload();
-        unbindSelectEvents(getElement());
+        unbindSelectEvents();
         command(getElement(), SelectCommand.DESTROY);
     }
 
@@ -181,27 +182,6 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasValue<T>
     @Override
     public void reset() {
         validatorMixin.reset();
-    }
-
-    void updateItemMap(Widget widget, boolean toAdd) {
-        // Option ==> update with this option
-        if (widget instanceof Option) {
-            Option option = (Option) widget;
-            if (toAdd)
-                itemMap.put(option.getSelectElement(), option);
-            else
-                itemMap.remove(option.getSelectElement());
-        } else if (widget instanceof OptGroup) {
-            // OptGroup ==> update with all optGroup options
-            OptGroup optGroup = (OptGroup) widget;
-            if (toAdd)
-                itemMap.putAll(optGroup.getItemMap());
-            else
-                for (Entry<OptionElement, Option> entry : optGroup.getItemMap().entrySet()) {
-                    OptionElement optElem = entry.getKey();
-                    itemMap.remove(optElem);
-                }
-        }
     }
 
     /**
@@ -657,20 +637,6 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasValue<T>
         return size;
     }
 
-    private void updateStyle() {
-        StringBuilder sb = new StringBuilder();
-        if (type != null) {
-            sb.append(type.getCssName());
-        }
-        if (size != null) {
-            if (!sb.toString().isEmpty()) {
-                sb.append(" ");
-            }
-            sb.append(size.getCssName());
-        }
-        setStyle(sb.toString());
-    }
-
     /**
      * Set the customized style name to the select.<br>
      * <br>
@@ -821,14 +787,6 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasValue<T>
     }
 
     /**
-     * Fires {@link ValueChangeEvent} with the current value.
-     */
-    private void onValueChange() {
-        T newValue = getValue();
-        ValueChangeEvent.fire(this, newValue);
-    }
-
-    /**
      * Selects the given value. If the value is <code>null</code>
      * or does not match any option, no option will be selected.
      *
@@ -869,13 +827,6 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasValue<T>
     @Override
     public void setTabIndex(int index) {
         focusImpl.setTabIndex(getFocusElement(), index);
-    }
-
-    private Element getFocusElement() {
-        if (!isAttached()) {
-            return selectElement;
-        }
-        return getElement().getParentElement().getFirstChildElement();
     }
 
     /**
@@ -930,13 +881,6 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasValue<T>
         checkIndex(index);
         OptionElement item = selectElement.getOptions().getItem(index);
         return itemMap.get(item);
-    }
-
-    private void checkIndex(final int index) {
-        int max = getItemCount();
-        if (index < 0 || index >= max) {
-            throw new IndexOutOfBoundsException("Index should be in [0, " + max + "]");
-        }
     }
 
     @Override
@@ -1053,6 +997,77 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasValue<T>
             return isVisible(selectElement.getParentElement());
         }
         return super.isVisible();
+    }
+
+    protected void updateItemMap(Widget widget, boolean toAdd) {
+        // Option ==> update with this option
+        if (widget instanceof Option) {
+            Option option = (Option) widget;
+            if (toAdd)
+                itemMap.put(option.getSelectElement(), option);
+            else
+                itemMap.remove(option.getSelectElement());
+        } else if (widget instanceof OptGroup) {
+            // OptGroup ==> update with all optGroup options
+            OptGroup optGroup = (OptGroup) widget;
+            if (toAdd)
+                itemMap.putAll(optGroup.getItemMap());
+            else
+                for (Entry<OptionElement, Option> entry : optGroup.getItemMap().entrySet()) {
+                    OptionElement optElem = entry.getKey();
+                    itemMap.remove(optElem);
+                }
+        }
+    }
+
+    private void updateStyle() {
+        StringBuilder sb = new StringBuilder();
+        if (type != null) {
+            sb.append(type.getCssName());
+        }
+        if (size != null) {
+            if (!sb.toString().isEmpty()) {
+                sb.append(" ");
+            }
+            sb.append(size.getCssName());
+        }
+        setStyle(sb.toString());
+    }
+
+    /**
+     * Fires {@link ValueChangeEvent} with the current value.
+     */
+    private void onValueChange() {
+        T newValue = getValue();
+        ValueChangeEvent.fire(this, newValue);
+    }
+
+    private Element getFocusElement() {
+        if (!isAttached()) {
+            return selectElement;
+        }
+        return getElement().getParentElement().getFirstChildElement();
+    }
+
+    private void checkIndex(final int index) {
+        int max = getItemCount();
+        if (index < 0 || index >= max) {
+            throw new IndexOutOfBoundsException("Index should be in [0, " + max + "]");
+        }
+    }
+
+    private void bindSelectEvents() {
+        if (!eventsBinded) {
+            bindSelectEvents(getElement());
+            eventsBinded = true;
+        }
+    }
+
+    private void unbindSelectEvents() {
+        if (eventsBinded) {
+            unbindSelectEvents(getElement());
+            eventsBinded = false;
+        }
     }
 
     private native void initialize(Element e, SelectOptions options) /*-{
