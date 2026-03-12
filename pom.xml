@@ -14,6 +14,7 @@
 	<description>Extra, third-party widgets/components for GwtBootstrap5</description>
 	<url>http://gwtbootstrap5.org</url>
 	<packaging>gwt-lib</packaging>
+	<version>0.1.4.1</version>
 
 	<scm>
 		<connection>scm:git:git@github.com:gwtbootstrap5/gwtbootstrap5-extras.git</connection>
@@ -33,7 +34,7 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>gwtbootstrap5</artifactId>
-			<version>${project.version}</version>
+			<version>${parent.version}</version>
 		</dependency>
 
         <!-- GWT -->
