@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.gwtbootstrap5</groupId>
 		<artifactId>gwtbootstrap5-parent</artifactId>
-		<version>0.1.4</version>
+		<version>0.1.5</version>
 	</parent>
 
 	<artifactId>gwtbootstrap5-extras</artifactId>
@@ -14,7 +14,6 @@
 	<description>Extra, third-party widgets/components for GwtBootstrap5</description>
 	<url>http://gwtbootstrap5.org</url>
 	<packaging>gwt-lib</packaging>
-	<version>0.1.4.1</version>
 
 	<scm>
 		<connection>scm:git:git@github.com:gwtbootstrap5/gwtbootstrap5-extras.git</connection>

@@ -95,6 +95,9 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
             errorHandlerMixin.getErrorHandler());
     private final DateTimePickerProperties properties = new DateTimePickerProperties();
     private DateTimePickerLocale locale = DateTimePickerLocale.EN;
+    private String format = "L LT";
+
+    protected JsDate lastValue = null;
 
     protected Boolean allowRanges;
     protected Boolean showDatePicker;
@@ -423,6 +426,34 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
         return addHandler(dateValueChangeHandler, ValueChangeEvent.getType());
     }
 
+    public void setFormat(String format) {
+        this.format = format;
+
+        if (tempusDominus != null) {
+            changeFormat(tempusDominus, format);
+        }
+    }
+
+    public void setAlignment(final ValueBoxBase.TextAlignment align) {
+        textBox.setAlignment(align);
+    }
+
+    public String getFormat() {
+        return getFormat(tempusDominus);
+    }
+
+    public DateTimePickerProperties getProperties() {
+        return properties;
+    }
+
+    public String getBaseValue() {
+        return textBox.getValue();
+    }
+
+    public TextBox getTextBox() {
+        return textBox;
+    }
+
     public void clear() {
         clear(tempusDominus);
     }
@@ -456,7 +487,7 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
         if (value == null) {
             clear();
         } else {
-            setValue(tempusDominus, JsDate.create(value.getTime()));
+            setValue(JsDate.create(value.getTime()));
         }
 
         if (fireEvents) {
@@ -468,6 +499,7 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
     @Override
     protected void onLoad() {
         super.onLoad();
+
         configure();
     }
 
@@ -475,11 +507,8 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
     @Override
     protected void onUnload() {
         super.onUnload();
-        destroy(tempusDominus);
-    }
 
-    protected void setFormat(String format) {
-        changeFormat(tempusDominus, format);
+        destroy();
     }
 
     protected void configure() {
@@ -487,13 +516,29 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
             throw new IllegalArgumentException("allowRanges, showDatePicker and showTimePicker cannot be null");
 
         // If configuring not for the first time, datetimepicker must be removed first.
-        destroy(tempusDominus);
+        destroy();
 
         loadLocale(locale);
 
         tempusDominus = configure(getElement(), allowRanges, showDatePicker, showTimePicker, properties.toJavaScript());
 
         setLocale(locale);
+
+        changeFormat(tempusDominus, format);
+
+        if (this.lastValue != null) {
+            setValue(tempusDominus, this.lastValue);
+        }
+    }
+
+    protected void setValue(JsDate value) {
+        setValue(tempusDominus, value);
+    }
+
+    protected void destroy () {
+        this.lastValue = getValue(tempusDominus);
+
+        destroy(tempusDominus);
     }
 
     protected native void destroy(JavaScriptObject td) /*-{
@@ -562,7 +607,7 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
 
     protected native JsDate getValue(JavaScriptObject td) /*-{
         if (td) {
-            return td.dates.lastPicked;
+            return td.dates.picked.length > 0 ? td.dates.picked[0] : null;
         }
 
         return null;
@@ -571,9 +616,9 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
     protected native void setValue(JavaScriptObject td, JsDate date) /*-{
         if (td) {
             if (date) {
-                var obj = $wnd.tempusDominus.DateTime.convert(date);
+                var obj = td.dates.parseInput(date);
                 td.viewDate = obj;
-                td.dates.setValue(obj);
+                td.dates.setFromInput(td.dates.formatInput(obj));
             } else {
                 td.clear();
             }
@@ -636,25 +681,5 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
     private native String getFormat(JavaScriptObject td) /*-{
         return td.options.localization.format;
     }-*/;
-
-    public void setAlignment(final ValueBoxBase.TextAlignment align) {
-        textBox.setAlignment(align);
-    }
-
-    public String getFormat() {
-        return getFormat(tempusDominus);
-    }
-
-    public DateTimePickerProperties getProperties() {
-        return properties;
-    }
-
-    public String getBaseValue() {
-        return textBox.getValue();
-    }
-
-    public TextBox getTextBox() {
-        return textBox;
-    }
 
 }
