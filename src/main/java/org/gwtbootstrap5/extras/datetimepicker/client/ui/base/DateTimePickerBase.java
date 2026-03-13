@@ -607,7 +607,7 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
 
     protected native JsDate getValue(JavaScriptObject td) /*-{
         if (td) {
-            return td.dates.picked.length > 0 ? td.dates.picked[0] : null;
+            return td.dates.picked.length > 0 ? td.dates.parseInput(td.dates.formatInput(td.dates.picked[0])) : null;
         }
 
         return null;
