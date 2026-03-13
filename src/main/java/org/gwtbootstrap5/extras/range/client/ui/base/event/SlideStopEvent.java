@@ -6,7 +6,7 @@ package org.gwtbootstrap5.extras.range.client.ui.base.event;
  * %%
  * Copyright (C) 2013 - 2015 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -31,7 +31,7 @@ public class SlideStopEvent<T> extends GwtEvent<SlideStopHandler<T>> {
 
     private static Type<SlideStopHandler<?>> TYPE;
 
-    private T value;
+    private final T value;
 
     /**
      * Fires a slide stop event on all registered handlers in the handler
@@ -42,7 +42,7 @@ public class SlideStopEvent<T> extends GwtEvent<SlideStopHandler<T>> {
      */
     public static <T> void fire(final HasSlideStopHandlers<T> source, final T value) {
         if (TYPE != null) {
-            SlideStopEvent<T> event = new SlideStopEvent<T>(value);
+            SlideStopEvent<T> event = new SlideStopEvent<>(value);
             source.fireEvent(event);
         }
     }
@@ -54,7 +54,7 @@ public class SlideStopEvent<T> extends GwtEvent<SlideStopHandler<T>> {
      */
     public static Type<SlideStopHandler<?>> getType() {
         if (TYPE == null) {
-            TYPE = new Type<SlideStopHandler<?>>();
+            TYPE = new Type<>();
         }
         return TYPE;
     }

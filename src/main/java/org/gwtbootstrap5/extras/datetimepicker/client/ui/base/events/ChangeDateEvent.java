@@ -6,7 +6,7 @@ package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.events;
  * %%
  * Copyright (C) 2013 - 2014 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -28,7 +28,7 @@ import com.google.gwt.user.client.Event;
  */
 public class ChangeDateEvent extends GwtEvent<ChangeDateHandler> {
 
-    private static final Type<ChangeDateHandler> TYPE = new Type<ChangeDateHandler>();
+    private static final Type<ChangeDateHandler> TYPE = new Type<>();
 
     private final Event nativeEvent;
 

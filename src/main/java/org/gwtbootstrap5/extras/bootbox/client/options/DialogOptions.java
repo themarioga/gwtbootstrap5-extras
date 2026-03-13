@@ -4,9 +4,9 @@ package org.gwtbootstrap5.extras.bootbox.client.options;
  * #%L
  * GwtBootstrap5
  * %%
- * Copyright (C) 2016 GwtBootstrap5
+ * Copyright (C) 2026 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -40,8 +40,8 @@ public class DialogOptions extends JavaScriptObject {
     /**
      * Creates a new {@link DialogOptions}.
      *
-     * @param message
-     * @return
+     * @param message e
+     * @return e
      */
     public static DialogOptions newOptions(final String message) {
         DialogOptions options = JavaScriptObject.createObject().cast();
@@ -56,7 +56,7 @@ public class DialogOptions extends JavaScriptObject {
     /**
      * Adds a header to the dialog and places this text in an H4.
      *
-     * @param title
+     * @param title e
      */
     public final native void setTitle(final String title) /*-{
         this.title = title;
@@ -66,7 +66,7 @@ public class DialogOptions extends JavaScriptObject {
      * The locale settings used to translate the three standard button
      * labels: <b>OK</b>, <b>CONFIRM</b>, <b>CANCEL</b>.
      *
-     * @param locale
+     * @param locale e
      */
     public final void setLocale(final BootboxLocale locale) {
         BootboxLocale l = (locale != null) ? locale : BootboxLocale.getDefault();
@@ -83,7 +83,7 @@ public class DialogOptions extends JavaScriptObject {
      * <br>
      * Defaults to <code>null</code> for custom dialogs.
      *
-     * @param callback
+     * @param callback e
      */
     public final native void setOnEscape(final SimpleCallback callback) /*-{
         if (callback) {
@@ -100,7 +100,7 @@ public class DialogOptions extends JavaScriptObject {
      * <br>
      * Defaults to <code>true</code>.
      *
-     * @param show
+     * @param show e
      */
     public final native void setShow(final boolean show) /*-{
         this.show = show;
@@ -116,7 +116,7 @@ public class DialogOptions extends JavaScriptObject {
      * </ul>
      * Defaults to <code>null</code>.
      *
-     * @param backdrop
+     * @param backdrop e
      */
     public final native void setBackdrop(final Boolean backdrop) /*-{
         if (backdrop == null)
@@ -130,7 +130,7 @@ public class DialogOptions extends JavaScriptObject {
      * <br>
      * Defaults to <code>true</code>.
      *
-     * @param closeButton
+     * @param closeButton e
      */
     public final native void setCloseButton(final boolean closeButton) /*-{
         this.closeButton = closeButton;
@@ -141,7 +141,7 @@ public class DialogOptions extends JavaScriptObject {
      * <br>
      * Defaults to <code>true</code>.
      *
-     * @param animate
+     * @param animate e
      */
     public final native void setAnimate(final boolean animate) /*-{
         this.animate = animate;
@@ -152,7 +152,7 @@ public class DialogOptions extends JavaScriptObject {
      * <br>
      * Defaults to <code>true</code>.
      *
-     * @param className
+     * @param className e
      */
     public final native void setClassName(final String className) /*-{
         this.className = className;
@@ -163,7 +163,7 @@ public class DialogOptions extends JavaScriptObject {
      * <br>
      * Defaults to <code>null</code>.
      *
-     * @param size
+     * @param size e
      */
     public final native void setSize(final BootboxSize size) /*-{
         if (size)
@@ -175,7 +175,7 @@ public class DialogOptions extends JavaScriptObject {
     /**
      * Adds a custom button.
      *
-     * @param label
+     * @param label e
      */
     public final void addButton(String label) {
         addButton(label, (String) null);
@@ -184,8 +184,8 @@ public class DialogOptions extends JavaScriptObject {
     /**
      * Adds a custom button with a class name.
      *
-     * @param label
-     * @param className
+     * @param label e
+     * @param className e
      */
     public final void addButton(String label, String className) {
         addButton(label, className, SimpleCallback.DEFAULT_SIMPLE_CALLBACK);
@@ -194,8 +194,8 @@ public class DialogOptions extends JavaScriptObject {
     /**
      * Adds a custom button with a callback.
      *
-     * @param label
-     * @param callback
+     * @param label e
+     * @param callback e
      */
     public final void addButton(String label, SimpleCallback callback) {
         addButton(label, null, callback);
@@ -204,16 +204,16 @@ public class DialogOptions extends JavaScriptObject {
     /**
      * Adds a custom button with a class name and a callback.
      *
-     * @param label
-     * @param className
-     * @param callback
+     * @param label e
+     * @param className e
+     * @param callback e
      */
     public final void addButton(String label, String className, SimpleCallback callback) {
         addButton(BUTTON_PREFIX + BUTTON_INDEX++, label, className,
             callback != null ? callback : SimpleCallback.DEFAULT_SIMPLE_CALLBACK);
     }
 
-    private final native void addButton(String name, String label, String className, SimpleCallback callback) /*-{
+    private native void addButton(String name, String label, String className, SimpleCallback callback) /*-{
         this.buttons = this.buttons || {};
         this.buttons[name] = {
             label: label,

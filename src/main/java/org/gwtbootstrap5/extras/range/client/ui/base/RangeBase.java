@@ -6,7 +6,7 @@ package org.gwtbootstrap5.extras.range.client.ui.base;
  * %%
  * Copyright (C) 2013 - 2015 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -80,7 +80,7 @@ public abstract class RangeBase<T> extends Widget implements
     private LeafValueEditor<T> editor;
     private boolean sliderNamespaceAvailable = true;
 
-    private final AttributeMixin<RangeBase<T>> attributeMixin = new AttributeMixin<RangeBase<T>>(this);
+    private final AttributeMixin<RangeBase<T>> attributeMixin = new AttributeMixin<>(this);
 
     protected RangeBase() {
         setElement(Document.get().createTextInputElement());
@@ -734,7 +734,7 @@ public abstract class RangeBase<T> extends Widget implements
         }
 
         // Put array to list
-        List<Double> list = new ArrayList<Double>(array.length());
+        List<Double> list = new ArrayList<>(array.length());
         for (int i = 0; i < array.length(); i++) {
             list.add(array.get(i));
         }
@@ -759,7 +759,7 @@ public abstract class RangeBase<T> extends Widget implements
         }
 
         // Put array to list
-        List<String> list = new ArrayList<String>(array.length());
+        List<String> list = new ArrayList<>(array.length());
         for (int i = 0; i < array.length(); i++) {
             list.add(array.get(i));
         }

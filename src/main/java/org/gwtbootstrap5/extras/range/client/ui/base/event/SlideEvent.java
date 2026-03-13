@@ -6,7 +6,7 @@ package org.gwtbootstrap5.extras.range.client.ui.base.event;
  * %%
  * Copyright (C) 2013 - 2015 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -31,7 +31,7 @@ public class SlideEvent<T> extends GwtEvent<SlideHandler<T>> {
 
     private static Type<SlideHandler<?>> TYPE;
 
-    private T value;
+    private final T value;
 
     /**
      * Fires a slide event on all registered handlers in the handler manager. If
@@ -42,7 +42,7 @@ public class SlideEvent<T> extends GwtEvent<SlideHandler<T>> {
      */
     public static <T> void fire(final HasSlideHandlers<T> source, T newValue) {
         if (TYPE != null) {
-            SlideEvent<T> event = new SlideEvent<T>(newValue);
+            SlideEvent<T> event = new SlideEvent<>(newValue);
             source.fireEvent(event);
         }
     }
@@ -54,7 +54,7 @@ public class SlideEvent<T> extends GwtEvent<SlideHandler<T>> {
      */
     public static Type<SlideHandler<?>> getType() {
         if (TYPE == null) {
-            TYPE = new Type<SlideHandler<?>>();
+            TYPE = new Type<>();
         }
         return TYPE;
     }

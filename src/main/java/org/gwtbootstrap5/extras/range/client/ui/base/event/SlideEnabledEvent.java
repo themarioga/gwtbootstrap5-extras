@@ -6,7 +6,7 @@ package org.gwtbootstrap5.extras.range.client.ui.base.event;
  * %%
  * Copyright (C) 2013 - 2015 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -49,7 +49,7 @@ public class SlideEnabledEvent extends GwtEvent<SlideEnabledHandler> {
      */
     public static Type<SlideEnabledHandler> getType() {
         if (TYPE == null) {
-            TYPE = new Type<SlideEnabledHandler>();
+            TYPE = new Type<>();
         }
         return TYPE;
     }

@@ -4,9 +4,9 @@ package org.gwtbootstrap5.extras.bootbox.client;
  * #%L
  * GwtBootstrap5
  * %%
- * Copyright (C) 2016 GwtBootstrap5
+ * Copyright (C) 2026 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -34,7 +34,7 @@ import org.gwtbootstrap5.extras.bootbox.client.options.PromptOptions;
  * to create programmatic dialog boxes using Bootstrap modals.
  *
  * @author Xiaodong Sun
- * @see http://bootboxjs.com/
+ * @see <a href="https://bootboxjs.com/">...</a>
  */
 public class Bootbox {
 
@@ -63,7 +63,7 @@ public class Bootbox {
     /**
      * Displays a customized alert with the given {@link AlertOptions}.
      *
-     * @param options
+     * @param options e
      */
     public static native void alert(AlertOptions options) /*-{
         $wnd.bootbox.alert(options);
@@ -85,7 +85,7 @@ public class Bootbox {
     /**
      * Displays a customized confirm with the given {@link ConfirmOptions}.
      *
-     * @param options
+     * @param options e
      */
     public static native void confirm(ConfirmOptions options) /*-{
         $wnd.bootbox.confirm(options);
@@ -107,7 +107,7 @@ public class Bootbox {
     /**
      * Displays a customized prompt with the given {@link PromptOptions}.
      *
-     * @param options
+     * @param options e
      */
     public static native void prompt(PromptOptions options) /*-{
         $wnd.bootbox.prompt(options);
@@ -125,7 +125,7 @@ public class Bootbox {
     /**
      * Sets a callback when dialog gets initialized.
      *
-     * @param callback
+     * @param callback e
      */
     public static native void init(SimpleCallback callback) /*-{
         $wnd.bootbox.init(function() {
@@ -141,7 +141,7 @@ public class Bootbox {
      * and can be overridden whenever the wrapper methods are invoked
      * with a single options argument.
      *
-     * @param options
+     * @param options e
      */
     public static native void setDefaults(DialogOptions options) /*-{
         $wnd.bootbox.setDefaults(options);

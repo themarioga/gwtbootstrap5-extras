@@ -6,7 +6,7 @@ package org.gwtbootstrap5.extras.select.client.ui;
  * %%
  * Copyright (C) 2013 - 2016 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -24,20 +24,20 @@ package org.gwtbootstrap5.extras.select.client.ui;
  * Boostrap select commands.
  *
  * @author Xiaodong SUN
- * @see http://silviomoreto.github.io/bootstrap-select/methods/#methods
+ * @see <a href="https://silviomoreto.github.io/bootstrap-select/methods/#methods">...</a>
  */
 interface SelectCommand {
 
-    static final String VAL = "val";
-    static final String SELECT_ALL = "selectAll";
-    static final String DESELECT_ALL = "deselectAll";
-    static final String RENDER = "render";
-    static final String MOBILE = "mobile";
-    static final String SET_STYLE = "setStyle";
-    static final String REFRESH = "refresh";
-    static final String TOGGLE = "toggle";
-    static final String HIDE = "hide";
-    static final String SHOW = "show";
-    static final String DESTROY = "destroy";
+    String VAL = "val";
+    String SELECT_ALL = "selectAll";
+    String DESELECT_ALL = "deselectAll";
+    String RENDER = "render";
+    String MOBILE = "mobile";
+    String SET_STYLE = "setStyle";
+    String REFRESH = "refresh";
+    String TOGGLE = "toggle";
+    String HIDE = "hide";
+    String SHOW = "show";
+    String DESTROY = "destroy";
 
 }

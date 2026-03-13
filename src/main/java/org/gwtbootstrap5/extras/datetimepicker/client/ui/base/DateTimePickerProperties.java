@@ -6,7 +6,7 @@ package org.gwtbootstrap5.extras.datetimepicker.client.ui.base;
  * %%
  * Copyright (C) 2023 - 2026 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -23,9 +23,6 @@ package org.gwtbootstrap5.extras.datetimepicker.client.ui.base;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsDate;
 import jsinterop.annotations.JsType;
-import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants.DateTimePickerTheme;
-import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants.DateTimePickerToolbarPlacement;
-import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants.DateTimePickerViewMode;
 
 @JsType
 public class DateTimePickerProperties {

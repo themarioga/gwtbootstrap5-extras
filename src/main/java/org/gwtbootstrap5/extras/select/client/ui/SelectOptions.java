@@ -4,9 +4,9 @@ package org.gwtbootstrap5.extras.select.client.ui;
  * #%L
  * GwtBootstrap5
  * %%
- * Copyright (C) 2016 GwtBootstrap5
+ * Copyright (C) 2026 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -20,7 +20,7 @@ package org.gwtbootstrap5.extras.select.client.ui;
  * #L%
  */
 
-import org.gwtbootstrap5.extras.fontawesome.client.ui.IconTypeFASolid;
+import org.gwtbootstrap5.client.ui.constants.IconTypeBI;
 import org.gwtbootstrap5.client.ui.constants.Styles;
 
 import com.google.gwt.core.client.JavaScriptObject;
@@ -84,11 +84,11 @@ class SelectOptions extends JavaScriptObject {
      */
     static SelectOptions newOptions() {
         SelectOptions options = JavaScriptObject.createObject().cast();
-        options.init(Styles.FONT_AWESOME_BASE, IconTypeFASolid.CHECK.getCssName());
+        options.init(Styles.FONT_AWESOME_BASE, IconTypeBI.CHECK.getCssName());
         return options;
     }
 
-    private final native void init(String iconBase, String tickIcon) /*-{
+    private native void init(String iconBase, String tickIcon) /*-{
         this.iconBase = iconBase;
         this.tickIcon = tickIcon;
     }-*/;

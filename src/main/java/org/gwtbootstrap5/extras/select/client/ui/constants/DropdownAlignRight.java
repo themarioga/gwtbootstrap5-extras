@@ -4,9 +4,9 @@ package org.gwtbootstrap5.extras.select.client.ui.constants;
  * #%L
  * GwtBootstrap5
  * %%
- * Copyright (C) 2016 GwtBootstrap5
+ * Copyright (C) 2026 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -41,19 +41,18 @@ public enum DropdownAlignRight {
     /**
      * Always align to left
      */
-    FALSE("false"),
-    ;
+    FALSE("false");
 
-    private String value;
+    private final String value;
 
-    private DropdownAlignRight(String size) {
+    DropdownAlignRight(String size) {
         this.value = size;
     }
 
     /**
      * Returns the value of the drop-down menu right alignment.
      *
-     * @return
+     * @return e
      */
     public String getValue() {
         return value;

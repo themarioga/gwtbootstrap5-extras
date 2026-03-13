@@ -4,9 +4,9 @@ package org.gwtbootstrap5.extras.bootbox.client.options;
  * #%L
  * GwtBootstrap5
  * %%
- * Copyright (C) 2016 GwtBootstrap5
+ * Copyright (C) 2026 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -39,10 +39,10 @@ public class PromptOptions extends DialogOptions {
     /**
      * Creates a new {@link PromptOptions}.
      *
-     * @param message
-     * @return
+     * @param message e
+     * @return e
      */
-    public static final PromptOptions newOptions(final String message) {
+    public static PromptOptions newOptions(final String message) {
         PromptOptions options = JavaScriptObject.createObject().cast();
         options.setMessage(message);
         options.setCallback(PromptCallback.DEFAULT_PROMPT_CALLBACK);

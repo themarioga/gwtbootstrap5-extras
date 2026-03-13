@@ -6,7 +6,7 @@ package org.gwtbootstrap5.extras.range.client.ui;
  * %%
  * Copyright (C) 2013 - 2015 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -80,6 +80,41 @@ public class RangeSlider extends RangeBase<Range> {
     }
 
     @Override
+    protected String formatTooltip(Range value) {
+        if (value == null) return null;
+
+        return super.formatTooltip(value);
+    }
+
+    @Override
+    protected void fireSlideEvent(Range value) {
+        if (value == null) return;
+
+        super.fireSlideEvent(value);
+    }
+
+    @Override
+    protected void fireSlideStartEvent(Range value) {
+        if (value == null) return;
+
+        super.fireSlideStartEvent(value);
+    }
+
+    @Override
+    protected void fireSlideStopEvent(Range value) {
+        if (value == null) return;
+
+        super.fireSlideStopEvent(value);
+    }
+
+    @Override
+    protected void fireChangeEvent(Range value) {
+        if (value == null) return;
+
+        super.fireChangeEvent(value);
+    }
+
+    @Override
     protected native void setValue(Element e, Range value) /*-{
         var range = value.@org.gwtbootstrap5.extras.range.client.ui.Range::toJsArray()();
         if (this.@org.gwtbootstrap5.extras.range.client.ui.RangeSlider::isSliderNamespaceAvailable()())
@@ -103,7 +138,7 @@ public class RangeSlider extends RangeBase<Range> {
         var slider = this;
         options.formatter = function(value) {
             var range = @org.gwtbootstrap5.extras.range.client.ui.Range::new(Lcom/google/gwt/core/client/JsArrayNumber;)(value);
-            return slider.@org.gwtbootstrap5.extras.range.client.ui.base.RangeBase::formatTooltip(Lorg/gwtbootstrap5/extras/range/client/ui/Range;)(range);
+            return slider.@org.gwtbootstrap5.extras.range.client.ui.RangeSlider::formatTooltip(Lorg/gwtbootstrap5/extras/range/client/ui/Range;)(range);
         };
     }-*/;
 

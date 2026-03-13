@@ -4,9 +4,9 @@ package org.gwtbootstrap5.extras.summernote.client.ui.base;
  * #%L
  * GwtBootstrap5
  * %%
- * Copyright (C) 2016 GwtBootstrap5
+ * Copyright (C) 2026 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -46,58 +46,34 @@ class SummernoteOptions extends JavaScriptObject {
         return JavaScriptObject.createObject().cast();
     }
 
-    /**
-     * @see {@link SummernoteBase#setPlaceholder(String)}
-     */
     final native void setPlaceholder(String placeholder) /*-{
         this.placeholder = placeholder;
     }-*/;
 
-    /**
-     * @see {@link SummernoteBase#setFontNames(boolean)}
-     */
     final native void setFontNames(JsArrayString fontNames) /*-{
         this.fontNames = fontNames;
     }-*/;
 
-    /**
-     * @see {@link SummernoteBase#setFontNamesIgnoreCheck(boolean)}
-     */
     final native void setFontNamesIgnoreCheck(JsArrayString fontNamesIgnoreCheck) /*-{
         this.fontNamesIgnoreCheck = fontNamesIgnoreCheck;
     }-*/;
 
-    /**
-     * @see {@link SummernoteBase#setDialogsInBody(boolean)}
-     */
     final native void setDialogsInBody(boolean dialogsInBody) /*-{
         this.dialogsInBody = dialogsInBody;
     }-*/;
 
-    /**
-     * @see {@link SummernoteBase#setDialogsFade(boolean)}
-     */
     final native void setDialogsFade(boolean dialogsFade) /*-{
         this.dialogsFade = dialogsFade;
     }-*/;
 
-    /**
-     * @see {@link SummernoteBase#setDisableDragAndDrop(boolean)}
-     */
     final native void setDisableDragAndDrop(boolean disableDragAndDrop) /*-{
         this.disableDragAndDrop = disableDragAndDrop;
     }-*/;
 
-    /**
-     * @see {@link SummernoteBase#setShortcuts(boolean)}
-     */
     final native void setShortcuts(boolean shortcuts) /*-{
         this.shortcuts = shortcuts;
     }-*/;
 
-    /**
-     * @see {@link SummernoteBase#setShowToolbar(boolean)}
-     */
     final native void setShowToolbar(boolean showToolbar) /*-{
         if (!showToolbar)
             this.toolbar = false;
@@ -108,11 +84,11 @@ class SummernoteOptions extends JavaScriptObject {
     /**
      * Creates a new toolbar group.
      *
-     * @param name
-     * @param buttons
-     * @return
+     * @param name e
+     * @param buttons e
+     * @return e
      */
-    static final JsArrayMixed newToolbarGroup(String name, ToolbarButton... buttons) {
+    static JsArrayMixed newToolbarGroup(String name, ToolbarButton... buttons) {
         JsArrayString arr = JavaScriptObject.createArray().cast();
         for (ToolbarButton button : buttons) {
             arr.push(button.getId());
@@ -120,17 +96,17 @@ class SummernoteOptions extends JavaScriptObject {
         return getToolbarGroup(name, arr);
     }
 
-    private static final native JsArrayMixed getToolbarGroup(String name, JsArrayString buttons) /*-{
+    private static native JsArrayMixed getToolbarGroup(String name, JsArrayString buttons) /*-{
         return [name, buttons];
     }-*/;
 
     /**
      * Builds the toolbar.
      *
-     * @param toolbarGroups
-     * @return
+     * @param toolbarGroups e
+     * @return e
      */
-    static final native JsArrayMixed buildToolbar(JsArrayMixed... toolbarGroups) /*-{
+    static native JsArrayMixed buildToolbar(JsArrayMixed... toolbarGroups) /*-{
         var arr = [];
         for (var i = 0; i < toolbarGroups.length; i++) {
             arr.push(toolbarGroups[i]);
@@ -138,58 +114,34 @@ class SummernoteOptions extends JavaScriptObject {
         return arr;
     }-*/;
 
-    /**
-     * @see {@link SummernoteBase#setToolbar(Toolbar)}
-     */
     final native void setToolbar(Toolbar toolbar) /*-{
         this.toolbar = toolbar.@org.gwtbootstrap5.extras.summernote.client.ui.base.Toolbar::build()();
     }-*/;
 
-    /**
-     * @see {@link SummernoteBase#setDefaultHeight(int)}
-     */
     final native void setHeight(int height) /*-{
         this.height = height;
     }-*/;
 
-    /**
-     * @see {@link SummernoteBase#setMaxHeight(int)}
-     */
     final native void setMaxHeight(int maxHeight) /*-{
         this.maxHeight = maxHeight;
     }-*/;
 
-    /**
-     * @see {@link SummernoteBase#setMinHeight(int)}
-     */
     final native void setMinHeight(int minHeight) /*-{
         this.minHeight = minHeight;
     }-*/;
 
-    /**
-     * @see {@link SummernoteBase#setHasFocus(boolean)}
-     */
     final native void setFocus(boolean focus) /*-{
         this.focus = focus;
     }-*/;
 
-    /**
-     * @see {@link SummernoteBase#setLanguage(SummernoteLanguage)}
-     */
     final native void setLanguage(SummernoteLanguage language) /*-{
         this.lang = language.@org.gwtbootstrap5.extras.summernote.client.ui.base.SummernoteLanguage::getCode()();
     }-*/;
 
-    /**
-     * @see {@link SummernoteBase#setAirMode(boolean)}
-     */
     final native void setAirMode(boolean airMode) /*-{
         this.airMode = airMode;
     }-*/;
 
-    /**
-     * @see {@link SummernoteBase#setHint(String, HintHandler)}
-     */
     final native void setHint(String match, HintHandler searchHandler) /*-{
         this.hint = {
             match: new RegExp(match),

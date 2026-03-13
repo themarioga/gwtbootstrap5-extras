@@ -6,7 +6,7 @@ package org.gwtbootstrap5.extras.animate.client.ui;
  * %%
  * Copyright (C) 2013 - 2014 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -36,7 +36,7 @@ import java.util.ArrayList;
 public class Animate {
 
     // store used styles, so they are not injected to the DOM everytime.
-    private static final ArrayList<String> usedStyles = new ArrayList<String>();
+    private static final ArrayList<String> usedStyles = new ArrayList<>();
 
     /**
      * Animate any element with specific animation. Animation is done by CSS and runs only once.
@@ -105,18 +105,14 @@ public class Animate {
      * @return Animation's CSS class name, which can be removed to stop animation.
      */
     public static <T extends UIObject> String animate(final T widget, final Animation animation, final int count, final int duration, final int delay) {
-
         if (widget != null && animation != null) {
             // on valid input
             if (widget.getStyleName().contains(animation.getCssName())) {
                 // animation is present, remove it and run again.
                 stopAnimation(widget, animation.getCssName() + " " + getStyleNameFromAnimation(animation.getCssName(),count,duration,delay));
-                Scheduler.get().scheduleFixedDelay(new Scheduler.RepeatingCommand() {
-                    @Override
-                    public boolean execute() {
-                        styleElement(widget.getElement(), animation.getCssName(), count, duration, delay);
-                        return false;
-                    }
+                Scheduler.get().scheduleFixedDelay(() -> {
+                    styleElement(widget.getElement(), animation.getCssName(), count, duration, delay);
+                    return false;
                 }, 200);
                 return animation.getCssName() + " " + getStyleNameFromAnimation(animation.getCssName(),count,duration,delay);
             } else {
@@ -126,7 +122,6 @@ public class Animate {
         } else {
             return null;
         }
-
     }
 
     /**
@@ -196,18 +191,14 @@ public class Animate {
      * @return Animation's CSS class name, which can be removed to stop animation.
      */
     public static <T extends UIObject> String animate(final T widget, final String animation, final int count, final int duration, final int delay) {
-
         if (widget != null && animation != null) {
             // on valid input
             if (widget.getStyleName().contains(animation)) {
                 // animation is present, remove it and run again.
                 stopAnimation(widget, animation);
-                Scheduler.get().scheduleFixedDelay(new Scheduler.RepeatingCommand() {
-                    @Override
-                    public boolean execute() {
-                        styleElement(widget.getElement(), animation, count, duration, delay);
-                        return false;
-                    }
+                Scheduler.get().scheduleFixedDelay(() -> {
+                    styleElement(widget.getElement(), animation, count, duration, delay);
+                    return false;
                 }, 200);
                 return animation + " " + getStyleNameFromAnimation(animation,count,duration,delay);
             } else {
@@ -217,7 +208,6 @@ public class Animate {
         } else {
             return null;
         }
-
     }
 
     /**
@@ -233,50 +223,40 @@ public class Animate {
      * @return Animation's CSS class name, which can be removed to stop animation.
      */
     private static <T extends UIObject> String styleElement(Element element, String animation, int count, int duration, int delay) {
-
         if (!usedStyles.contains(animation + " " + getStyleNameFromAnimation(animation,count,duration,delay))) {
-
             String styleSheet = "." + getStyleNameFromAnimation(animation, count, duration, delay) + " {";
 
             // 1 is default, 0 disable animation, any negative -> infinite loop
             if (count >= 0) {
-
                 styleSheet += "-webkit-animation-iteration-count: " + count + ";" +
                         "-moz-animation-iteration-count:" + count + ";" +
                         "-ms-animation-iteration-count:" + count + ";" +
                         "-o-animation-iteration-count:" + count + ";" +
                         "animation-iteration-count:" + count + ";";
-
             } else {
-
                 styleSheet += "-webkit-animation-iteration-count: infinite;" +
                         "-moz-animation-iteration-count: infinite;" +
                         "-ms-animation-iteration-count: infinite;" +
                         "-o-animation-iteration-count: infinite;" +
                         "animation-iteration-count: infinite;";
-
             }
 
             // if not default (any negative -> use default)
             if (duration >= 0) {
-
                 styleSheet += "-webkit-animation-duration: " + duration + "ms;" +
                         "-moz-animation-duration:" + duration + "ms;" +
                         "-ms-animation-duration:" + duration + "ms;" +
                         "-o-animation-duration:" + duration + "ms;" +
                         "animation-duration:" + duration + "ms;";
-
             }
 
             // if not default (any negative -> use default)
             if (delay >= 0) {
-
                 styleSheet += "-webkit-animation-delay: " + delay + "ms;" +
                         "-moz-animation-delay:" + delay + "ms;" +
                         "-ms-animation-delay:" + delay + "ms;" +
                         "-o-animation-delay:" + delay + "ms;" +
                         "animation-delay:" + delay + "ms;";
-
             }
 
             styleSheet += "}";
@@ -285,17 +265,13 @@ public class Animate {
             StyleInjector.injectAtEnd(styleSheet, true);
 
             usedStyles.add(animation + " " + getStyleNameFromAnimation(animation, count, duration, delay));
-
         }
 
         // start animation
         element.addClassName(animation + " " + getStyleNameFromAnimation(animation,count,duration,delay));
 
         // remove animation on end so we could start it again
-        // removeAnimationOnEnd(element, animation + " anim-"+count+"-"+duration+"-"+delay);
-
         return animation + " " + getStyleNameFromAnimation(animation,count,duration,delay);
-
     }
 
     /**
@@ -304,7 +280,7 @@ public class Animate {
      * @param widget Element to remove style from.
      * @param animation Animation CSS class to remove.
      */
-    public static final <T extends UIObject> void removeAnimationOnEnd(final T widget, final String animation) {
+    public static <T extends UIObject> void removeAnimationOnEnd(final T widget, final String animation) {
         if (widget != null && animation != null) {
             removeAnimationOnEnd(widget.getElement(), animation);
         }
@@ -316,13 +292,11 @@ public class Animate {
      * @param element Element to remove style from.
      * @param animation Animation CSS class to remove.
      */
-    private static final native void removeAnimationOnEnd(Element element, String animation) /*-{
-
+    private static native void removeAnimationOnEnd(Element element, String animation) /*-{
         var elem = $wnd.jQuery(element);
         elem.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', { elem: elem }, function(event) {
             event.data.elem.removeClass(animation);
         });
-
     }-*/;
 
     /**
@@ -331,7 +305,7 @@ public class Animate {
      * @param widget Element to remove style from.
      * @param animation Animation CSS class to remove.
      */
-    public static final <T extends UIObject> void stopAnimation(final T widget, final String animation){
+    public static <T extends UIObject> void stopAnimation(final T widget, final String animation){
         if (widget != null && animation != null) {
             stopAnimation(widget.getElement(), animation);
         }
@@ -343,7 +317,7 @@ public class Animate {
      * @param element Element to remove style from.
      * @param animation Animation CSS class to remove.
      */
-    private static final native void stopAnimation(Element element, String animation) /*-{
+    private static native void stopAnimation(Element element, String animation) /*-{
         $wnd.jQuery(element).removeClass(animation);
     }-*/;
 
@@ -357,7 +331,6 @@ public class Animate {
      * @return String representation of class name like "animation-count-duration-delay".
      */
     private static String getStyleNameFromAnimation(final String animation, int count, int duration, int delay) {
-
         // fix input
         if (count < 0) count = -1;
         if (duration < 0) duration = -1;
@@ -378,7 +351,6 @@ public class Animate {
         }
 
         return styleName;
-
     }
 
 }

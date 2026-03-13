@@ -4,9 +4,9 @@ package org.gwtbootstrap5.extras.bootbox.client.options;
  * #%L
  * GwtBootstrap5
  * %%
- * Copyright (C) 2016 GwtBootstrap5
+ * Copyright (C) 2026 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -39,10 +39,10 @@ public class AlertOptions extends DialogOptions {
     /**
      * Creates a new {@link AlertOptions}.
      *
-     * @param message
-     * @return
+     * @param message e
+     * @return e
      */
-    public static final AlertOptions newOptions(final String message) {
+    public static AlertOptions newOptions(final String message) {
         AlertOptions options = JavaScriptObject.createObject().cast();
         options.setMessage(message);
         return options;

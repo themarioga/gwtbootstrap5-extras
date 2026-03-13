@@ -6,7 +6,7 @@ package org.gwtbootstrap5.extras.select.client.ui;
  * %%
  * Copyright (C) 2013 - 2016 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -36,7 +36,7 @@ public interface MaxOptionsTextHandler {
      * <br>
      * Defaults to <code>Limit reached ({n} item(s) max)</code>
      *
-     * @param maxOptions maximum number of the select
+     * @param maxSelectOptions maximum number of the select
      * @return the text displayed when the maximum number of
      *     options within the select have been selected
      */

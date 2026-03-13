@@ -8,7 +8,7 @@ import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
  * %%
  * Copyright (C) 2013 - 2016 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -34,41 +34,41 @@ public interface HasAllSelectHandlers<T> extends HasLoadedHandlers, HasValueChan
     /**
      * The {@link LoadedEvent} name
      */
-    static final String LOADED_EVENT = "loaded.bs.select";
+    String LOADED_EVENT = "loaded.bs.select";
 
     /**
      * The {@link ChangedEvent} name
      */
-    static final String CHANGED_EVENT = "changed.bs.select";
+    String CHANGED_EVENT = "changed.bs.select";
 
     /**
      * The {@link ShowEvent} name
      */
-    static final String SHOW_EVENT = "show.bs.select";
+    String SHOW_EVENT = "show.bs.select";
 
     /**
      * The {@link ShownEvent} name
      */
-    static final String SHOWN_EVENT = "shown.bs.select";
+    String SHOWN_EVENT = "shown.bs.select";
 
     /**
      * The {@link HideEvent} name
      */
-    static final String HIDE_EVENT = "hide.bs.select";
+    String HIDE_EVENT = "hide.bs.select";
 
     /**
      * The {@link HiddenEvent} name
      */
-    static final String HIDDEN_EVENT = "hidden.bs.select";
+    String HIDDEN_EVENT = "hidden.bs.select";
 
     /**
      * The {@link RenderedEvent} name
      */
-    static final String RENDERED_EVENT = "rendered.bs.select";
+    String RENDERED_EVENT = "rendered.bs.select";
 
     /**
      * The {@link RefreshedEvent} name
      */
-    static final String REFRESHED_EVENT = "refreshed.bs.select";
+    String REFRESHED_EVENT = "refreshed.bs.select";
 
 }

@@ -8,7 +8,7 @@ import org.gwtbootstrap5.client.ui.constants.Type;
  * %%
  * Copyright (C) 2013 - 2015 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -33,12 +33,11 @@ public enum SelectionType implements Type {
 
     BEFORE("before"),
     AFTER("after"),
-    NONE("none"),
-    ;
+    NONE("none");
 
     private final String type;
 
-    private SelectionType(final String type) {
+    SelectionType(final String type) {
         this.type = type;
     }
 

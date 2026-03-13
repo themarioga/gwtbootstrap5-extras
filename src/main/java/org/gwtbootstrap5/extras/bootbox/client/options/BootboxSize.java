@@ -6,7 +6,7 @@ package org.gwtbootstrap5.extras.bootbox.client.options;
  * %%
  * Copyright (C) 2013 - 2014 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -29,9 +29,9 @@ public enum BootboxSize {
     
     LARGE("large"), SMALL("small");
     
-    private String size;
+    private final String size;
 
-    private BootboxSize(String size) {
+    BootboxSize(String size) {
         this.size=size;
     }
     

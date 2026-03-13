@@ -6,7 +6,7 @@ package org.gwtbootstrap5.extras.summernote.client.ui.base;
  * %%
  * Copyright (C) 2015 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -58,18 +58,17 @@ public enum ToolbarButton {
     CODE_VIEW("codeview"),
     UNDO("undo"),
     REDO("redo"),
-    HELP("help"),
-    ;
+    HELP("help");
 
     private final String id;
 
-    private ToolbarButton(String id) {
+    ToolbarButton(String id) {
         this.id = id;
     }
 
     /**
      *
-     * @return
+     * @return e
      */
     public String getId() {
         return id;

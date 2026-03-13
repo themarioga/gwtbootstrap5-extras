@@ -6,7 +6,7 @@ package org.gwtbootstrap5.extras.range.client.ui;
  * %%
  * Copyright (C) 2013 - 2015 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -57,6 +57,53 @@ public class Slider extends RangeBase<Double> {
     }
 
     @Override
+    protected String format(Double value) {
+        return value.toString();
+    }
+
+    @Override
+    protected Double convertValue(String value) {
+        if (value == null || value.isEmpty())
+            return null;
+        return Double.valueOf(value);
+    }
+
+    @Override
+    protected String formatTooltip(Double value) {
+        if (value == null) return null;
+
+        return super.formatTooltip(value);
+    }
+
+    @Override
+    protected void fireSlideEvent(Double value) {
+        if (value == null) return;
+
+        super.fireSlideEvent(value);
+    }
+
+    @Override
+    protected void fireSlideStartEvent(Double value) {
+        if (value == null) return;
+
+        super.fireSlideStartEvent(value);
+    }
+
+    @Override
+    protected void fireSlideStopEvent(Double value) {
+        if (value == null) return;
+
+        super.fireSlideStopEvent(value);
+    }
+
+    @Override
+    protected void fireChangeEvent(Double value) {
+        if (value == null) return;
+
+        super.fireChangeEvent(value);
+    }
+
+    @Override
     protected native void setValue(Element e, Double value) /*-{
         var doubleValue = value.@java.lang.Double::doubleValue()();
         if (this.@org.gwtbootstrap5.extras.range.client.ui.Slider::isSliderNamespaceAvailable()())
@@ -99,18 +146,6 @@ public class Slider extends RangeBase<Double> {
     }-*/;
 
     @Override
-    protected String format(Double value) {
-        return value.toString();
-    }
-
-    @Override
-    protected Double convertValue(String value) {
-        if (value == null || value.isEmpty())
-            return null;
-        return Double.valueOf(value);
-    }
-
-    @Override
     protected native void onSlide(Event event) /*-{
         var value = @java.lang.Double::new(D)(event.value);
         this.@org.gwtbootstrap5.extras.range.client.ui.Slider::fireSlideEvent(Ljava/lang/Double;)(value);
@@ -133,5 +168,4 @@ public class Slider extends RangeBase<Double> {
         var value = @java.lang.Double::new(D)(event.value.newValue);
         this.@org.gwtbootstrap5.extras.range.client.ui.Slider::fireChangeEvent(Ljava/lang/Double;)(value);
     }-*/;
-
 }

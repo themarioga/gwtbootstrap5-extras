@@ -4,9 +4,9 @@ package org.gwtbootstrap5.extras.bootbox.client.callback;
  * #%L
  * GwtBootstrap5
  * %%
- * Copyright (C) 2016 GwtBootstrap5
+ * Copyright (C) 2026 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -38,8 +38,5 @@ public interface PromptCallback extends Callback {
     /**
      * Default {@link PromptCallback} does nothing.
      */
-    static final PromptCallback DEFAULT_PROMPT_CALLBACK = new PromptCallback() {
-        @Override
-        public void callback(String result) {}
-    };
+    PromptCallback DEFAULT_PROMPT_CALLBACK = result -> {};
 }

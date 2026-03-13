@@ -6,7 +6,7 @@ package org.gwtbootstrap5.extras.bootbox.client.callback;
  * %%
  * Copyright (C) 2015 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -35,8 +35,5 @@ public interface SimpleCallback extends Callback {
     /**
      * Default {@link SimpleCallback} does nothing.
      */
-    static final SimpleCallback DEFAULT_SIMPLE_CALLBACK = new SimpleCallback() {
-        @Override
-        public void callback() {}
-    };
+    SimpleCallback DEFAULT_SIMPLE_CALLBACK = () -> {};
 }

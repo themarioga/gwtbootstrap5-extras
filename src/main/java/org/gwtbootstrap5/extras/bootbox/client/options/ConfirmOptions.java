@@ -4,9 +4,9 @@ package org.gwtbootstrap5.extras.bootbox.client.options;
  * #%L
  * GwtBootstrap5
  * %%
- * Copyright (C) 2016 GwtBootstrap5
+ * Copyright (C) 2026 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -39,10 +39,10 @@ public class ConfirmOptions extends DialogOptions {
     /**
      * Creates a new {@link ConfirmOptions}.
      *
-     * @param message
-     * @return
+     * @param message e
+     * @return e
      */
-    public static final ConfirmOptions newOptions(final String message) {
+    public static ConfirmOptions newOptions(final String message) {
         ConfirmOptions options = JavaScriptObject.createObject().cast();
         options.setMessage(message);
         options.setCallback(ConfirmCallback.DEFAULT_CONFIRM_CALLBACK);

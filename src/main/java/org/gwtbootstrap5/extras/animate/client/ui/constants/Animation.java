@@ -6,7 +6,7 @@ package org.gwtbootstrap5.extras.animate.client.ui.constants;
  * %%
  * Copyright (C) 2013 - 2014 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -25,7 +25,7 @@ import org.gwtbootstrap5.client.ui.base.helper.EnumHelper;
 
 /**
  * Enumeration of CSS animations from Animate.css project.
- * See: http://daneden.github.io/animate.css/
+ * See: <a href="http://daneden.github.io/animate.css/">...</a>
  *
  * @author Pavel Zlámal
  */
@@ -110,7 +110,7 @@ public enum Animation implements Style.HasCssName {
 
     private final String cssClass;
 
-    private Animation(final String cssClass) {
+    Animation(final String cssClass) {
         this.cssClass = cssClass;
     }
 

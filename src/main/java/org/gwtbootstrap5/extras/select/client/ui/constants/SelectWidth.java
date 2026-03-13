@@ -4,9 +4,9 @@ package org.gwtbootstrap5.extras.select.client.ui.constants;
  * #%L
  * GwtBootstrap5
  * %%
- * Copyright (C) 2016 GwtBootstrap5
+ * Copyright (C) 2026 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -42,20 +42,18 @@ public enum SelectWidth {
     /**
      * All width information is removed.
      */
-    NONE("false"),
+    NONE("false");
 
-    ;
+    private final String value;
 
-    private String value;
-
-    private SelectWidth(String size) {
+    SelectWidth(String size) {
         this.value = size;
     }
 
     /**
      * Returns the value of the select width.
      *
-     * @return
+     * @return e
      */
     public String getValue() {
         return value;

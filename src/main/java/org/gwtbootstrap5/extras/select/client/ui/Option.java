@@ -6,7 +6,7 @@ package org.gwtbootstrap5.extras.select.client.ui;
  * %%
  * Copyright (C) 2013 - 2016 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -71,16 +71,16 @@ public class Option extends AbstractTextWidget implements HasName, TakesValue<St
      * @return <code>true</code> if the option is selected
      */
     public boolean isSelected() {
-        return isDivider() ? false : getSelectElement().isSelected();
+        return !isDivider() && getSelectElement().isSelected();
     }
 
     /**
      * Selects/deselects the option.
      *
-     * @param selected
+     * @param selected e
      */
     public void setSelected(boolean selected) {
-        getSelectElement().setSelected(isDivider() ? false : selected);
+        getSelectElement().setSelected(!isDivider() && selected);
     }
 
     @Override

@@ -4,9 +4,9 @@ package org.gwtbootstrap5.extras.summernote.client.ui.base;
  * #%L
  * GwtBootstrap5
  * %%
- * Copyright (C) 2016 GwtBootstrap5
+ * Copyright (C) 2026 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -54,7 +54,7 @@ import com.google.gwt.user.client.ui.UIObject;
 /**
  * Wrapper for the Summernote WYSIWYG Editor
  * <p/>
- * See: http://summernote.org/
+ * See: <a href="https://summernote.org/">...</a>
  *
  * @author Xiaodong Sun
  */
@@ -68,7 +68,7 @@ public class SummernoteBase extends Div implements HasAllSummernoteHandlers, Has
     /**
      * Initialize options
      */
-    private SummernoteOptions options = SummernoteOptions.newOptions();
+    private final SummernoteOptions options = SummernoteOptions.newOptions();
 
     /**
      * Enabled/Disabled state
@@ -96,7 +96,7 @@ public class SummernoteBase extends Div implements HasAllSummernoteHandlers, Has
      * <b>Note</b>: DO NOT renamed this method to <em>setHeight</em>
      * to avoid UiBinder name clash with {@link UIObject#setHeight(String)}.
      *
-     * @param height
+     * @param height e
      */
     public void setDefaultHeight(final int height) {
         options.setHeight(height);
@@ -105,7 +105,7 @@ public class SummernoteBase extends Div implements HasAllSummernoteHandlers, Has
     /**
      * Sets the maximum height of the editor (in pixel).
      *
-     * @param maxHeight
+     * @param maxHeight e
      */
     public void setMaxHeight(final int maxHeight) {
         options.setMaxHeight(maxHeight);
@@ -114,7 +114,7 @@ public class SummernoteBase extends Div implements HasAllSummernoteHandlers, Has
     /**
      * Sets the minimum height of the editor (in pixel).
      *
-     * @param minHeight
+     * @param minHeight e
      */
     public void setMinHeight(final int minHeight) {
         options.setMinHeight(minHeight);
@@ -125,7 +125,7 @@ public class SummernoteBase extends Div implements HasAllSummernoteHandlers, Has
      * <br>
      * Defaults to <code>true</code>.
      *
-     * @param showToolbar
+     * @param showToolbar e
      */
     public void setShowToolbar(final boolean showToolbar) {
         options.setShowToolbar(showToolbar);
@@ -141,7 +141,7 @@ public class SummernoteBase extends Div implements HasAllSummernoteHandlers, Has
      *     .addGroup(ToolbarButton.HELP));
      * </pre>
      *
-     * @param toolbar
+     * @param toolbar e
      */
     public void setToolbar(final Toolbar toolbar) {
         options.setToolbar(toolbar);
@@ -186,7 +186,7 @@ public class SummernoteBase extends Div implements HasAllSummernoteHandlers, Has
      * This is problem while using Web fonts. It’s not easy picking up
      * nice time to check availabilities of Web fonts.
      *
-     * @param fontNames
+     * @param fontNames e
      */
     public void setFontNamesIgnoreCheck(final SummernoteFontName... fontNames) {
         JsArrayString array = JavaScriptObject.createArray().cast();
@@ -259,8 +259,8 @@ public class SummernoteBase extends Div implements HasAllSummernoteHandlers, Has
      * Summernote support hint (autocomplete) feature. You can define custom hint
      * with options.
      *
-     * @param matchRegexp
-     * @param hintHandler
+     * @param matchRegexp e
+     * @param hintHandler e
      */
     public void setHint(String matchRegexp, HintHandler hintHandler) {
         options.setHint(matchRegexp, hintHandler);
@@ -279,7 +279,7 @@ public class SummernoteBase extends Div implements HasAllSummernoteHandlers, Has
     /**
      * Returns the editor language.
      *
-     * @return
+     * @return e
      */
     public SummernoteLanguage getLanguage() {
         return language;
@@ -354,7 +354,7 @@ public class SummernoteBase extends Div implements HasAllSummernoteHandlers, Has
     /**
      * Sets the given HTML code to the editor.
      *
-     * @param code
+     * @param code e
      */
     public void setCode(final String code) {
         if (isAttached()) {
@@ -460,7 +460,7 @@ public class SummernoteBase extends Div implements HasAllSummernoteHandlers, Has
      * This method should be used only when you customize
      * the image upload handler.
      *
-     * @param images
+     * @param images e
      */
     public void insertImages(JsArray<ImageFile> images) {
         insertImages(getElement(), images);

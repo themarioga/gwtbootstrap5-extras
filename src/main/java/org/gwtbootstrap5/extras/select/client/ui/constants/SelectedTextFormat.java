@@ -4,9 +4,9 @@ package org.gwtbootstrap5.extras.select.client.ui.constants;
  * #%L
  * GwtBootstrap5
  * %%
- * Copyright (C) 2016 GwtBootstrap5
+ * Copyright (C) 2026 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -42,19 +42,18 @@ public enum SelectedTextFormat {
      * one is selected then the number of selected items is displayed, e.g.
      * <code># items selected</code>
      */
-    COUNT("count"),
-    ;
+    COUNT("count");
 
-    private String format;
+    private final String format;
 
-    private SelectedTextFormat(String format) {
+    SelectedTextFormat(String format) {
         this.format = format;
     }
 
     /**
      * Returns the basic format.
      *
-     * @return
+     * @return e
      */
     public String getFormat() {
         return format;
@@ -64,8 +63,8 @@ public enum SelectedTextFormat {
      * Returns <code>count > x</code> if the format is
      * {@link SelectedTextFormat#COUNT}, or the basic format otherwise.
      *
-     * @param minCount
-     * @return
+     * @param minCount e
+     * @return e
      */
     public String getFormat(int minCount) {
         return getFormat() + (this == COUNT ? " > " + minCount : "");

@@ -6,7 +6,7 @@ package org.gwtbootstrap5.extras.summernote.client.ui.base;
  * %%
  * Copyright (C) 2015 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -28,15 +28,15 @@ import com.google.gwt.core.client.JsArrayMixed;
 /**
  * Wrapper for the Summernote WYSIWYG Editor
  * <p/>
- * See: http://summernote.org/
+ * See: <a href="http://summernote.org/">...</a>
  *
  * @author Xiaodong Sun
  */
 public class Toolbar {
 
     private static final String GROUP_PREFIX = "group_";
-    private static int GROUP_INDEX = 0;
-    private List<JsArrayMixed> groups = new ArrayList<>(0);
+    private int groupIndex = 0;
+    private final List<JsArrayMixed> groups = new ArrayList<>(0);
 
     /**
      * Add a new toolbar group with the specified buttons.
@@ -45,7 +45,7 @@ public class Toolbar {
      * @return {@link Toolbar}
      */
     public Toolbar addGroup(ToolbarButton... buttons) {
-        groups.add(SummernoteOptions.newToolbarGroup(GROUP_PREFIX + GROUP_INDEX++, buttons));
+        groups.add(SummernoteOptions.newToolbarGroup(GROUP_PREFIX + groupIndex++, buttons));
         return this;
     }
 

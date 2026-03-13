@@ -6,7 +6,7 @@ package org.gwtbootstrap5.extras.select.client.ui;
  * %%
  * Copyright (C) 2013 - 2016 GwtBootstrap5
  * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -55,7 +55,7 @@ public class MultipleSelect extends SelectBase<List<String>> {
      * <br>
      * Defaults to <code>false</code>.
      *
-     * @param showActionsBox
+     * @param showActionsBox e
      */
     public void setShowActionsBox(final boolean showActionsBox) {
         if (showActionsBox)
@@ -70,7 +70,7 @@ public class MultipleSelect extends SelectBase<List<String>> {
      * <br>
      * Defaults to <code>Deselect All</code>.
      *
-     * @param deselectAllText
+     * @param deselectAllText e
      */
     public void setDeselectAllText(final String deselectAllText) {
         if (deselectAllText != null)
@@ -85,7 +85,7 @@ public class MultipleSelect extends SelectBase<List<String>> {
      * <br>
      * Defaults to <code>Select All</code>.
      *
-     * @param selectAllText
+     * @param selectAllText e
      */
     public void setSelectAllText(final String selectAllText) {
         if (selectAllText != null)
@@ -100,7 +100,7 @@ public class MultipleSelect extends SelectBase<List<String>> {
      * When set to a strict negative value (less than zero), this
      * options will be deactivated.
      *
-     * @param maxOptions
+     * @param maxOptions e
      */
     public void setMaxOptions(final int maxOptions) {
         attrMixin.setAttribute(MAX_OPTIONS, Integer.toString(maxOptions));
@@ -111,7 +111,7 @@ public class MultipleSelect extends SelectBase<List<String>> {
      * is enabled and the maximum number of options within the entire select or an
      * option group have been selected.
      *
-     * @param handler
+     * @param handler e
      * @see #setMaxOptions(int)
      */
     public void setMaxOptionsTextHandler(final MaxOptionsTextHandler handler) {
@@ -124,7 +124,7 @@ public class MultipleSelect extends SelectBase<List<String>> {
      * <br>
      * Defaults to <code>, </code>.
      *
-     * @param multipleSeparator
+     * @param multipleSeparator e
      */
     public void setMultipleSeparator(final String multipleSeparator) {
         if (multipleSeparator != null)
@@ -139,7 +139,7 @@ public class MultipleSelect extends SelectBase<List<String>> {
      * <br>
      * Defaults to <code>Nothing Selected</code>.
      *
-     * @param noneSelectedText
+     * @param noneSelectedText e
      */
     public void setNoneSelectedText(final String noneSelectedText) {
         if (noneSelectedText != null)
@@ -153,7 +153,7 @@ public class MultipleSelect extends SelectBase<List<String>> {
      * <br>
      * Defaults to {@link SelectedTextFormat#VALUES}.
      *
-     * @param format
+     * @param format e
      * @see SelectedTextFormat
      */
     public void setSelectedTextFormat(final SelectedTextFormat format) {
@@ -167,7 +167,7 @@ public class MultipleSelect extends SelectBase<List<String>> {
      * Specifies the minimum count of the <code>count > #</code> selection
      * format with a multiple select.
      *
-     * @param minCount
+     * @param minCount e
      * @see SelectedTextFormat#getFormat(int)
      */
     public void setCountSelectedTextFormat(final int minCount) {
