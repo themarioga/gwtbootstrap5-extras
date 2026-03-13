@@ -1,14 +1,12 @@
 package org.gwtbootstrap5.extras.range.client.ui.base.constants;
 
-import org.gwtbootstrap5.client.ui.constants.Type;
-
-/*
- * #%L
+/*-
+ * ==========================LICENSE_START===============================
  * GwtBootstrap5
- * %%
- * Copyright (C) 2013 - 2015 GwtBootstrap5
- * %%
- * Licensed under the Apache License, Version 2.0 (the "License")
+ * ======================================================================
+ * Copyright (C) 2023 - 2026 GwtBootstrap5
+ * ======================================================================
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
@@ -19,8 +17,10 @@ import org.gwtbootstrap5.client.ui.constants.Type;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * #L%
+ * ==========================LICENSE_END=================================
  */
+
+import org.gwtbootstrap5.client.ui.constants.Type;
 
 /**
  * Slider handle shape.
