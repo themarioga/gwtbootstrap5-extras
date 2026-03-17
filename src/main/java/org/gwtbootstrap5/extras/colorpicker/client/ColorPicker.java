@@ -30,7 +30,6 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Widget;
-import org.gwtbootstrap5.client.ui.constants.Styles;
 import org.gwtbootstrap5.client.ui.html.Div;
 
 public class ColorPicker extends Widget implements HasValue<String>, HasChangeHandlers {
@@ -41,7 +40,6 @@ public class ColorPicker extends Widget implements HasValue<String>, HasChangeHa
 
     public ColorPicker() {
         colorPickerDiv = new Div();
-        colorPickerDiv.addStyleName(Styles.ROW);
 
         setElement((Element) colorPickerDiv.getElement());
         initColorPicker(colorPickerDiv.getElement());
