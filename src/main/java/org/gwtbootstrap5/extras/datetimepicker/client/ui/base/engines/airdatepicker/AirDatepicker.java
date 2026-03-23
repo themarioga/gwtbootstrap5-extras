@@ -56,6 +56,7 @@ public class AirDatepicker {
     @JsMethod public native void selectDate(Object date);
     @JsMethod public native void selectDate(Object date, SelectDateOptions opts);
     @JsMethod public native void unselectDate(Object date);
+    @JsMethod public native void setViewDate(Object date);
     @JsMethod public native void setFocusDate(Object date);
     @JsMethod public native void setFocusDate(Object date, FocusDateOptions opts);
 

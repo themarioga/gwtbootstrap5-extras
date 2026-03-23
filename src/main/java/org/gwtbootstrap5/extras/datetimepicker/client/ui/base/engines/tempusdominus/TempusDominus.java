@@ -48,6 +48,7 @@ public class TempusDominus {
     @JsMethod public native void setLocale(String locale);
 
     // --- Date Management API ---
+    @JsProperty public Object viewDate; // DateTime, JsDate, or String
     @JsProperty public DatesApi dates;
 
     @JsType(isNative = true, namespace = "tempusDominus.TempusDominus", name = "DatesApi")

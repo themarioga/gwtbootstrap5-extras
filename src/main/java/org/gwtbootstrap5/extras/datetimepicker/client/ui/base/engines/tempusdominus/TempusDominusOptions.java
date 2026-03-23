@@ -41,7 +41,6 @@ public class TempusDominusOptions {
     @JsProperty public int promptTimeOnDateChangeTransitionDelay;
     @JsProperty public int stepping;
     @JsProperty public boolean useCurrent;
-    @JsProperty public Object viewDate; // DateTime, JsDate, or String
 
     @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
     public static class RestrictionsOptions {

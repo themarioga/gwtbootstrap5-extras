@@ -97,6 +97,13 @@ public class TempusDominusEngine implements IDateTimePickerEngine {
     }
 
     @Override
+    public void setViewDate(Date date) {
+        if (instance != null) {
+            instance.viewDate = toTempusDominusDateTime(date);
+        }
+    }
+
+    @Override
     public void setDate(Date date, boolean silent) {
         if (instance != null) {
             instance.dates.setValue(toTempusDominusDateTime(date));
@@ -166,7 +173,7 @@ public class TempusDominusEngine implements IDateTimePickerEngine {
             if (instance != null) {
                 instance.setLocale(options.getLocale());
 
-                tempusDominusOptions.localization.format = getFullFormat(options);
+                tempusDominusOptions.localization.format = options.getDateTimeFormat();
             }
         });
 
@@ -218,20 +225,6 @@ public class TempusDominusEngine implements IDateTimePickerEngine {
         // javaDate.getTime() returns a long (epoch milliseconds)
         // We cast to double for safe JSInterop translation
         return new TempusDominusDateTime(javaDate.getTime());
-    }
-
-    private static @NonNull String getFullFormat(DateTimePickerOptions options) {
-        String fullFormat = "";
-        if (options.getDateFormat() != null) {
-            fullFormat += options.getDateFormat();
-        }
-        if (options.getTimeFormat() != null) {
-            if (!options.getTimeFormat().startsWith(" "))
-                fullFormat += " ";
-
-            fullFormat += options.getTimeFormat();
-        }
-        return fullFormat;
     }
 
     private native void loadLocale(JavaScriptObject locale); /*-{

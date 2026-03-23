@@ -32,9 +32,12 @@ public class DateTimePickerOptions {
     private boolean showTodayButton = false;
     private boolean showClearButton = false;
     private String dateFormat = "dd/MM/yyyy";
+    private String dateTimeConcatenator = " ";
     private String timeFormat = "HH:mm";
     private boolean onlyCalendar = false;
     private boolean onlyTime = false;
+    private boolean focusDateOnWrite = true;
+    private boolean selectDateOnWrite = false;
 
     public boolean isKeepOpen() {
         return keepOpen;
@@ -108,12 +111,37 @@ public class DateTimePickerOptions {
         this.dateFormat = dateFormat;
     }
 
+    public String getDateTimeConcatenator() {
+        return dateTimeConcatenator;
+    }
+
+    public void setDateTimeConcatenator(String dateTimeConcatenator) {
+        this.dateTimeConcatenator = dateTimeConcatenator;
+    }
+
     public String getTimeFormat() {
         return timeFormat;
     }
 
     public void setTimeFormat(String timeFormat) {
         this.timeFormat = timeFormat;
+    }
+
+    public String getDateTimeFormat() {
+        String fullFormat = "";
+        if (!onlyTime && dateFormat != null) {
+            fullFormat += dateFormat;
+        }
+
+        if ((!onlyTime && dateFormat != null) && (!onlyCalendar && timeFormat != null)) {
+            fullFormat += dateTimeConcatenator;
+        }
+
+        if (!onlyCalendar && timeFormat != null) {
+            fullFormat += timeFormat;
+        }
+
+        return fullFormat;
     }
 
     public boolean isOnlyCalendar() {
@@ -131,4 +159,21 @@ public class DateTimePickerOptions {
     public void setOnlyTime(boolean onlyTime) {
         this.onlyTime = onlyTime;
     }
+
+    public boolean isFocusDateOnWrite() {
+        return focusDateOnWrite;
+    }
+
+    public void setFocusDateOnWrite(boolean focusDateOnWrite) {
+        this.focusDateOnWrite = focusDateOnWrite;
+    }
+
+    public boolean isSelectDateOnWrite() {
+        return selectDateOnWrite;
+    }
+
+    public void setSelectDateOnWrite(boolean selectDateOnWrite) {
+        this.selectDateOnWrite = selectDateOnWrite;
+    }
+
 }

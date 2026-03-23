@@ -32,6 +32,7 @@ public interface IDateTimePickerEngine {
     void hide();
     void toggle();
     void clear(boolean silent);
+    void setViewDate(Date date);
     void setDate(Date date, boolean silent);
     Date getDate();
     void setMultipleDates(List<Date> dates, boolean silent);

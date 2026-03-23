@@ -20,13 +20,16 @@ package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.airdatepi
  * ==========================LICENSE_END=================================
  */
 
+import com.google.gwt.i18n.client.DateTimeFormat;
 import elemental2.core.JsArray;
 import elemental2.core.JsDate;
 import elemental2.dom.Element;
+import elemental2.dom.HTMLInputElement;
 import jsinterop.base.Js;
 import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.DateTimePickerOptions;
 import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.IDateTimePickerEngine;
 import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.IDateTimePickerHandlers;
+import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,6 +49,21 @@ public class AirDatepickerEngine implements IDateTimePickerEngine {
 
         // Añadimos los eventos a las opciones
         appendEvents(handlers);
+
+        // Añadimos evento de keyup como hack para que se refresque en vivo
+        if (options.isFocusDateOnWrite() || options.isSelectDateOnWrite()) {
+            input.addEventListener("keyup", event -> {
+                Date inputDate = getDateFromInput(options, (HTMLInputElement) input);
+                if (inputDate != null) {
+                    if (options.isFocusDateOnWrite()) {
+                        setViewDate(inputDate);
+                    }
+                    if (options.isSelectDateOnWrite()) {
+                        setDate(inputDate, true);
+                    }
+                }
+            });
+        }
 
         // Inicializamos el datepicker nativo
         this.instance = new AirDatepicker(input, this.options);
@@ -97,6 +115,15 @@ public class AirDatepickerEngine implements IDateTimePickerEngine {
             AirDatepicker.ClearDateOptions opt = new AirDatepicker.ClearDateOptions();
             opt.silent = silent;
             instance.clear(opt);
+        }
+    }
+
+    @Override
+    public void setViewDate(Date date) {
+        if (instance != null) {
+            JsDate jsDate = toJsDate(date);
+            instance.setViewDate(jsDate);
+            instance.setFocusDate(jsDate);
         }
     }
 
@@ -217,6 +244,16 @@ public class AirDatepickerEngine implements IDateTimePickerEngine {
         if (jsDate == null) return null;
         // Convertimos los milisegundos de JS de vuelta a long para java.util.Date
         return new Date((long) jsDate.getTime());
+    }
+
+    private static @Nullable Date getDateFromInput(DateTimePickerOptions options, HTMLInputElement input) {
+        Date formattedDate;
+        try {
+            formattedDate = DateTimeFormat.getFormat(options.getDateTimeFormat()).parse(input.value);
+        } catch (IllegalArgumentException e) {
+            formattedDate = null;
+        }
+        return formattedDate;
     }
 
 }
