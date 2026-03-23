@@ -31,91 +31,190 @@ public interface DateTimePickerClientBundle extends ClientBundle {
 
     DateTimePickerClientBundle INSTANCE = GWT.create(DateTimePickerClientBundle.class);
 
-    String VERSION = "6.10.4";
-    String LOCALES_DIR = "resource/js/locales.cache." + VERSION + "/";
+    String TEMPUS_DOMINUS = "tempus-dominus-6.10.4";
+    String AIR_DATEPICKER = "air-datepicker-3.5.3";
 
-    @Source("resource/js/popper-2.11.6.min.cache.js")
-    TextResource popper();
+    @Source("resource/" + TEMPUS_DOMINUS + "/js/tempus-dominus.min.cache.js")
+    TextResource tempusDominus();
 
-    @Source("resource/js/tempus-dominus-" + VERSION + ".min.cache.js")
-    TextResource dateTimePicker();
+    @Source("resource/" + TEMPUS_DOMINUS + "/js/locales.cache/ar.js")
+    TextResource tdlocales_ar();
 
-    @Source(LOCALES_DIR + "ar.js")
-    TextResource ar();
+    @Source("resource/" + TEMPUS_DOMINUS + "/js/locales.cache/ar-SA.js")
+    TextResource tdlocales_ar_SA();
 
-    @Source(LOCALES_DIR + "ar-SA.js")
-    TextResource ar_SA();
+    @Source("resource/" + TEMPUS_DOMINUS + "/js/locales.cache/ca.js")
+    TextResource tdlocales_ca();
 
-    @Source(LOCALES_DIR + "ca.js")
-    TextResource ca();
+    @Source("resource/" + TEMPUS_DOMINUS + "/js/locales.cache/cs.js")
+    TextResource tdlocales_cs();
 
-    @Source(LOCALES_DIR + "cs.js")
-    TextResource cs();
+    @Source("resource/" + TEMPUS_DOMINUS + "/js/locales.cache/de.js")
+    TextResource tdlocales_de();
 
-    @Source(LOCALES_DIR + "de.js")
-    TextResource de();
+    @Source("resource/" + TEMPUS_DOMINUS + "/js/locales.cache/es.js")
+    TextResource tdlocales_es();
 
-    @Source(LOCALES_DIR + "es.js")
-    TextResource es();
+    @Source("resource/" + TEMPUS_DOMINUS + "/js/locales.cache/fi.js")
+    TextResource tdlocales_fi();
 
-    @Source(LOCALES_DIR + "fi.js")
-    TextResource fi();
+    @Source("resource/" + TEMPUS_DOMINUS + "/js/locales.cache/fr.js")
+    TextResource tdlocales_fr();
 
-    @Source(LOCALES_DIR + "fr.js")
-    TextResource fr();
+    @Source("resource/" + TEMPUS_DOMINUS + "/js/locales.cache/hr.js")
+    TextResource tdlocales_hr();
 
-    @Source(LOCALES_DIR + "hr.js")
-    TextResource hr();
+    @Source("resource/" + TEMPUS_DOMINUS + "/js/locales.cache/hy.js")
+    TextResource tdlocales_hy();
 
-    @Source(LOCALES_DIR + "hy.js")
-    TextResource hy();
+    @Source("resource/" + TEMPUS_DOMINUS + "/js/locales.cache/it.js")
+    TextResource tdlocales_it();
 
-    @Source(LOCALES_DIR + "it.js")
-    TextResource it();
+    @Source("resource/" + TEMPUS_DOMINUS + "/js/locales.cache/nl.js")
+    TextResource tdlocales_nl();
 
-    @Source(LOCALES_DIR + "nl.js")
-    TextResource nl();
+    @Source("resource/" + TEMPUS_DOMINUS + "/js/locales.cache/pl.js")
+    TextResource tdlocales_pl();
 
-    @Source(LOCALES_DIR + "pl.js")
-    TextResource pl();
+    @Source("resource/" + TEMPUS_DOMINUS + "/js/locales.cache/pt-PT.js")
+    TextResource tdlocales_pt_PT();
 
-    @Source(LOCALES_DIR + "pt-PT.js")
-    TextResource pt_PT();
+    @Source("resource/" + TEMPUS_DOMINUS + "/js/locales.cache/ro.js")
+    TextResource tdlocales_ro();
 
-    @Source(LOCALES_DIR + "ro.js")
-    TextResource ro();
+    @Source("resource/" + TEMPUS_DOMINUS + "/js/locales.cache/ru.js")
+    TextResource tdlocales_ru();
 
-    @Source(LOCALES_DIR + "ru.js")
-    TextResource ru();
+    @Source("resource/" + TEMPUS_DOMINUS + "/js/locales.cache/sk.js")
+    TextResource tdlocales_sk();
 
-    @Source(LOCALES_DIR + "sk.js")
-    TextResource sk();
+    @Source("resource/" + TEMPUS_DOMINUS + "/js/locales.cache/sl.js")
+    TextResource tdlocales_sl();
 
-    @Source(LOCALES_DIR + "sl.js")
-    TextResource sl();
+    @Source("resource/" + TEMPUS_DOMINUS + "/js/locales.cache/sr.js")
+    TextResource tdlocales_sr();
 
-    @Source(LOCALES_DIR + "sr.js")
-    TextResource sr();
+    @Source("resource/" + TEMPUS_DOMINUS + "/js/locales.cache/sr-Latn.js")
+    TextResource tdlocales_sr_LATN();
 
-    @Source(LOCALES_DIR + "sr-Latn.js")
-    TextResource sr_LATN();
+    @Source("resource/" + TEMPUS_DOMINUS + "/js/locales.cache/tr.js")
+    TextResource tdlocales_tr();
 
-    @Source(LOCALES_DIR + "tr.js")
-    TextResource tr();
+    @Source("resource/" + TEMPUS_DOMINUS + "/js/locales.cache/uk.js")
+    TextResource tdlocales_uk();
 
-    @Source(LOCALES_DIR + "uk.js")
-    TextResource uk();
+    @Source("resource/" + TEMPUS_DOMINUS + "/js/locales.cache/zh-CN.js")
+    TextResource tdlocales_zh_CN();
 
-    @Source(LOCALES_DIR + "zh-CN.js")
-    TextResource zh_CN();
+    @Source("resource/" + TEMPUS_DOMINUS + "/js/locales.cache/zh-HK.js")
+    TextResource tdlocales_zh_HK();
 
-    @Source(LOCALES_DIR + "zh-HK.js")
-    TextResource zh_HK();
+    @Source("resource/" + TEMPUS_DOMINUS + "/js/locales.cache/zh-MO.js")
+    TextResource tdlocales_zh_MO();
 
-    @Source(LOCALES_DIR + "zh-MO.js")
-    TextResource zh_MO();
+    @Source("resource/" + TEMPUS_DOMINUS + "/js/locales.cache/zh-TW.js")
+    TextResource tdlocales_zh_TW();
 
-    @Source(LOCALES_DIR + "zh-TW.js")
-    TextResource zh_TW();
+    @Source("resource/" + AIR_DATEPICKER + "/js/air-datepicker.min.cache.js")
+    TextResource airDatepicker();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/ar.js")
+    TextResource adlocales_ar();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/bg.js")
+    TextResource adlocales_bg();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/br.js")
+    TextResource adlocales_br();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/ca.js")
+    TextResource adlocales_ca();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/cs.js")
+    TextResource adlocales_cs();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/da.js")
+    TextResource adlocales_da();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/de.js")
+    TextResource adlocales_de();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/el.js")
+    TextResource adlocales_el();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/en.js")
+    TextResource adlocales_en();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/es.js")
+    TextResource adlocales_es();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/eu.js")
+    TextResource adlocales_eu();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/fi.js")
+    TextResource adlocales_fi();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/fr.js")
+    TextResource adlocales_fr();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/hr.js")
+    TextResource adlocales_hr();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/hu.js")
+    TextResource adlocales_hu();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/id.js")
+    TextResource adlocales_id();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/it.js")
+    TextResource adlocales_it();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/ja.js")
+    TextResource adlocales_ja();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/ko.js")
+    TextResource adlocales_ko();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/nb.js")
+    TextResource adlocales_nb();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/nl.js")
+    TextResource adlocales_nl();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/pl.js")
+    TextResource adlocales_pl();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/pt.js")
+    TextResource adlocales_pt();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/ro.js")
+    TextResource adlocales_ro();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/ru.js")
+    TextResource adlocales_ru();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/si.js")
+    TextResource adlocales_si();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/sk.js")
+    TextResource adlocales_sk();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/sl.js")
+    TextResource adlocales_sl();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/sv.js")
+    TextResource adlocales_sv();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/th.js")
+    TextResource adlocales_th();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/tr.js")
+    TextResource adlocales_tr();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/uk.js")
+    TextResource adlocales_uk();
+
+    @Source("resource/" + AIR_DATEPICKER + "/js/locales.cache/zh.js")
+    TextResource adlocales_zh();
 
 }

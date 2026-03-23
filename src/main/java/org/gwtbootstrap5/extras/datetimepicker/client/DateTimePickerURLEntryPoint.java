@@ -35,5 +35,10 @@ public class DateTimePickerURLEntryPoint implements EntryPoint {
                 .setWindow(ScriptInjector.TOP_WINDOW).inject();
 
         StyleInjector.injectCSS("https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.9.4/dist/css/tempus-dominus.min.css");
+
+        ScriptInjector.fromUrl("https://cdn.jsdelivr.net/npm/air-datepicker@3.6.0/air-datepicker.min.js")
+                .setWindow(ScriptInjector.TOP_WINDOW).inject();
+
+        StyleInjector.injectCSS("https://cdn.jsdelivr.net/npm/air-datepicker@3.6.0/air-datepicker.min.css");
     }
 }

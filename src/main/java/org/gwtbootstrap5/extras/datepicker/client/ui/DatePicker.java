@@ -20,29 +20,20 @@ package org.gwtbootstrap5.extras.datepicker.client.ui;
  * ==========================LICENSE_END=================================
  */
 
+import com.google.gwt.uibinder.client.UiConstructor;
 import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerBase;
+import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants.DateTimePickerEngines;
 
 /**
  * @author themarioga
  */
 public class DatePicker extends DateTimePickerBase {
 
-    public DatePicker() {
-        super();
+    @UiConstructor
+    public DatePicker(DateTimePickerEngines engine) {
+        super(engine);
 
-        allowRanges = false;
-        showDatePicker = true;
-        showTimePicker = false;
-
-        setFormat("L");
-    }
-
-    public void setAllowRanges(boolean allowRanges) {
-        this.allowRanges = allowRanges;
-    }
-
-    public boolean getAllowRanges() {
-        return allowRanges;
+        options.setOnlyCalendar(true);
     }
 
 }

@@ -20,6 +20,9 @@
   -->
 
 <module rename-to='datetimepicker'>
+    <inherits name="elemental2.dom.Dom"/>
+    <inherits name="elemental2.core.Core"/>
+    <inherits name="elemental2.promise.Promise"/>
     <inherits name="org.gwtbootstrap5.GwtBootstrap5Base"/>
 
     <source path='client'/>

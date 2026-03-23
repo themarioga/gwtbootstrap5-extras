@@ -20,28 +20,22 @@ package org.gwtbootstrap5.extras.datetimepicker.client.ui.base;
  * ==========================LICENSE_END=================================
  */
 
-import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.JsDate;
-import com.google.gwt.core.client.ScriptInjector;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.editor.client.EditorError;
 import com.google.gwt.editor.client.HasEditorErrors;
 import com.google.gwt.editor.client.LeafValueEditor;
-import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.*;
 import org.gwtbootstrap5.client.shared.event.HideEvent;
 import org.gwtbootstrap5.client.shared.event.HideHandler;
 import org.gwtbootstrap5.client.shared.event.ShowEvent;
 import org.gwtbootstrap5.client.shared.event.ShowHandler;
 import org.gwtbootstrap5.client.ui.TextBox;
-import org.gwtbootstrap5.client.ui.base.ValueBoxBase;
 import org.gwtbootstrap5.client.ui.base.*;
+import org.gwtbootstrap5.client.ui.base.ValueBoxBase;
 import org.gwtbootstrap5.client.ui.base.helper.StyleHelper;
-import org.gwtbootstrap5.client.ui.base.mixin.BlankValidatorMixin;
 import org.gwtbootstrap5.client.ui.base.mixin.ErrorHandlerMixin;
 import org.gwtbootstrap5.client.ui.constants.DeviceSize;
 import org.gwtbootstrap5.client.ui.form.error.ErrorHandlerType;
@@ -50,11 +44,18 @@ import org.gwtbootstrap5.client.ui.form.validator.HasBlankValidator;
 import org.gwtbootstrap5.client.ui.form.validator.HasValidators;
 import org.gwtbootstrap5.client.ui.form.validator.ValidationChangedEvent.ValidationChangedHandler;
 import org.gwtbootstrap5.client.ui.form.validator.Validator;
-import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants.*;
+import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants.DateTimePickerEngines;
+import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.DateTimePickerOptions;
+import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.IDateTimePickerEngine;
+import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.IDateTimePickerHandlers;
+import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.airdatepicker.AirDatepickerEngine;
+import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.tempusdominus.TempusDominusEngine;
 import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.events.ChangeDateEvent;
 import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.events.ChangeDateHandler;
 import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.events.ErrorEvent;
 import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.events.ErrorHandler;
+import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.interfaces.*;
+import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.validators.DatePickerBlankValidatorMixin;
 
 import java.util.Date;
 import java.util.List;
@@ -65,47 +66,51 @@ import java.util.List;
  * @author themarioga
  */
 public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnly, HasId, HasResponsiveness, HasVisibility,
-        HasPlaceholder, HasAutoClose, HasMaximumDate, HasMinuteStep, HasShowTodayButton,
-        HasShowClearButton, HasMinimumDate, HasDateTimePickerHandlers, HasLocalization, HasName, HasValue<Date>,
-        HasViewMode, LeafValueEditor<Date>, HasEditorErrors<Date>, HasErrorHandler, HasValidators<Date>,
+        HasPlaceholder, HasAutoClose, HasMaximumDate, HasTimeStepping, HasShowTodayButton,
+        HasShowClearButton, HasMinimumDate, HasDateTimePickerHandlers, HasLocalization, HasFormat, HasName,
+        HasValue<Date>, HasMultiplesValues<Date>, LeafValueEditor<Date>, HasEditorErrors<Date>, HasErrorHandler, HasValidators<Date>,
         HasBlankValidator<Date> {
 
-    static class DatePickerValidatorMixin extends BlankValidatorMixin<DateTimePickerBase, Date> {
-        private boolean showing = false;
+    private final TextBox textBox;
 
-        public void setShowing(boolean showing) {
-            this.showing = showing;
-        }
+    private final ErrorHandlerMixin<Date> errorHandlerMixin = new ErrorHandlerMixin<>(this);
+    private final DatePickerBlankValidatorMixin validatorMixin = new DatePickerBlankValidatorMixin(this, errorHandlerMixin.getErrorHandler());
 
-        public DatePickerValidatorMixin(DateTimePickerBase inputWidget, org.gwtbootstrap5.client.ui.form.error.ErrorHandler errorHandler) {
-            super(inputWidget, errorHandler);
-        }
+    protected final DateTimePickerEngines engine; // TD by default
+    protected final DateTimePickerOptions options;
 
-        @Override
-        protected com.google.web.bindery.event.shared.HandlerRegistration setupBlurValidation() {
-            return getInputWidget().addDomHandler(event -> getInputWidget().validate(!showing && getValidateOnBlur()), BlurEvent.getType());
+    private final IDateTimePickerEngine dateTimePickerEngine;
+
+    public DateTimePickerBase(DateTimePickerEngines engine) {
+        textBox = new TextBox();
+        setElement((Element) textBox.getElement());
+
+        this.options = new DateTimePickerOptions();
+        this.engine = engine;
+
+        switch (engine) {
+            case TEMPUSDOMINUS -> dateTimePickerEngine = new TempusDominusEngine();
+            case AIRDATEPICKER -> dateTimePickerEngine = new AirDatepickerEngine();
+            default -> dateTimePickerEngine = new TempusDominusEngine();
         }
     }
 
-    private final TextBox textBox;
-    private JavaScriptObject tempusDominus;
-    private LeafValueEditor<Date> editor;
-    private final ErrorHandlerMixin<Date> errorHandlerMixin = new ErrorHandlerMixin<>(this);
-    private final DatePickerValidatorMixin validatorMixin = new DatePickerValidatorMixin(this,
-            errorHandlerMixin.getErrorHandler());
-    private final DateTimePickerProperties properties = new DateTimePickerProperties();
-    private DateTimePickerLocale locale = DateTimePickerLocale.EN;
-    private String format = "L LT";
+    /** {@inheritDoc} */
+    @Override
+    protected void onLoad() {
+        super.onLoad();
 
-    protected JsDate lastValue = null;
+        if (dateTimePickerEngine != null && !dateTimePickerEngine.isStarted()) {
+            dateTimePickerEngine.init(getElement(), options, getHandlers());
+        }
+    }
 
-    protected Boolean allowRanges;
-    protected Boolean showDatePicker;
-    protected Boolean showTimePicker;
+    /** {@inheritDoc} */
+    @Override
+    protected void onUnload() {
+        super.onUnload();
 
-    public DateTimePickerBase() {
-        textBox = new TextBox();
-        setElement((Element) textBox.getElement());
+        // ToDo: no se si hará falta destroy
     }
 
     /**
@@ -117,16 +122,32 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
      * <p/>
      * Otherwise date value is not updated.
      */
-    public void reload() {
-        configure();
+    public void reload(DateTimePickerOptions options) {
+        dateTimePickerEngine.updateProperties(options);
     }
 
     public void show() {
-        show(tempusDominus);
+        dateTimePickerEngine.show();
     }
 
     public void hide() {
-        hide(tempusDominus);
+        dateTimePickerEngine.hide();
+    }
+
+    public void setAlignment(final ValueBoxBase.TextAlignment align) {
+        textBox.setAlignment(align);
+    }
+
+    public String getBaseValue() {
+        return textBox.getValue();
+    }
+
+    public TextBox getTextBox() {
+        return textBox;
+    }
+
+    public DateTimePickerOptions getOptions() {
+        return options;
     }
 
     @Override
@@ -200,23 +221,8 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
 
     /** {@inheritDoc} */
     @Override
-    public void onShow(final Event e) {
-        validatorMixin.setShowing(true);
-        fireEvent(new ShowEvent(e));
-    }
-
-    /** {@inheritDoc} */
-    @Override
     public HandlerRegistration addShowHandler(final ShowHandler showHandler) {
         return addHandler(showHandler, ShowEvent.getType());
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void onHide(final Event e) {
-        validatorMixin.setShowing(false);
-        validate(getValidateOnBlur());
-        fireEvent(new HideEvent(e));
     }
 
     /** {@inheritDoc} */
@@ -227,22 +233,8 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
 
     /** {@inheritDoc} */
     @Override
-    public void onChangeDate(final Event e) {
-        fireEvent(new ChangeDateEvent(e));
-        ValueChangeEvent.fire(DateTimePickerBase.this, getValue());
-        hide();
-    }
-
-    /** {@inheritDoc} */
-    @Override
     public HandlerRegistration addChangeDateHandler(final ChangeDateHandler changeDateHandler) {
         return addHandler(changeDateHandler, ChangeDateEvent.getType());
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void onError(final Event e) {
-        fireEvent(new ErrorEvent(e));
     }
 
     /** {@inheritDoc} */
@@ -253,79 +245,28 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
 
     /** {@inheritDoc} */
     @Override
-    public void setLocale(final DateTimePickerLocale locale) {
-        if (locale == null) return;
-
-        loadLocale(locale);
-
-        setLocale(locale.getCode());
-
-        this.locale = locale;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public DateTimePickerLocale getLocale() {
-        return locale;
-    }
-
-    @Override
-    public void setViewMode(DateTimePickerViewMode viewMode) {
-        properties.setViewMode(viewMode.getValue());
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void setKeepOpen(final boolean keepOpen) {
-        properties.setKeepOpen(keepOpen);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void setMinDate(final Date minDate) {
-        properties.setMinDate(JsDate.create(minDate.getTime()));
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void clearMinDate() {
-        properties.setMinDate(null);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void setMaxDate(final Date maxDate) {
-        properties.setMaxDate(JsDate.create(maxDate.getTime()));
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void clearMaxDate() {
-        properties.setMaxDate(null);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void setMinuteStep(final int minuteStep) {
-        properties.setMinuteStepping(minuteStep);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void setShowTodayButton(final boolean showTodayButton) {
-        properties.setShowTodayButton(showTodayButton);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void setShowClearButton(final boolean showClearButton) {
-        properties.setShowClearButton(showClearButton);
+    public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<Date> dateValueChangeHandler) {
+        textBox.addValueChangeHandler(event -> ValueChangeEvent.fire(DateTimePickerBase.this, getValue()));
+        return addHandler(dateValueChangeHandler, ValueChangeEvent.getType());
     }
 
     /** {@inheritDoc} */
     @Override
     public com.google.web.bindery.event.shared.HandlerRegistration addValidationChangedHandler(ValidationChangedHandler handler) {
         return validatorMixin.addValidationChangedHandler(handler);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void setErrorHandler(org.gwtbootstrap5.client.ui.form.error.ErrorHandler errorHandler) {
+        errorHandlerMixin.setErrorHandler(errorHandler);
+        validatorMixin.setErrorHandler(errorHandler);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void reset() {
+        validatorMixin.reset();
     }
 
     /** {@inheritDoc} */
@@ -360,12 +301,6 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
 
     /** {@inheritDoc} */
     @Override
-    public void reset() {
-        validatorMixin.reset();
-    }
-
-    /** {@inheritDoc} */
-    @Override
     public void setValidateOnBlur(boolean validateOnBlur) {
         validatorMixin.setValidateOnBlur(validateOnBlur);
     }
@@ -396,13 +331,6 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
 
     /** {@inheritDoc} */
     @Override
-    public void setErrorHandler(org.gwtbootstrap5.client.ui.form.error.ErrorHandler errorHandler) {
-        errorHandlerMixin.setErrorHandler(errorHandler);
-        validatorMixin.setErrorHandler(errorHandler);
-    }
-
-    /** {@inheritDoc} */
-    @Override
     public ErrorHandlerType getErrorHandlerType() {
         return errorHandlerMixin.getErrorHandlerType();
     }
@@ -421,56 +349,150 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
 
     /** {@inheritDoc} */
     @Override
-    public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<Date> dateValueChangeHandler) {
-        textBox.addValueChangeHandler(event -> ValueChangeEvent.fire(DateTimePickerBase.this, getValue()));
-        return addHandler(dateValueChangeHandler, ValueChangeEvent.getType());
-    }
+    public void setKeepOpen(boolean keepOpen) {
+        options.setKeepOpen(keepOpen);
 
-    public void setFormat(String format) {
-        this.format = format;
-
-        if (tempusDominus != null) {
-            changeFormat(tempusDominus, format);
+        if (dateTimePickerEngine != null) {
+            dateTimePickerEngine.updateProperties(options);
         }
     }
 
-    public void setAlignment(final ValueBoxBase.TextAlignment align) {
-        textBox.setAlignment(align);
+    /** {@inheritDoc} */
+    @Override
+    public boolean isKeepOpen() {
+        return options.isKeepOpen();
     }
 
-    public String getFormat() {
-        return getFormat(tempusDominus);
+    /** {@inheritDoc} */
+    @Override
+    public void setLocale(final String locale) {
+        options.setLocale(locale);
+
+        if (dateTimePickerEngine != null) {
+            dateTimePickerEngine.updateProperties(options);
+        }
     }
 
-    public DateTimePickerProperties getProperties() {
-        return properties;
+    /** {@inheritDoc} */
+    @Override
+    public String getLocale() {
+        return options.getLocale();
     }
 
-    public String getBaseValue() {
-        return textBox.getValue();
+    /** {@inheritDoc} */
+    @Override
+    public void setMinDate(final Date minDate) {
+        options.setMinDate(minDate);
+
+        if (dateTimePickerEngine != null) {
+            dateTimePickerEngine.updateProperties(options);
+        }
     }
 
-    public TextBox getTextBox() {
-        return textBox;
+    /** {@inheritDoc} */
+    @Override
+    public void clearMinDate() {
+        options.setMinDate(null);
+
+        if (dateTimePickerEngine != null) {
+            dateTimePickerEngine.updateProperties(options);
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void setMaxDate(final Date maxDate) {
+        options.setMaxDate(maxDate);
+
+        if (dateTimePickerEngine != null) {
+            dateTimePickerEngine.updateProperties(options);
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void clearMaxDate() {
+        options.setMaxDate(null);
+
+        if (dateTimePickerEngine != null) {
+            dateTimePickerEngine.updateProperties(options);
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void setHourStep(final int hourStep) {
+        options.setHourStep(hourStep);
+
+        if (dateTimePickerEngine != null) {
+            dateTimePickerEngine.updateProperties(options);
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void setMinuteStep(final int minuteStep) {
+        options.setMinuteStep(minuteStep);
+
+        if (dateTimePickerEngine != null) {
+            dateTimePickerEngine.updateProperties(options);
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void setShowTodayButton(final boolean showTodayButton) {
+        options.setShowTodayButton(showTodayButton);
+
+        if (dateTimePickerEngine != null) {
+            dateTimePickerEngine.updateProperties(options);
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void setShowClearButton(final boolean showClearButton) {
+        options.setShowClearButton(showClearButton);
+
+        if (dateTimePickerEngine != null) {
+            dateTimePickerEngine.updateProperties(options);
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void setDateFormat(String format) {
+        options.setDateFormat(format);
+
+        if (dateTimePickerEngine != null) {
+            dateTimePickerEngine.updateProperties(options);
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void setTimeFormat(String format) {
+        options.setTimeFormat(format);
+
+        if (dateTimePickerEngine != null) {
+            dateTimePickerEngine.updateProperties(options);
+        }
     }
 
     public void clear() {
-        clear(tempusDominus);
+        if (dateTimePickerEngine != null) {
+            dateTimePickerEngine.clear(false);
+        }
     }
 
     /** {@inheritDoc} */
     @Override
     public Date getValue() {
-        try {
-            JsDate jsDate = getValue(tempusDominus);
-            if (jsDate != null) {
-                return new Date((long) jsDate.getTime());
-            }
-
-            return null;
-        } catch (final Exception e) {
-            return null;
+        if (dateTimePickerEngine != null) {
+            return dateTimePickerEngine.getDate();
         }
+
+        return null;
     }
 
     /** {@inheritDoc} */
@@ -482,204 +504,65 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
     /** {@inheritDoc} */
     @Override
     public void setValue(final Date value, final boolean fireEvents) {
-        errorHandlerMixin.clearErrors();
+        if (dateTimePickerEngine != null) {
+            errorHandlerMixin.clearErrors();
 
-        if (value == null) {
-            clear();
-        } else {
-            setValue(JsDate.create(value.getTime()));
-        }
-
-        if (fireEvents) {
-            ValueChangeEvent.fire(DateTimePickerBase.this, value);
-        }
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    protected void onLoad() {
-        super.onLoad();
-
-        configure();
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    protected void onUnload() {
-        super.onUnload();
-
-        destroy();
-    }
-
-    protected void configure() {
-        if (allowRanges == null || showDatePicker == null || showTimePicker == null)
-            throw new IllegalArgumentException("allowRanges, showDatePicker and showTimePicker cannot be null");
-
-        // If configuring not for the first time, datetimepicker must be removed first.
-        destroy();
-
-        loadLocale(locale);
-
-        tempusDominus = configure(getElement(), allowRanges, showDatePicker, showTimePicker, properties.toJavaScript());
-
-        setLocale(locale);
-
-        changeFormat(tempusDominus, format);
-
-        if (this.lastValue != null) {
-            setValue(tempusDominus, this.lastValue);
-        }
-    }
-
-    protected void setValue(JsDate value) {
-        setValue(tempusDominus, value);
-    }
-
-    protected void destroy () {
-        this.lastValue = getValue(tempusDominus);
-
-        destroy(tempusDominus);
-    }
-
-    protected native void destroy(JavaScriptObject td) /*-{
-        if (td) {
-            td.dispose();
-        }
-    }-*/;
-
-    protected native void clear(JavaScriptObject td) /*-{
-        if (td) {
-            td.clear();
-        }
-    }-*/;
-
-    protected native void disable(JavaScriptObject td) /*-{
-        if (td) {
-            td.disable();
-        }
-    }-*/;
-
-    protected native void enable(JavaScriptObject td) /*-{
-        if (td) {
-            td.enable();
-        }
-    }-*/;
-
-    protected native void toggle(JavaScriptObject td) /*-{
-        if (td) {
-            td.toggle();
-        }
-    }-*/;
-
-    protected native void show(JavaScriptObject td) /*-{
-        if (td) {
-            td.show();
-        }
-    }-*/;
-
-    protected native void hide(JavaScriptObject td) /*-{
-        if (td) {
-            td.hide();
-        }
-    }-*/;
-
-    protected native void changeFormat(JavaScriptObject td, String format) /*-{
-        if (td) {
-            td.updateOptions({localization: {format: format}})
-        }
-    }-*/;
-
-    protected native JsDate getViewDate(JavaScriptObject td) /*-{
-        if (td) {
-            return td.viewDate;
-        }
-
-        return null;
-    }-*/;
-
-    protected native void setViewDate(JavaScriptObject td, JsDate date) /*-{
-        if (td) {
-            if (date) {
-                td.viewDate = $wnd.tempusDominus.DateTime.convert(date);
-            }
-        }
-    }-*/;
-
-    protected native JsDate getValue(JavaScriptObject td) /*-{
-        if (td) {
-            return td.dates.picked.length > 0 ? td.dates.parseInput(td.dates.formatInput(td.dates.picked[0])) : null;
-        }
-
-        return null;
-    }-*/;
-
-    protected native void setValue(JavaScriptObject td, JsDate date) /*-{
-        if (td) {
-            if (date) {
-                var obj = td.dates.parseInput(date);
-                td.viewDate = obj;
-                td.dates.setFromInput(td.dates.formatInput(obj));
+            if (value == null) {
+                dateTimePickerEngine.clear(!fireEvents);
             } else {
-                td.clear();
+                dateTimePickerEngine.setDate(value, !fireEvents);
+            }
+
+            if (fireEvents) {
+                ValueChangeEvent.fire(DateTimePickerBase.this, value);
             }
         }
-    }-*/;
+    }
 
-    protected native JavaScriptObject configure(Element e, boolean allowRanges, boolean showDatePicker, boolean showTimePicker, JavaScriptObject properties) /*-{
-        var that = this;
-
-        properties.dateRange = allowRanges;
-        properties.display.components.calendar = showDatePicker;
-        properties.display.components.clock = showTimePicker;
-
-        var timepicker = new $wnd.tempusDominus.TempusDominus(e, properties);
-
-        $wnd.jQuery(e).on('show.td', function (e) {
-            that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerBase::onShow(Lcom/google/gwt/user/client/Event;)(e);
-        })
-        .on("hide.td", function (e) {
-            that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerBase::onHide(Lcom/google/gwt/user/client/Event;)(e);
-        })
-        .on("change.td", function (e) {
-            that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerBase::onChangeDate(Lcom/google/gwt/user/client/Event;)(e);
-        })
-        .on("error.td", function (e) {
-            that.@org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerBase::onError(Lcom/google/gwt/user/client/Event;)(e);
-        });
-
-        return timepicker;
-    }-*/;
-
-    private void loadLocale(DateTimePickerLocale locale) {
-        // Inject the JS for the language
-        if (locale.getJs() != null) {
-            ScriptInjector.fromString(locale.getJs().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
+    @Override
+    public List<Date> getMultipleValues() {
+        if (dateTimePickerEngine != null) {
+            return dateTimePickerEngine.getMultipleDates();
         }
 
-        JavaScriptObject jso = DateTimePickerLocale.getLocale(locale.getCode());
-
-        loadLocale(jso);
+        return List.of();
     }
 
-    private native void loadLocale(JavaScriptObject locale) /*-{
-        //load the locale
-        $wnd.tempusDominus.loadLocale(locale);
-
-        //globally
-        $wnd.tempusDominus.locale(locale.name); //set the default options to use from the plugin
-    }-*/;
-
-    private void setLocale(String langCode) {
-        if (tempusDominus == null) return;
-        setLocale(tempusDominus, langCode);
+    @Override
+    public void setMultipleValues(List<Date> values) {
+        if (dateTimePickerEngine != null) {
+            dateTimePickerEngine.setMultipleDates(values, false);
+        }
     }
 
-    private native void setLocale(JavaScriptObject td, String langCode) /*-{
-        td.locale(langCode);
-    }-*/;
+    @Override
+    public void setMultipleValues(List<Date> values, boolean fireEvents) {
+        if (dateTimePickerEngine != null) {
+            dateTimePickerEngine.setMultipleDates(values, fireEvents);
+        }
+    }
 
-    private native String getFormat(JavaScriptObject td) /*-{
-        return td.options.localization.format;
-    }-*/;
+    // --- Private methods ---
 
+    private IDateTimePickerHandlers getHandlers() {
+        return new IDateTimePickerHandlers() {
+            @Override
+            public void onShow() {
+                validatorMixin.setShowing(true);
+                fireEvent(new ShowEvent());
+            }
+
+            @Override
+            public void onHide() {
+                validatorMixin.setShowing(false);
+                validate(getValidateOnBlur());
+                fireEvent(new HideEvent());
+            }
+
+            @Override
+            public void onChangeValue(List<Date> dates) {
+                ValueChangeEvent.fire(DateTimePickerBase.this, !dates.isEmpty() ? dates.get(0) : null);
+            }
+        };
+    }
 }

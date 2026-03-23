@@ -20,21 +20,20 @@ package org.gwtbootstrap5.extras.timepicker.client.ui;
  * ==========================LICENSE_END=================================
  */
 
+import com.google.gwt.uibinder.client.UiConstructor;
 import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerBase;
+import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants.DateTimePickerEngines;
 
 /**
  * @author themarioga
  */
 public class TimePicker extends DateTimePickerBase {
 
-    public TimePicker() {
-        super();
+    @UiConstructor
+    public TimePicker(DateTimePickerEngines engine) {
+        super(engine);
 
-        allowRanges = false;
-        showDatePicker = false;
-        showTimePicker = true;
-
-        setFormat("LT");
+        options.setOnlyTime(true);
     }
 
 }

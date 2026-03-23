@@ -6,13 +6,13 @@
 	<parent>
 		<groupId>org.gwtbootstrap5</groupId>
 		<artifactId>gwtbootstrap5-parent</artifactId>
-		<version>0.1.6.1</version>
+		<version>0.1.7</version>
 	</parent>
 
 	<artifactId>gwtbootstrap5-extras</artifactId>
 	<name>GwtBootstrap5 Extras</name>
 	<description>Extra, third-party widgets/components for GwtBootstrap5</description>
-	<url>http://gwtbootstrap5.org</url>
+	<url>https://gwtbootstrap5.org</url>
 	<packaging>gwt-lib</packaging>
 
 	<scm>
@@ -33,7 +33,7 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>gwtbootstrap5</artifactId>
-			<version>${parent.version}</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 
         <!-- GWT -->
@@ -44,6 +44,18 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava-gwt</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.elemental2</groupId>
+			<artifactId>elemental2-dom</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.elemental2</groupId>
+			<artifactId>elemental2-promise</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.elemental2</groupId>
+			<artifactId>elemental2-core</artifactId>
 		</dependency>
 	</dependencies>
 

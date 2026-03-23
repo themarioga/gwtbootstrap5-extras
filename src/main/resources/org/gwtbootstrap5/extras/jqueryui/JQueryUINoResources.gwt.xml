@@ -19,7 +19,7 @@
   ==========================LICENSE_END=================================
   -->
 
-<module rename-to='slider'>
+<module rename-to='jqueryui'>
     <inherits name="org.gwtbootstrap5.GwtBootstrap5Base"/>
 
     <source path='client'/>
