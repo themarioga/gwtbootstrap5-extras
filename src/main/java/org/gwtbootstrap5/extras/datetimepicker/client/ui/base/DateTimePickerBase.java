@@ -94,7 +94,7 @@ public abstract class DateTimePickerBase extends Widget implements HasEnabled, H
         if (dateTimePickerEngine != null && !dateTimePickerEngine.isStarted()) {
             dateTimePickerEngine.init(getElement(), options, getHandlers());
 
-            setValue(value, false);
+            if (value != null) setValue(value, false);
         }
     }
 
