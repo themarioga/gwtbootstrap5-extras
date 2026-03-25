@@ -513,7 +513,7 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasValue<T>
     }
 
     @Override
-    public List<T> getOptions(T option) {
+    public List<T> getOptions() {
         return new ArrayList<>(optionList.values());
     }
 
