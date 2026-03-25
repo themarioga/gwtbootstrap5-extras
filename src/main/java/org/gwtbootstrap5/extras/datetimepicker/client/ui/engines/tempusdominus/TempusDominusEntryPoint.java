@@ -1,10 +1,10 @@
-package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines;
+package org.gwtbootstrap5.extras.datetimepicker.client.ui.engines.tempusdominus;
 
 /*-
  * ==========================LICENSE_START===============================
  * GwtBootstrap5
  * ======================================================================
- * Copyright (C) 2026 GwtBootstrap5
+ * Copyright (C) 2023 - 2026 GwtBootstrap5
  * ======================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,13 +20,17 @@ package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines;
  * ==========================LICENSE_END=================================
  */
 
-import java.util.Date;
-import java.util.List;
+import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.ScriptInjector;
 
-public interface IDateTimePickerHandlers {
+/**
+ * @author Sven Jacobs
+ */
+public class TempusDominusEntryPoint implements EntryPoint {
 
-    void onShow();
-    void onHide();
-    void onChangeValue(List<Date> dates);
-
+    @Override
+    public void onModuleLoad() {
+        ScriptInjector.fromString(TempusDominusClientBundle.INSTANCE.tempusDominus().getText())
+                .setWindow(ScriptInjector.TOP_WINDOW).inject();
+    }
 }

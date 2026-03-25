@@ -20,11 +20,19 @@
   -->
 
 <module>
+    <inherits name="com.google.common.io.Io"/>
+    <inherits name="com.google.common.collect.Collect"/>
+    <inherits name="com.google.gwt.resources.Resources"/>
+    <inherits name="elemental2.dom.Dom"/>
+    <inherits name="elemental2.core.Core"/>
+    <inherits name="elemental2.promise.Promise"/>
+    <inherits name="org.gwtbootstrap5.extras.popper.Popper"/>
+
     <public path="resource">
-        <include name="tempus-dominus-6.10.4/css/tempus-dominus.min.cache.css"/>
         <include name="air-datepicker-3.5.3/css/air-datepicker.min.cache.css"/>
     </public>
 
-    <stylesheet src="tempus-dominus-6.10.4/css/tempus-dominus.min.cache.css"/>
     <stylesheet src="air-datepicker-3.5.3/css/air-datepicker.min.cache.css"/>
+
+    <entry-point class="org.gwtbootstrap5.extras.datetimepicker.client.ui.engines.airdatepicker.AirDatepickerEntryPoint"/>
 </module>

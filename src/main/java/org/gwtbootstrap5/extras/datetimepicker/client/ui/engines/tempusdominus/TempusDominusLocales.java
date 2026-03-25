@@ -1,4 +1,4 @@
-package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.tempusdominus;
+package org.gwtbootstrap5.extras.datetimepicker.client.ui.engines.tempusdominus;
 
 /*-
  * ==========================LICENSE_START===============================
@@ -23,39 +23,38 @@ package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.tempusdom
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.ScriptInjector;
 import com.google.gwt.resources.client.TextResource;
-import org.gwtbootstrap5.extras.datetimepicker.client.DateTimePickerClientBundle;
-import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.airdatepicker.AirDatepickerLocales;
+import org.gwtbootstrap5.extras.datetimepicker.client.ui.engines.airdatepicker.AirDatepickerClientBundle;
 
 /**
  * @author Joshua Godi
  */
 public enum TempusDominusLocales {
-    AR("ar", DateTimePickerClientBundle.INSTANCE.tdlocales_ar()),
-    AR_SA("ar-SA", DateTimePickerClientBundle.INSTANCE.tdlocales_ar_SA()),
-    CA("ca", DateTimePickerClientBundle.INSTANCE.tdlocales_ca()),
-    CS("cs", DateTimePickerClientBundle.INSTANCE.tdlocales_cs()),
-    DE("de", DateTimePickerClientBundle.INSTANCE.tdlocales_de()),
-    ES("es", DateTimePickerClientBundle.INSTANCE.tdlocales_es()),
-    FI("fi", DateTimePickerClientBundle.INSTANCE.tdlocales_fi()),
-    FR("fr", DateTimePickerClientBundle.INSTANCE.tdlocales_fr()),
-    HR("hr", DateTimePickerClientBundle.INSTANCE.tdlocales_hr()),
-    HU("hy", DateTimePickerClientBundle.INSTANCE.tdlocales_hy()),
-    IT("it", DateTimePickerClientBundle.INSTANCE.tdlocales_it()),
-    NL("nl", DateTimePickerClientBundle.INSTANCE.tdlocales_nl()),
-    PL("pl", DateTimePickerClientBundle.INSTANCE.tdlocales_pl()),
-    PT_PT("pt-PT", DateTimePickerClientBundle.INSTANCE.tdlocales_pt_PT()),
-    RO("ro", DateTimePickerClientBundle.INSTANCE.tdlocales_ro()),
-    RU("ru", DateTimePickerClientBundle.INSTANCE.tdlocales_ru()),
-    SK("sk", DateTimePickerClientBundle.INSTANCE.tdlocales_sk()),
-    SL("sl", DateTimePickerClientBundle.INSTANCE.tdlocales_sl()),
-    SR("sr", DateTimePickerClientBundle.INSTANCE.tdlocales_sr()),
-    SR_LATIN("sr-latin", DateTimePickerClientBundle.INSTANCE.tdlocales_sr_LATN()),
-    TR("tr", DateTimePickerClientBundle.INSTANCE.tdlocales_tr()),
-    UK("uk", DateTimePickerClientBundle.INSTANCE.tdlocales_uk()),
-    ZH_CN("zh-CN", DateTimePickerClientBundle.INSTANCE.tdlocales_zh_CN()),
-    ZH_HK("zh-HK", DateTimePickerClientBundle.INSTANCE.tdlocales_zh_HK()),
-    ZH_MO("zh-MO", DateTimePickerClientBundle.INSTANCE.tdlocales_zh_MO()),
-    ZH_TW("zh-TW", DateTimePickerClientBundle.INSTANCE.tdlocales_zh_TW()),
+    AR("ar", TempusDominusClientBundle.INSTANCE.tdlocales_ar()),
+    AR_SA("ar-SA", TempusDominusClientBundle.INSTANCE.tdlocales_ar_SA()),
+    CA("ca", TempusDominusClientBundle.INSTANCE.tdlocales_ca()),
+    CS("cs", TempusDominusClientBundle.INSTANCE.tdlocales_cs()),
+    DE("de", TempusDominusClientBundle.INSTANCE.tdlocales_de()),
+    ES("es", TempusDominusClientBundle.INSTANCE.tdlocales_es()),
+    FI("fi", TempusDominusClientBundle.INSTANCE.tdlocales_fi()),
+    FR("fr", TempusDominusClientBundle.INSTANCE.tdlocales_fr()),
+    HR("hr", TempusDominusClientBundle.INSTANCE.tdlocales_hr()),
+    HU("hy", TempusDominusClientBundle.INSTANCE.tdlocales_hy()),
+    IT("it", TempusDominusClientBundle.INSTANCE.tdlocales_it()),
+    NL("nl", TempusDominusClientBundle.INSTANCE.tdlocales_nl()),
+    PL("pl", TempusDominusClientBundle.INSTANCE.tdlocales_pl()),
+    PT_PT("pt-PT", TempusDominusClientBundle.INSTANCE.tdlocales_pt_PT()),
+    RO("ro", TempusDominusClientBundle.INSTANCE.tdlocales_ro()),
+    RU("ru", TempusDominusClientBundle.INSTANCE.tdlocales_ru()),
+    SK("sk", TempusDominusClientBundle.INSTANCE.tdlocales_sk()),
+    SL("sl", TempusDominusClientBundle.INSTANCE.tdlocales_sl()),
+    SR("sr", TempusDominusClientBundle.INSTANCE.tdlocales_sr()),
+    SR_LATIN("sr-latin", TempusDominusClientBundle.INSTANCE.tdlocales_sr_LATN()),
+    TR("tr", TempusDominusClientBundle.INSTANCE.tdlocales_tr()),
+    UK("uk", TempusDominusClientBundle.INSTANCE.tdlocales_uk()),
+    ZH_CN("zh-CN", TempusDominusClientBundle.INSTANCE.tdlocales_zh_CN()),
+    ZH_HK("zh-HK", TempusDominusClientBundle.INSTANCE.tdlocales_zh_HK()),
+    ZH_MO("zh-MO", TempusDominusClientBundle.INSTANCE.tdlocales_zh_MO()),
+    ZH_TW("zh-TW", TempusDominusClientBundle.INSTANCE.tdlocales_zh_TW()),
     EN("en", null); // Base language, don't need another file
 
     private final String code;

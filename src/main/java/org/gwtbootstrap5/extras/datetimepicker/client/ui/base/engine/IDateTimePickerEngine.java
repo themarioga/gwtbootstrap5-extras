@@ -1,4 +1,4 @@
-package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants;
+package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engine;
 
 /*-
  * ==========================LICENSE_START===============================
@@ -20,7 +20,23 @@ package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants;
  * ==========================LICENSE_END=================================
  */
 
-public enum DateTimePickerEngines {
-    TEMPUSDOMINUS,
-    AIRDATEPICKER
+import java.util.Date;
+import java.util.List;
+
+public interface IDateTimePickerEngine {
+
+    void init(com.google.gwt.dom.client.Element element, DateTimePickerOptions options, IDateTimePickerHandlers handlers);
+    void updateProperties(DateTimePickerOptions options);
+    void destroy();
+    void show();
+    void hide();
+    void toggle();
+    void clear(boolean silent);
+    void setViewDate(Date date);
+    void setDate(Date date, boolean silent);
+    Date getDate();
+    void setMultipleDates(List<Date> dates, boolean silent);
+    List<Date> getMultipleDates();
+    boolean isStarted();
+
 }

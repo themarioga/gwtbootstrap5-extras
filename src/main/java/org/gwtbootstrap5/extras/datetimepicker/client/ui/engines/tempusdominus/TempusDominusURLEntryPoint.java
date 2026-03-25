@@ -1,4 +1,4 @@
-package org.gwtbootstrap5.extras.datetimepicker.client;
+package org.gwtbootstrap5.extras.datetimepicker.client.ui.engines.tempusdominus;
 
 /*-
  * ==========================LICENSE_START===============================
@@ -27,7 +27,7 @@ import org.gwtbootstrap5.client.ui.util.StyleInjector;
 /**
  * @author Sven Jacobs
  */
-public class DateTimePickerURLEntryPoint implements EntryPoint {
+public class TempusDominusURLEntryPoint implements EntryPoint {
 
     @Override
     public void onModuleLoad() {
@@ -35,10 +35,5 @@ public class DateTimePickerURLEntryPoint implements EntryPoint {
                 .setWindow(ScriptInjector.TOP_WINDOW).inject();
 
         StyleInjector.injectCSS("https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.9.4/dist/css/tempus-dominus.min.css");
-
-        ScriptInjector.fromUrl("https://cdn.jsdelivr.net/npm/air-datepicker@3.6.0/air-datepicker.min.js")
-                .setWindow(ScriptInjector.TOP_WINDOW).inject();
-
-        StyleInjector.injectCSS("https://cdn.jsdelivr.net/npm/air-datepicker@3.6.0/air-datepicker.min.css");
     }
 }

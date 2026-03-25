@@ -1,4 +1,4 @@
-package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.airdatepicker;
+package org.gwtbootstrap5.extras.datetimepicker.client.ui.engines.airdatepicker;
 
 /*-
  * ==========================LICENSE_START===============================
@@ -23,46 +23,44 @@ package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.airdatepi
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.ScriptInjector;
 import com.google.gwt.resources.client.TextResource;
-import org.gwtbootstrap5.client.GwtBootstrap5ClientBundle;
-import org.gwtbootstrap5.extras.datetimepicker.client.DateTimePickerClientBundle;
 
 /**
  * @author Joshua Godi
  */
 public enum AirDatepickerLocales {
-    AR("ar", DateTimePickerClientBundle.INSTANCE.adlocales_ar()),
-    BG("bg", DateTimePickerClientBundle.INSTANCE.adlocales_bg()),
-    BR("br", DateTimePickerClientBundle.INSTANCE.adlocales_br()),
-    CA("ca", DateTimePickerClientBundle.INSTANCE.adlocales_ca()),
-    CS("cs", DateTimePickerClientBundle.INSTANCE.adlocales_cs()),
-    DA("da", DateTimePickerClientBundle.INSTANCE.adlocales_da()),
-    DE("de", DateTimePickerClientBundle.INSTANCE.adlocales_de()),
-    EL("el", DateTimePickerClientBundle.INSTANCE.adlocales_el()),
-    EN("en", DateTimePickerClientBundle.INSTANCE.adlocales_en()),
-    ES("es", DateTimePickerClientBundle.INSTANCE.adlocales_es()),
-    EU("eu", DateTimePickerClientBundle.INSTANCE.adlocales_eu()),
-    FI("fi", DateTimePickerClientBundle.INSTANCE.adlocales_fi()),
-    FR("fr", DateTimePickerClientBundle.INSTANCE.adlocales_fr()),
-    HR("hr", DateTimePickerClientBundle.INSTANCE.adlocales_hr()),
-    HU("hu", DateTimePickerClientBundle.INSTANCE.adlocales_hu()),
-    ID("id", DateTimePickerClientBundle.INSTANCE.adlocales_id()),
-    IT("it", DateTimePickerClientBundle.INSTANCE.adlocales_it()),
-    JA("ja", DateTimePickerClientBundle.INSTANCE.adlocales_ja()),
-    KO("ko", DateTimePickerClientBundle.INSTANCE.adlocales_ko()),
-    NB("nb", DateTimePickerClientBundle.INSTANCE.adlocales_nb()),
-    NL("nl", DateTimePickerClientBundle.INSTANCE.adlocales_nl()),
-    PL("pl", DateTimePickerClientBundle.INSTANCE.adlocales_pl()),
-    PT("pt", DateTimePickerClientBundle.INSTANCE.adlocales_pt()),
-    RO("ro", DateTimePickerClientBundle.INSTANCE.adlocales_ro()),
-    RU("ru", DateTimePickerClientBundle.INSTANCE.adlocales_ru()),
-    SI("si", DateTimePickerClientBundle.INSTANCE.adlocales_si()),
-    SK("sk", DateTimePickerClientBundle.INSTANCE.adlocales_sk()),
-    SL("sl", DateTimePickerClientBundle.INSTANCE.adlocales_sl()),
-    SR("sv", DateTimePickerClientBundle.INSTANCE.adlocales_sv()),
-    TH("th", DateTimePickerClientBundle.INSTANCE.adlocales_th()),
-    TR("tr", DateTimePickerClientBundle.INSTANCE.adlocales_tr()),
-    UK("uk", DateTimePickerClientBundle.INSTANCE.adlocales_uk()),
-    ZH("zh", DateTimePickerClientBundle.INSTANCE.adlocales_zh());
+    AR("ar", AirDatepickerClientBundle.INSTANCE.adlocales_ar()),
+    BG("bg", AirDatepickerClientBundle.INSTANCE.adlocales_bg()),
+    BR("br", AirDatepickerClientBundle.INSTANCE.adlocales_br()),
+    CA("ca", AirDatepickerClientBundle.INSTANCE.adlocales_ca()),
+    CS("cs", AirDatepickerClientBundle.INSTANCE.adlocales_cs()),
+    DA("da", AirDatepickerClientBundle.INSTANCE.adlocales_da()),
+    DE("de", AirDatepickerClientBundle.INSTANCE.adlocales_de()),
+    EL("el", AirDatepickerClientBundle.INSTANCE.adlocales_el()),
+    EN("en", AirDatepickerClientBundle.INSTANCE.adlocales_en()),
+    ES("es", AirDatepickerClientBundle.INSTANCE.adlocales_es()),
+    EU("eu", AirDatepickerClientBundle.INSTANCE.adlocales_eu()),
+    FI("fi", AirDatepickerClientBundle.INSTANCE.adlocales_fi()),
+    FR("fr", AirDatepickerClientBundle.INSTANCE.adlocales_fr()),
+    HR("hr", AirDatepickerClientBundle.INSTANCE.adlocales_hr()),
+    HU("hu", AirDatepickerClientBundle.INSTANCE.adlocales_hu()),
+    ID("id", AirDatepickerClientBundle.INSTANCE.adlocales_id()),
+    IT("it", AirDatepickerClientBundle.INSTANCE.adlocales_it()),
+    JA("ja", AirDatepickerClientBundle.INSTANCE.adlocales_ja()),
+    KO("ko", AirDatepickerClientBundle.INSTANCE.adlocales_ko()),
+    NB("nb", AirDatepickerClientBundle.INSTANCE.adlocales_nb()),
+    NL("nl", AirDatepickerClientBundle.INSTANCE.adlocales_nl()),
+    PL("pl", AirDatepickerClientBundle.INSTANCE.adlocales_pl()),
+    PT("pt", AirDatepickerClientBundle.INSTANCE.adlocales_pt()),
+    RO("ro", AirDatepickerClientBundle.INSTANCE.adlocales_ro()),
+    RU("ru", AirDatepickerClientBundle.INSTANCE.adlocales_ru()),
+    SI("si", AirDatepickerClientBundle.INSTANCE.adlocales_si()),
+    SK("sk", AirDatepickerClientBundle.INSTANCE.adlocales_sk()),
+    SL("sl", AirDatepickerClientBundle.INSTANCE.adlocales_sl()),
+    SR("sv", AirDatepickerClientBundle.INSTANCE.adlocales_sv()),
+    TH("th", AirDatepickerClientBundle.INSTANCE.adlocales_th()),
+    TR("tr", AirDatepickerClientBundle.INSTANCE.adlocales_tr()),
+    UK("uk", AirDatepickerClientBundle.INSTANCE.adlocales_uk()),
+    ZH("zh", AirDatepickerClientBundle.INSTANCE.adlocales_zh());
 
     // Base language, don't need another file
 

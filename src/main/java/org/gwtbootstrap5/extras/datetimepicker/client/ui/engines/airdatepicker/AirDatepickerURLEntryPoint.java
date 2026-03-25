@@ -1,4 +1,4 @@
-package org.gwtbootstrap5.extras.datetimepicker.client;
+package org.gwtbootstrap5.extras.datetimepicker.client.ui.engines.airdatepicker;
 
 /*-
  * ==========================LICENSE_START===============================
@@ -22,17 +22,18 @@ package org.gwtbootstrap5.extras.datetimepicker.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.ScriptInjector;
+import org.gwtbootstrap5.client.ui.util.StyleInjector;
 
 /**
  * @author Sven Jacobs
  */
-public class DateTimePickerEntryPoint implements EntryPoint {
+public class AirDatepickerURLEntryPoint implements EntryPoint {
 
     @Override
     public void onModuleLoad() {
-        ScriptInjector.fromString(DateTimePickerClientBundle.INSTANCE.tempusDominus().getText())
+        ScriptInjector.fromUrl("https://cdn.jsdelivr.net/npm/air-datepicker@3.6.0/air-datepicker.min.js")
                 .setWindow(ScriptInjector.TOP_WINDOW).inject();
-        ScriptInjector.fromString(DateTimePickerClientBundle.INSTANCE.airDatepicker().getText())
-                .setWindow(ScriptInjector.TOP_WINDOW).inject();
+
+        StyleInjector.injectCSS("https://cdn.jsdelivr.net/npm/air-datepicker@3.6.0/air-datepicker.min.css");
     }
 }

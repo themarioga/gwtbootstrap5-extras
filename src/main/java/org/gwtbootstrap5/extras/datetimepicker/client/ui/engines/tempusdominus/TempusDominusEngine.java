@@ -1,4 +1,4 @@
-package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.tempusdominus;
+package org.gwtbootstrap5.extras.datetimepicker.client.ui.engines.tempusdominus;
 
 /*-
  * ==========================LICENSE_START===============================
@@ -24,10 +24,9 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.Scheduler;
 import elemental2.dom.Element;
 import jsinterop.base.Js;
-import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.DateTimePickerOptions;
-import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.IDateTimePickerEngine;
-import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.IDateTimePickerHandlers;
-import org.jspecify.annotations.NonNull;
+import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engine.DateTimePickerOptions;
+import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engine.IDateTimePickerEngine;
+import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engine.IDateTimePickerHandlers;
 
 import java.util.ArrayList;
 import java.util.Date;

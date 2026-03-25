@@ -22,7 +22,6 @@ package org.gwtbootstrap5.extras.popper.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.ScriptInjector;
-import org.gwtbootstrap5.client.ui.util.StyleInjector;
 
 /**
  * @author Sven Jacobs

@@ -44,12 +44,9 @@ import org.gwtbootstrap5.client.ui.form.validator.HasBlankValidator;
 import org.gwtbootstrap5.client.ui.form.validator.HasValidators;
 import org.gwtbootstrap5.client.ui.form.validator.ValidationChangedEvent.ValidationChangedHandler;
 import org.gwtbootstrap5.client.ui.form.validator.Validator;
-import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants.DateTimePickerEngines;
-import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.DateTimePickerOptions;
-import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.IDateTimePickerEngine;
-import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.IDateTimePickerHandlers;
-import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.airdatepicker.AirDatepickerEngine;
-import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.tempusdominus.TempusDominusEngine;
+import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engine.DateTimePickerOptions;
+import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engine.IDateTimePickerEngine;
+import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engine.IDateTimePickerHandlers;
 import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.events.ChangeDateEvent;
 import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.events.ChangeDateHandler;
 import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.events.ErrorEvent;
@@ -65,7 +62,7 @@ import java.util.List;
  * @author Steven Jardine
  * @author themarioga
  */
-public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnly, HasId, HasResponsiveness, HasVisibility,
+public abstract class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnly, HasId, HasResponsiveness, HasVisibility,
         HasPlaceholder, HasAutoClose, HasMaximumDate, HasTimeStepping, HasShowTodayButton,
         HasShowClearButton, HasMinimumDate, HasDateTimePickerHandlers, HasLocalization, HasFormat, HasName,
         HasValue<Date>, HasMultiplesValues<Date>, LeafValueEditor<Date>, HasEditorErrors<Date>, HasErrorHandler, HasValidators<Date>,
@@ -76,23 +73,15 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
     private final ErrorHandlerMixin<Date> errorHandlerMixin = new ErrorHandlerMixin<>(this);
     private final DatePickerBlankValidatorMixin validatorMixin = new DatePickerBlankValidatorMixin(this, errorHandlerMixin.getErrorHandler());
 
-    protected final DateTimePickerEngines engine; // TD by default
+    protected final IDateTimePickerEngine dateTimePickerEngine;
     protected final DateTimePickerOptions options;
 
-    private final IDateTimePickerEngine dateTimePickerEngine;
-
-    public DateTimePickerBase(DateTimePickerEngines engine) {
+    protected DateTimePickerBase(IDateTimePickerEngine dateTimePickerEngine) {
         textBox = new TextBox();
         setElement((Element) textBox.getElement());
 
         this.options = new DateTimePickerOptions();
-        this.engine = engine;
-
-        switch (engine) {
-            case TEMPUSDOMINUS -> dateTimePickerEngine = new TempusDominusEngine();
-            case AIRDATEPICKER -> dateTimePickerEngine = new AirDatepickerEngine();
-            default -> dateTimePickerEngine = new TempusDominusEngine();
-        }
+        this.dateTimePickerEngine = dateTimePickerEngine;
     }
 
     /** {@inheritDoc} */
@@ -132,6 +121,14 @@ public class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnl
 
     public void hide() {
         dateTimePickerEngine.hide();
+    }
+
+    public void selectDateOnWrite(boolean value) {
+        options.setSelectDateOnWrite(value);
+
+        if (dateTimePickerEngine != null) {
+            dateTimePickerEngine.updateProperties(options);
+        }
     }
 
     public void setAlignment(final ValueBoxBase.TextAlignment align) {

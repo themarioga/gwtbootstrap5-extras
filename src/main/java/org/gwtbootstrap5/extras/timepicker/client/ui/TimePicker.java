@@ -22,7 +22,7 @@ package org.gwtbootstrap5.extras.timepicker.client.ui;
 
 import com.google.gwt.uibinder.client.UiConstructor;
 import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.DateTimePickerBase;
-import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.constants.DateTimePickerEngines;
+import org.gwtbootstrap5.extras.datetimepicker.client.ui.engines.DateTimePickerEngines;
 
 /**
  * @author themarioga
@@ -31,7 +31,7 @@ public class TimePicker extends DateTimePickerBase {
 
     @UiConstructor
     public TimePicker(DateTimePickerEngines engine) {
-        super(engine);
+        super(DateTimePickerEngines.getEngine(engine));
 
         options.setOnlyTime(true);
     }

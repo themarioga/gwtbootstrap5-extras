@@ -1,4 +1,4 @@
-package org.gwtbootstrap5.extras.select.client.ui.event;
+package org.gwtbootstrap5.extras.datetimepicker.client.ui.engines.airdatepicker;
 
 /*-
  * ==========================LICENSE_START===============================
@@ -20,17 +20,17 @@ package org.gwtbootstrap5.extras.select.client.ui.event;
  * ==========================LICENSE_END=================================
  */
 
-import com.google.gwt.event.shared.EventHandler;
+import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.ScriptInjector;
 
 /**
- * Handler interface for {@link RenderedEvent} events.
+ * @author Sven Jacobs
  */
-public interface RenderedHandler extends EventHandler {
+public class AirDatepickerEntryPoint implements EntryPoint {
 
-    /**
-     * Called when {@link RenderedEvent} is fired.
-     *
-     * @param event the {@link RenderedEvent} that was fired
-     */
-    void onRendered(RenderedEvent event);
+    @Override
+    public void onModuleLoad() {
+        ScriptInjector.fromString(AirDatepickerClientBundle.INSTANCE.airDatepicker().getText())
+                .setWindow(ScriptInjector.TOP_WINDOW).inject();
+    }
 }

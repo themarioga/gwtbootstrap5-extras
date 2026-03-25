@@ -1,4 +1,4 @@
-package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.airdatepicker;
+package org.gwtbootstrap5.extras.datetimepicker.client.ui.engines.airdatepicker;
 
 /*-
  * ==========================LICENSE_START===============================
@@ -26,9 +26,9 @@ import elemental2.core.JsDate;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLInputElement;
 import jsinterop.base.Js;
-import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.DateTimePickerOptions;
-import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.IDateTimePickerEngine;
-import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.IDateTimePickerHandlers;
+import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engine.DateTimePickerOptions;
+import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engine.IDateTimePickerEngine;
+import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engine.IDateTimePickerHandlers;
 import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;

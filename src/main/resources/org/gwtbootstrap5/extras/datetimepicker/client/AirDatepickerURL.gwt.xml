@@ -19,8 +19,8 @@
   ==========================LICENSE_END=================================
   -->
 
-<module rename-to='timepicker'>
-    <inherits name='org.gwtbootstrap5.extras.datetimepicker.DateTimePickerURL'/>
+<module>
+    <inherits name="org.gwtbootstrap5.extras.popper.PopperURL"/>
 
-    <source path='client'/>
+    <entry-point class="org.gwtbootstrap5.extras.datetimepicker.client.ui.engines.airdatepicker.AirDatepickerURLEntryPoint"/>
 </module>

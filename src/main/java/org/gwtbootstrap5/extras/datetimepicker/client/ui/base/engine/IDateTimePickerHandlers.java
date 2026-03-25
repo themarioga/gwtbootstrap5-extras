@@ -1,10 +1,10 @@
-package org.gwtbootstrap5.extras.select.client.ui.constants;
+package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engine;
 
 /*-
  * ==========================LICENSE_START===============================
  * GwtBootstrap5
  * ======================================================================
- * Copyright (C) 2023 - 2026 GwtBootstrap5
+ * Copyright (C) 2026 GwtBootstrap5
  * ======================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,36 +20,13 @@ package org.gwtbootstrap5.extras.select.client.ui.constants;
  * ==========================LICENSE_END=================================
  */
 
-/**
- * Select live search style.
- *
- * @author Xiaodong Sun
- */
-public enum LiveSearchStyle {
+import java.util.Date;
+import java.util.List;
 
-    /**
-     * Search for options that contain the searched text
-     */
-    CONTAINS("contains"),
+public interface IDateTimePickerHandlers {
 
-    /**
-     * Searching for options that start with the searched text
-     */
-    STARTS_WITH("startsWith");
-
-    private final String value;
-
-    LiveSearchStyle(String size) {
-        this.value = size;
-    }
-
-    /**
-     * Returns the value of the live search style.
-     *
-     * @return e
-     */
-    public String getValue() {
-        return value;
-    }
+    void onShow();
+    void onHide();
+    void onChangeValue(List<Date> dates);
 
 }

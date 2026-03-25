@@ -1,4 +1,4 @@
-package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines;
+package org.gwtbootstrap5.extras.datetimepicker.client.ui.engines;
 
 /*-
  * ==========================LICENSE_START===============================
@@ -20,23 +20,21 @@ package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines;
  * ==========================LICENSE_END=================================
  */
 
-import java.util.Date;
-import java.util.List;
+import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engine.IDateTimePickerEngine;
+import org.gwtbootstrap5.extras.datetimepicker.client.ui.engines.airdatepicker.AirDatepickerEngine;
+import org.gwtbootstrap5.extras.datetimepicker.client.ui.engines.tempusdominus.TempusDominusEngine;
 
-public interface IDateTimePickerEngine {
+public enum DateTimePickerEngines {
+    TEMPUSDOMINUS,
+    AIRDATEPICKER;
 
-    void init(com.google.gwt.dom.client.Element element, DateTimePickerOptions options, IDateTimePickerHandlers handlers);
-    void updateProperties(DateTimePickerOptions options);
-    void destroy();
-    void show();
-    void hide();
-    void toggle();
-    void clear(boolean silent);
-    void setViewDate(Date date);
-    void setDate(Date date, boolean silent);
-    Date getDate();
-    void setMultipleDates(List<Date> dates, boolean silent);
-    List<Date> getMultipleDates();
-    boolean isStarted();
+    public static IDateTimePickerEngine getEngine(DateTimePickerEngines engine) {
+        IDateTimePickerEngine dateTimePickerEngine = new TempusDominusEngine();
+        switch (engine) {
+            case TEMPUSDOMINUS -> dateTimePickerEngine = new TempusDominusEngine();
+            case AIRDATEPICKER -> dateTimePickerEngine = new AirDatepickerEngine();
+        }
 
+        return dateTimePickerEngine;
+    }
 }

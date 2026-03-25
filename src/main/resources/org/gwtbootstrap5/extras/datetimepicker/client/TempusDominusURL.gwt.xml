@@ -19,10 +19,8 @@
   ==========================LICENSE_END=================================
   -->
 
-<!-- IMPORTANT: In addition to this you must import AirDatepicker or TempusDominus in your project in order to have a functional datetimepicker -->
+<module>
+    <inherits name="org.gwtbootstrap5.extras.popper.PopperURL"/>
 
-<module rename-to='datetimepicker'>
-    <inherits name="org.gwtbootstrap5.GwtBootstrap5Base"/>
-
-    <source path='client'/>
+    <entry-point class="org.gwtbootstrap5.extras.datetimepicker.client.ui.engines.tempusdominus.TempusDominusURLEntryPoint"/>
 </module>

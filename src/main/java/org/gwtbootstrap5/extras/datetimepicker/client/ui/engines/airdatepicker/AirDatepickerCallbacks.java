@@ -1,4 +1,4 @@
-package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engines.airdatepicker;
+package org.gwtbootstrap5.extras.datetimepicker.client.ui.engines.airdatepicker;
 
 /*-
  * ==========================LICENSE_START===============================
