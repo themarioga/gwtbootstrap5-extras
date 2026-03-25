@@ -76,6 +76,8 @@ public abstract class DateTimePickerBase extends Widget implements HasEnabled, H
     protected final IDateTimePickerEngine dateTimePickerEngine;
     protected final DateTimePickerOptions options;
 
+    private Date value;
+
     protected DateTimePickerBase(IDateTimePickerEngine dateTimePickerEngine) {
         textBox = new TextBox();
         setElement((Element) textBox.getElement());
@@ -91,6 +93,8 @@ public abstract class DateTimePickerBase extends Widget implements HasEnabled, H
 
         if (dateTimePickerEngine != null && !dateTimePickerEngine.isStarted()) {
             dateTimePickerEngine.init(getElement(), options, getHandlers());
+
+            setValue(value, false);
         }
     }
 
@@ -501,6 +505,8 @@ public abstract class DateTimePickerBase extends Widget implements HasEnabled, H
     /** {@inheritDoc} */
     @Override
     public void setValue(final Date value, final boolean fireEvents) {
+        this.value = value;
+
         if (dateTimePickerEngine != null) {
             errorHandlerMixin.clearErrors();
 

@@ -1,4 +1,4 @@
-package org.gwtbootstrap5.extras.select.client.ui;
+package org.gwtbootstrap5.extras.select.client.ui.engines;
 
 /*-
  * ==========================LICENSE_START===============================
@@ -20,25 +20,20 @@ package org.gwtbootstrap5.extras.select.client.ui;
  * ==========================LICENSE_END=================================
  */
 
-import org.gwtbootstrap5.extras.select.client.ui.base.SelectBase;
-import org.gwtbootstrap5.extras.select.client.ui.engines.SelectEngine;
+import org.gwtbootstrap5.extras.select.client.ui.base.engine.ISelectEngine;
+import org.gwtbootstrap5.extras.select.client.ui.engines.tomselect.TomSelectEngine;
 
-import java.util.List;
+public enum SelectEngine {
+    TOMSELECT;
 
-public class MultipleSelect<T> extends SelectBase<T> {
+    public static ISelectEngine getEngine(SelectEngine engine) {
+        ISelectEngine selectEngine = new TomSelectEngine();
+        switch (engine) {
+            case TOMSELECT -> selectEngine = new TomSelectEngine();
+//            case CHOICESJS -> selectEngine = new ChoicesEngine();
+//            case SLIMSELECT -> selectEngine = new SlimSelectEngine();
+        }
 
-    public MultipleSelect(SelectEngine engine) {
-        super(SelectEngine.getEngine(engine));
+        return selectEngine;
     }
-
-    @Override
-    public boolean isMultiple() {
-        return true;
-    }
-
-    @Override
-    protected void asyncDataLoad(String query, AsyncDataLoadCallback<T> callback) {
-        callback.onResult(List.of());
-    }
-
 }

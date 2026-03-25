@@ -22,6 +22,11 @@
 <!-- IMPORTANT: In addition to this you must import AirDatepicker or TempusDominus in your project in order to have a functional datetimepicker -->
 
 <module rename-to='datetimepicker'>
+    <inherits name="com.google.common.io.Io"/>
+    <inherits name="com.google.common.collect.Collect"/>
+    <inherits name="elemental2.dom.Dom"/>
+    <inherits name="elemental2.core.Core"/>
+    <inherits name="elemental2.promise.Promise"/>
     <inherits name="org.gwtbootstrap5.GwtBootstrap5Base"/>
 
     <source path='client'/>

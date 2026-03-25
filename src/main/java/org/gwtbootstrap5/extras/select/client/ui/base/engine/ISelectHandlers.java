@@ -1,4 +1,4 @@
-package org.gwtbootstrap5.extras.select.client.ui;
+package org.gwtbootstrap5.extras.select.client.ui.base.engine;
 
 /*-
  * ==========================LICENSE_START===============================
@@ -20,25 +20,18 @@ package org.gwtbootstrap5.extras.select.client.ui;
  * ==========================LICENSE_END=================================
  */
 
-import org.gwtbootstrap5.extras.select.client.ui.base.SelectBase;
-import org.gwtbootstrap5.extras.select.client.ui.engines.SelectEngine;
-
 import java.util.List;
 
-public class MultipleSelect<T> extends SelectBase<T> {
+public interface ISelectHandlers {
+    void onLoaded();
+    void onAsyncLoad(String query, OnAsyncLoadCallback callback);
+    void onShow();
+    void onShown();
+    void onHide();
+    void onHidden();
+    void onChange();
 
-    public MultipleSelect(SelectEngine engine) {
-        super(SelectEngine.getEngine(engine));
+    interface OnAsyncLoadCallback {
+        void callback(List<ISelectEngine.SelectOption> options);
     }
-
-    @Override
-    public boolean isMultiple() {
-        return true;
-    }
-
-    @Override
-    protected void asyncDataLoad(String query, AsyncDataLoadCallback<T> callback) {
-        callback.onResult(List.of());
-    }
-
 }

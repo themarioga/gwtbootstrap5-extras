@@ -1,10 +1,10 @@
-package org.gwtbootstrap5.extras.select.client.ui;
+package org.gwtbootstrap5.extras.select.client.ui.base.events;
 
 /*-
  * ==========================LICENSE_START===============================
  * GwtBootstrap5
  * ======================================================================
- * Copyright (C) 2026 GwtBootstrap5
+ * Copyright (C) 2023 - 2026 GwtBootstrap5
  * ======================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,25 +20,17 @@ package org.gwtbootstrap5.extras.select.client.ui;
  * ==========================LICENSE_END=================================
  */
 
-import org.gwtbootstrap5.extras.select.client.ui.base.SelectBase;
-import org.gwtbootstrap5.extras.select.client.ui.engines.SelectEngine;
+import com.google.gwt.event.shared.EventHandler;
 
-import java.util.List;
+/**
+ * Handler interface for {@link ShowEvent} events.
+ */
+public interface ShowHandler extends EventHandler {
 
-public class MultipleSelect<T> extends SelectBase<T> {
-
-    public MultipleSelect(SelectEngine engine) {
-        super(SelectEngine.getEngine(engine));
-    }
-
-    @Override
-    public boolean isMultiple() {
-        return true;
-    }
-
-    @Override
-    protected void asyncDataLoad(String query, AsyncDataLoadCallback<T> callback) {
-        callback.onResult(List.of());
-    }
-
+    /**
+     * Called when {@link ShowEvent} is fired.
+     *
+     * @param event the {@link ShowEvent} that was fired
+     */
+    void onShow(ShowEvent event);
 }

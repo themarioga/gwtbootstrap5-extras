@@ -21,7 +21,6 @@
 
 <module rename-to='popper'>
     <inherits name="org.gwtbootstrap5.GwtBootstrap5Base"/>
-    <inherits name="com.google.gwt.resources.Resources"/>
 
     <source path='client'/>
 

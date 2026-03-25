@@ -20,11 +20,16 @@
   -->
 
 <module rename-to='select'>
+    <inherits name="com.google.gwt.user.User"/>
+    <inherits name="com.google.gwt.user.UserAgent"/>
+    <inherits name="com.google.gwt.i18n.I18N"/>
+    <inherits name="com.google.common.io.Io"/>
+    <inherits name="com.google.common.collect.Collect"/>
+    <inherits name="elemental2.dom.Dom"/>
+    <inherits name="elemental2.core.Core"/>
+    <inherits name="elemental2.promise.Promise"/>
+
     <inherits name="org.gwtbootstrap5.GwtBootstrap5Base"/>
-    <inherits name="com.google.gwt.resources.Resources"/>
-    <inherits name='org.gwtbootstrap5.extras.select.client.SelectResources'/>
 
     <source path='client'/>
-
-    <entry-point class="org.gwtbootstrap5.extras.select.client.SelectEntryPoint"/>
 </module>

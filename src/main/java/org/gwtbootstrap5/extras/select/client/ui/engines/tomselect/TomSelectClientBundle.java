@@ -1,10 +1,10 @@
-package org.gwtbootstrap5.extras.select.client.ui;
+package org.gwtbootstrap5.extras.select.client.ui.engines.tomselect;
 
 /*-
  * ==========================LICENSE_START===============================
  * GwtBootstrap5
  * ======================================================================
- * Copyright (C) 2026 GwtBootstrap5
+ * Copyright (C) 2023 - 2026 GwtBootstrap5
  * ======================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,25 +20,20 @@ package org.gwtbootstrap5.extras.select.client.ui;
  * ==========================LICENSE_END=================================
  */
 
-import org.gwtbootstrap5.extras.select.client.ui.base.SelectBase;
-import org.gwtbootstrap5.extras.select.client.ui.engines.SelectEngine;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.client.TextResource;
 
-import java.util.List;
+/**
+ * @author godi
+ */
+public interface TomSelectClientBundle extends ClientBundle {
 
-public class MultipleSelect<T> extends SelectBase<T> {
+    TomSelectClientBundle INSTANCE = GWT.create(TomSelectClientBundle.class);
 
-    public MultipleSelect(SelectEngine engine) {
-        super(SelectEngine.getEngine(engine));
-    }
+    String VERSION = "2.5.2";
 
-    @Override
-    public boolean isMultiple() {
-        return true;
-    }
-
-    @Override
-    protected void asyncDataLoad(String query, AsyncDataLoadCallback<T> callback) {
-        callback.onResult(List.of());
-    }
+    @Source("../../../resource/tom-select-" + VERSION + "/js/tom-select.min.cache.js")
+    TextResource tomSelect();
 
 }

@@ -20,14 +20,5 @@
   -->
 
 <module>
-    <inherits name="com.google.gwt.resources.Resources"/>
-    <inherits name="org.gwtbootstrap5.extras.popper.Popper"/>
-
-    <public path="resource">
-        <include name="air-datepicker-3.5.3/css/air-datepicker.min.cache.css"/>
-    </public>
-
-    <stylesheet src="air-datepicker-3.5.3/css/air-datepicker.min.cache.css"/>
-
-    <entry-point class="org.gwtbootstrap5.extras.datetimepicker.client.ui.engines.airdatepicker.AirDatepickerEntryPoint"/>
+    <entry-point class="org.gwtbootstrap5.extras.select.client.ui.engines.tomselect.TomSelectURLEntryPoint"/>
 </module>

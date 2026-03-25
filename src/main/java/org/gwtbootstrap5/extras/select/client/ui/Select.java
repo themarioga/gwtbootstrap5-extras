@@ -4,7 +4,7 @@ package org.gwtbootstrap5.extras.select.client.ui;
  * ==========================LICENSE_START===============================
  * GwtBootstrap5
  * ======================================================================
- * Copyright (C) 2023 - 2026 GwtBootstrap5
+ * Copyright (C) 2026 GwtBootstrap5
  * ======================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,62 +20,25 @@ package org.gwtbootstrap5.extras.select.client.ui;
  * ==========================LICENSE_END=================================
  */
 
-import com.google.gwt.dom.client.OptionElement;
+import org.gwtbootstrap5.extras.select.client.ui.base.SelectBase;
+import org.gwtbootstrap5.extras.select.client.ui.engines.SelectEngine;
 
-import java.util.Map.Entry;
+import java.util.List;
 
-/**
- * Standard select box.
- *
- * @author Xiaodong Sun
- */
-public class Select extends SelectBase<String> {
+public class Select<T> extends SelectBase<T> {
 
-    public Select() {
+    public Select(SelectEngine engine) {
+        super(SelectEngine.getEngine(engine));
     }
 
     @Override
-    public final boolean isMultiple() {
+    public boolean isMultiple() {
         return false;
     }
 
     @Override
-    protected void setSelectedValue(String value) {
-        if (isAttached()) {
-            setSingleValue(getElement(), value);
-        } else {
-            for (Entry<OptionElement, Option> entry : itemMap.entrySet()) {
-                Option opt = entry.getValue();
-                opt.setSelected(opt.getValue().equals(value));
-            }
-        }
-    }
-
-    @Override
-    public String getValue() {
-        if (isAttached()) {
-            return getSingleValue(getElement());
-        }
-        for (Entry<OptionElement, Option> entry : itemMap.entrySet()) {
-            Option opt = entry.getValue();
-            if (opt.isSelected())
-                return opt.getValue();
-        }
-        return null;
-    }
-
-    /**
-     * Returns the selected item or <code>null</code> if no item is selected.
-     *
-     * @return the selected items list
-     */
-    public Option getSelectedItem() {
-        for (Entry<OptionElement, Option> entry : itemMap.entrySet()) {
-            Option opt = entry.getValue();
-            if (opt.isSelected())
-                return opt;
-        }
-        return null;
+    protected void asyncDataLoad(String query, AsyncDataLoadCallback<T> callback) {
+        callback.onResult(List.of());
     }
 
 }

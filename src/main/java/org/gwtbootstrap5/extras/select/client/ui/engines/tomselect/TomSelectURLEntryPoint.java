@@ -1,10 +1,10 @@
-package org.gwtbootstrap5.extras.select.client.ui;
+package org.gwtbootstrap5.extras.select.client.ui.engines.tomselect;
 
 /*-
  * ==========================LICENSE_START===============================
  * GwtBootstrap5
  * ======================================================================
- * Copyright (C) 2026 GwtBootstrap5
+ * Copyright (C) 2023 - 2026 GwtBootstrap5
  * ======================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,25 +20,21 @@ package org.gwtbootstrap5.extras.select.client.ui;
  * ==========================LICENSE_END=================================
  */
 
-import org.gwtbootstrap5.extras.select.client.ui.base.SelectBase;
-import org.gwtbootstrap5.extras.select.client.ui.engines.SelectEngine;
+import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.ScriptInjector;
+import org.gwtbootstrap5.client.ui.util.StyleInjector;
 
-import java.util.List;
-
-public class MultipleSelect<T> extends SelectBase<T> {
-
-    public MultipleSelect(SelectEngine engine) {
-        super(SelectEngine.getEngine(engine));
-    }
+/**
+ * @author godi
+ */
+public class TomSelectURLEntryPoint implements EntryPoint {
 
     @Override
-    public boolean isMultiple() {
-        return true;
-    }
+    public void onModuleLoad() {
+        ScriptInjector.fromUrl("https://cdn.jsdelivr.net/npm/tom-select@2.5.2/dist/js/tom-select.complete.min.js")
+                .setWindow(ScriptInjector.TOP_WINDOW).inject();
 
-    @Override
-    protected void asyncDataLoad(String query, AsyncDataLoadCallback<T> callback) {
-        callback.onResult(List.of());
+        StyleInjector.injectCSS("https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.bootstrap5.min.css");
     }
 
 }
