@@ -23,9 +23,12 @@ package org.gwtbootstrap5.extras.select.client.ui;
 import org.gwtbootstrap5.extras.select.client.ui.base.SelectBase;
 import org.gwtbootstrap5.extras.select.client.ui.engines.SelectEngine;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Select<T> extends SelectBase<T> {
+
+    protected T valueSelectedBeforeInit;
 
     public Select(SelectEngine engine) {
         super(SelectEngine.getEngine(engine));
@@ -37,8 +40,56 @@ public class Select<T> extends SelectBase<T> {
     }
 
     @Override
+    protected void onLoad() {
+        super.onLoad();
+
+        if (valueSelectedBeforeInit != null) {
+            setValue(valueSelectedBeforeInit, false);
+        }
+    }
+
+    @Override
     protected void asyncDataLoad(String query, AsyncDataLoadCallback<T> callback) {
         callback.onResult(List.of());
+    }
+
+    @Override
+    public void clear() {
+        setValue(null, false);
+    }
+
+    @Override
+    public void setValue(final T value) {
+        setValue(value, false);
+    }
+
+    @Override
+    public void setValue(final T value, final boolean fireEvents) {
+        if (value == null) {
+            if (engine != null) {
+                engine.clear(!fireEvents);
+            }
+            return;
+        }
+
+        if (optionList.isEmpty()) {
+            setOptions(Collections.singletonList(value));
+        }
+
+        if (engine != null) {
+            engine.setValue(itemProvider.getValue(value), !fireEvents);
+        } else {
+            this.valueSelectedBeforeInit = value;
+        }
+    }
+
+    @Override
+    public T getValue() {
+        if (engine != null) {
+            return optionList.get(engine.getValue());
+        }
+
+        return null;
     }
 
 }

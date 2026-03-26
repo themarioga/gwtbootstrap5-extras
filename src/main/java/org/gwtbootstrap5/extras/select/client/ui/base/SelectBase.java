@@ -54,10 +54,10 @@ import org.gwtbootstrap5.extras.select.client.ui.base.engine.SelectProperties;
 import org.gwtbootstrap5.extras.select.client.ui.base.events.*;
 import org.gwtbootstrap5.extras.select.client.ui.base.interfaces.HasAllSelectHandlers;
 import org.gwtbootstrap5.extras.select.client.ui.base.interfaces.HasOptions;
+import org.gwtbootstrap5.extras.select.client.ui.base.interfaces.HasSearch;
 import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -68,8 +68,8 @@ import java.util.List;
  * @see <a href="https://silviomoreto.github.io/bootstrap-select/">...</a>
  * @author Xiaodong Sun
  */
-public abstract class SelectBase<T> extends ComplexWidget implements HasValue<T>, HasEnabled, Focusable, HasValidators<T>, IsEditor<SelectEditor<T>>,
-        HasEditorErrors<T>, HasBlankValidator<T>, HasAllSelectHandlers<T>, HasErrorHandler, HasPlaceholder, HasOptions<T> {
+public abstract class SelectBase<T> extends ComplexWidget implements HasEnabled, Focusable, HasValue<T>, HasValidators<T>, IsEditor<SelectEditor<T>>,
+        HasEditorErrors<T>, HasBlankValidator<T>, HasAllSelectHandlers<T>, HasErrorHandler, HasPlaceholder, HasOptions<T>, HasSearch {
 
     protected SelectEditor<T> editor;
     protected ItemProvider<T> itemProvider;
@@ -84,7 +84,6 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasValue<T>
 
     // Object List
     protected BiMap<String, T> optionList = HashBiMap.create();
-    protected T selectedValue;
 
     protected SelectBase(ISelectEngine engine) {
         setElement(Document.get().createSelectElement());
@@ -118,9 +117,6 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasValue<T>
             if (!optionList.isEmpty()) {
                 setOptions(new ArrayList<>(optionList.values()));
             }
-            if (selectedValue != null) {
-                setValue(selectedValue, false);
-            }
         }
     }
 
@@ -149,36 +145,8 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasValue<T>
         }
     }
 
-    public void setItemProvider(ItemProvider<T> itemProvider) {
-        this.itemProvider = itemProvider;
-    }
-
     public void setAllowClear(boolean allowClear) {
         this.properties.setAllowClear(allowClear);
-
-        if (engine != null) {
-            engine.updateProperties(this.properties);
-        }
-    }
-
-    public void setSearchEnabled(boolean enabled) {
-        this.properties.setSearchEnabled(enabled);
-
-        if (engine != null) {
-            engine.updateProperties(this.properties);
-        }
-    }
-
-    public void setSearchPlaceholder(String placeholder) {
-        this.properties.setSearchPlaceholder(placeholder);
-
-        if (engine != null) {
-            engine.updateProperties(this.properties);
-        }
-    }
-
-    public void setMultipleLimit(int limit) {
-        this.properties.setMultipleLimit(limit);
 
         if (engine != null) {
             engine.updateProperties(this.properties);
@@ -229,6 +197,34 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasValue<T>
     @Override
     public void setErrorHandlerType(ErrorHandlerType errorHandlerType) {
         errorHandlerMixin.setErrorHandlerType(errorHandlerType);
+    }
+
+    /**
+     * Set the search bar
+     *
+     * @param enabled boolean
+     */
+    @Override
+    public void setSearchEnabled(boolean enabled) {
+        this.properties.setSearchEnabled(enabled);
+
+        if (engine != null) {
+            engine.updateProperties(this.properties);
+        }
+    }
+
+    /**
+     * Set the search placeholder
+     *
+     * @param placeholder is placeholder
+     */
+    @Override
+    public void setSearchPlaceholder(String placeholder) {
+        this.properties.setSearchPlaceholder(placeholder);
+
+        if (engine != null) {
+            engine.updateProperties(this.properties);
+        }
     }
 
     /**
@@ -349,47 +345,12 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasValue<T>
     }
 
     @Override
-    public void clear() {
-        setValue(null, false);
-    }
-
-    @Override
-    public void setValue(final T value) {
-        setValue(value, false);
-    }
-
-    @Override
-    public void setValue(final T value, final boolean fireEvents) {
-        this.selectedValue = value;
-
-        if (value == null) {
-            if (engine != null) {
-                engine.clear(!fireEvents);
-            }
-            return;
-        }
-
-        if (optionList.isEmpty()) {
-            setOptions(Collections.singletonList(value));
-        }
-
-        if (engine != null) {
-            engine.setValue(itemProvider.getValue(value), !fireEvents);
-        }
-    }
-
-    @Override
-    public T getValue() {
-        if (engine != null) {
-            return optionList.get(engine.getValue());
-        }
-
-        return null;
-    }
-
-    @Override
     public void setEnabled(boolean enabled) {
         enabledMixin.setEnabled(enabled);
+
+        if (engine != null) {
+            engine.setEnabled(enabled);
+        }
     }
 
     @Override
@@ -515,6 +476,10 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasValue<T>
     @Override
     public List<T> getOptions() {
         return new ArrayList<>(optionList.values());
+    }
+
+    protected void setItemProvider(ItemProvider<T> itemProvider) {
+        this.itemProvider = itemProvider;
     }
 
     private ISelectEngine.@NonNull SelectOption transformOptionToSelectOption(T option) {

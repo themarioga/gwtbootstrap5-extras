@@ -65,7 +65,7 @@ import java.util.List;
 public abstract class DateTimePickerBase extends Widget implements HasEnabled, HasReadOnly, HasId, HasResponsiveness, HasVisibility,
         HasPlaceholder, HasAutoClose, HasMaximumDate, HasTimeStepping, HasShowTodayButton,
         HasShowClearButton, HasMinimumDate, HasDateTimePickerHandlers, HasLocalization, HasFormat, HasName,
-        HasValue<Date>, HasMultiplesValues<Date>, LeafValueEditor<Date>, HasEditorErrors<Date>, HasErrorHandler, HasValidators<Date>,
+        HasValue<Date>, HasMultipleValues<Date>, LeafValueEditor<Date>, HasEditorErrors<Date>, HasErrorHandler, HasValidators<Date>,
         HasBlankValidator<Date> {
 
     private final TextBox textBox;
@@ -76,7 +76,7 @@ public abstract class DateTimePickerBase extends Widget implements HasEnabled, H
     protected final IDateTimePickerEngine dateTimePickerEngine;
     protected final DateTimePickerOptions options;
 
-    private Date value;
+    private Date valueSetBeforeInit;
 
     protected DateTimePickerBase(IDateTimePickerEngine dateTimePickerEngine) {
         textBox = new TextBox();
@@ -94,7 +94,7 @@ public abstract class DateTimePickerBase extends Widget implements HasEnabled, H
         if (dateTimePickerEngine != null && !dateTimePickerEngine.isStarted()) {
             dateTimePickerEngine.init(getElement(), options, getHandlers());
 
-            if (value != null) setValue(value, false);
+            if (valueSetBeforeInit != null) setValue(valueSetBeforeInit, false);
         }
     }
 
@@ -505,7 +505,7 @@ public abstract class DateTimePickerBase extends Widget implements HasEnabled, H
     /** {@inheritDoc} */
     @Override
     public void setValue(final Date value, final boolean fireEvents) {
-        this.value = value;
+        this.valueSetBeforeInit = value;
 
         if (dateTimePickerEngine != null) {
             errorHandlerMixin.clearErrors();

@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.interfaces;
+package org.gwtbootstrap5.extras.select.client.ui.base.interfaces;
 
 /*-
  * ==========================LICENSE_START===============================
@@ -35,10 +35,6 @@ package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.interfaces;
  * ==========================LICENSE_END=================================
  */
 
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.event.shared.HasHandlers;
 import com.google.gwt.user.client.TakesValue;
 import com.google.gwt.user.client.ui.CheckBox;
 
@@ -56,14 +52,14 @@ import java.util.List;
  *
  * @param <T> the type of value
  */
-public interface HasMultiplesValues<T> extends HasHandlers {
+public interface HasValues<T> extends TakesValues<T>, HasValuesChangeHandlers<T> {
 
   /**
-   * Gets this object's values.
+   * Gets this object's value.
    *
-   * @return the object's values
+   * @return the object's value
    */
-  List<T> getMultipleValues();
+  List<T> getValues();
 
   /**
    * Sets this object's value without firing any events. This should be
@@ -79,7 +75,7 @@ public interface HasMultiplesValues<T> extends HasHandlers {
    *
    * @param values the object's new value
    */
-  void setMultipleValues(List<T> values);
+  void setValues(List<T> values);
 
   /**
    * Sets this object's value. Fires
@@ -89,9 +85,8 @@ public interface HasMultiplesValues<T> extends HasHandlers {
    * It is acceptable to fail assertions or throw (documented) unchecked
    * exceptions in response to bad values.
    *
-   * @param values the object's new values
+   * @param values the object's new value
    * @param fireEvents fire events if true and value is new
    */
-  void setMultipleValues(List<T> values, boolean fireEvents);
-
+  void setValues(List<T> values, boolean fireEvents);
 }

@@ -41,8 +41,8 @@ public interface ISelectEngine {
     void setValue(String value, boolean silent);
     String getValue();
     void setValues(List<String> value, boolean silent);
-    void setEnabled(boolean enabled);
     List<String> getValues();
+    void setEnabled(boolean enabled);
     boolean isStarted();
 
     class SelectOption {

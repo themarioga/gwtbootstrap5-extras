@@ -20,12 +20,19 @@ package org.gwtbootstrap5.extras.select.client.ui;
  * ==========================LICENSE_END=================================
  */
 
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import org.gwtbootstrap5.extras.select.client.ui.base.SelectBase;
+import org.gwtbootstrap5.extras.select.client.ui.base.interfaces.HasValues;
 import org.gwtbootstrap5.extras.select.client.ui.engines.SelectEngine;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class MultipleSelect<T> extends SelectBase<T> {
+public class MultipleSelect<T> extends SelectBase<T> implements HasValues<T> {
+
+    protected List<T> valuesSelectedBeforeInit = new ArrayList<>();
 
     public MultipleSelect(SelectEngine engine) {
         super(SelectEngine.getEngine(engine));
@@ -41,4 +48,101 @@ public class MultipleSelect<T> extends SelectBase<T> {
         callback.onResult(List.of());
     }
 
+    public void setMultipleLimit(int limit) {
+        this.properties.setMultipleLimit(limit);
+
+        if (engine != null) {
+            engine.updateProperties(this.properties);
+        }
+    }
+
+    @Override
+    public void clear() {
+        setValue(null, false);
+    }
+
+    @Override
+    public void setValue(T value) {
+        setValue(value, false);
+    }
+
+    @Override
+    public void setValue(T value, boolean fireEvents) {
+        if (value == null) {
+            if (engine != null) {
+                engine.clear(!fireEvents);
+            } else {
+                valuesSelectedBeforeInit.clear();
+            }
+
+            return;
+        }
+
+        if (optionList.isEmpty()) {
+            setOptions(Collections.singletonList(value));
+        }
+
+        if (engine != null) {
+            engine.setValue(itemProvider.getValue(value), !fireEvents);
+        } else {
+            this.valuesSelectedBeforeInit.add(value);
+        }
+    }
+
+    @Override
+    public T getValue() {
+        return valuesSelectedBeforeInit.isEmpty() ? null : valuesSelectedBeforeInit.get(valuesSelectedBeforeInit.size() - 1);
+    }
+
+    @Override
+    public void setValues(List<T> values) {
+        setValues(values, false);
+    }
+
+    @Override
+    public void setValues(List<T> values, boolean fireEvents) {
+        if (values == null || values.isEmpty()) {
+            if (engine != null) {
+                engine.clear(!fireEvents);
+            } else {
+                valuesSelectedBeforeInit.clear();
+            }
+            return;
+        }
+
+        if (optionList.isEmpty()) {
+            setOptions(values);
+        }
+
+        if (engine != null) {
+            List<String> valueList = new ArrayList<>(values.size());
+            for (T value : values) {
+                valueList.add(itemProvider.getValue(value));
+            }
+
+            engine.setValues(valueList, !fireEvents);
+        } else {
+            this.valuesSelectedBeforeInit.addAll(values);
+        }
+    }
+
+    @Override
+    public List<T> getValues() {
+        if (engine != null) {
+            List<T> values = new ArrayList<>();
+            for (String value : engine.getValues()) {
+                values.add(optionList.get(value));
+            }
+
+            return values;
+        }
+
+        return List.of();
+    }
+
+
+    @Override
+    public HandlerRegistration addValuesChangeHandler(ValueChangeHandler<List<T>> handler) {
+        return null;
+    }
 }
