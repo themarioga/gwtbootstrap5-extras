@@ -20,6 +20,7 @@ package org.gwtbootstrap5.extras.select.client.ui;
  * ==========================LICENSE_END=================================
  */
 
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import org.gwtbootstrap5.extras.select.client.ui.base.SelectBase;
@@ -143,6 +144,6 @@ public class MultipleSelect<T> extends SelectBase<T> implements HasValues<T> {
 
     @Override
     public HandlerRegistration addValuesChangeHandler(ValueChangeHandler<List<T>> handler) {
-        return null;
+        return addHandler(handler, ValueChangeEvent.getType());
     }
 }
