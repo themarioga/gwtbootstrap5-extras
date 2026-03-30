@@ -261,13 +261,7 @@ public class TomSelectEngine implements ISelectEngine {
             JsPropertyMap<Object> renderTemplates = JsPropertyMap.of();
 
             // 2. Define the 'no_results' template
-            renderTemplates.set("no_results", (TomSelectOptions.RenderFunction) (data, escape) -> {
-                // Tom Select passes the user's current search term inside data.input
-                String searchTerm = (String) data.get("input");
-
-                // Return whatever custom HTML you want!
-                return "<div class=\"no-results\" style=\"padding: 10px; color: gray;\">" + properties.getNoResultsText() + "</div>";
-            });
+            renderTemplates.set("no_results", (TomSelectOptions.RenderFunction) (data, escape) -> "<div class=\"no-results\" style=\"padding: 10px; color: gray;\">" + properties.getNoResultsText() + "</div>");
 
             // 3. Assign the templates to your options
             opt.render = renderTemplates;
@@ -287,8 +281,14 @@ public class TomSelectEngine implements ISelectEngine {
     private static void addHandlers(TomSelectOptions opt, ISelectHandlers handlers) {
         opt.onInitialize = handlers::onLoaded;
         opt.onChange = value -> handlers.onChange();
-        opt.onDropdownOpen = value -> handlers.onShow();
-        opt.onDropdownClose = value -> handlers.onHide();
+        opt.onDropdownOpen = value -> {
+            handlers.onShow();
+            handlers.onShown();
+        };
+        opt.onDropdownClose = value ->  {
+            handlers.onHide();
+            handlers.onHidden();
+        };
     }
 
     private static @NonNull Object getObjectFromSelectOptions(SelectOption option) {
