@@ -482,6 +482,10 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasEnabled,
         this.itemProvider = itemProvider;
     }
 
+    protected boolean isEngineStarted() {
+        return engine != null && engine.isStarted();
+    }
+
     private ISelectEngine.@NonNull SelectOption transformOptionToSelectOption(T option) {
         ISelectEngine.SelectOption selectOption = new ISelectEngine.SelectOption();
         selectOption.setValue(itemProvider.getValue(option));
