@@ -57,12 +57,18 @@ public class TomSelectEngine implements ISelectEngine {
     }
 
     @Override
-    public void updateProperties(SelectProperties options) {
+    public void updateProperties(SelectProperties properties) {
         if (instance != null) {
+            List<String> values = getValues();
+            List<SelectOption> options = getOptions();
+
             instance.destroy();
-            this.properties = translateProperties(options);
+            this.properties = translateProperties(properties);
             addHandlers(this.properties, this.handlers);
             instance = new TomSelect(this.element, this.properties);
+
+            setOptions(options);
+            setValues(values, false);
         }
     }
 
