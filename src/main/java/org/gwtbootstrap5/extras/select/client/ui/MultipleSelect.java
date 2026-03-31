@@ -40,6 +40,15 @@ public class MultipleSelect<T> extends SelectBase<T> implements HasValues<T> {
     }
 
     @Override
+    protected void onLoad() {
+        super.onLoad();
+
+        if (valuesSelectedBeforeInit != null && !valuesSelectedBeforeInit.isEmpty()) {
+            setValues(valuesSelectedBeforeInit, false);
+        }
+    }
+
+    @Override
     public boolean isMultiple() {
         return true;
     }
@@ -52,7 +61,7 @@ public class MultipleSelect<T> extends SelectBase<T> implements HasValues<T> {
     public void setMultipleLimit(int limit) {
         this.properties.setMultipleLimit(limit);
 
-        if (engine != null) {
+        if (engine != null && engine.isStarted()) {
             engine.updateProperties(this.properties);
         }
     }
@@ -70,7 +79,7 @@ public class MultipleSelect<T> extends SelectBase<T> implements HasValues<T> {
     @Override
     public void setValue(T value, boolean fireEvents) {
         if (value == null) {
-            if (engine != null) {
+            if (engine != null && engine.isStarted()) {
                 engine.clear(!fireEvents);
             } else {
                 valuesSelectedBeforeInit.clear();
@@ -83,7 +92,7 @@ public class MultipleSelect<T> extends SelectBase<T> implements HasValues<T> {
             setOptions(Collections.singletonList(value));
         }
 
-        if (engine != null) {
+        if (engine != null && engine.isStarted()) {
             engine.setValue(itemProvider.getValue(value), !fireEvents);
         } else {
             this.valuesSelectedBeforeInit.add(value);
@@ -103,7 +112,7 @@ public class MultipleSelect<T> extends SelectBase<T> implements HasValues<T> {
     @Override
     public void setValues(List<T> values, boolean fireEvents) {
         if (values == null || values.isEmpty()) {
-            if (engine != null) {
+            if (engine != null && engine.isStarted()) {
                 engine.clear(!fireEvents);
             } else {
                 valuesSelectedBeforeInit.clear();
@@ -115,7 +124,7 @@ public class MultipleSelect<T> extends SelectBase<T> implements HasValues<T> {
             setOptions(values);
         }
 
-        if (engine != null) {
+        if (engine != null && engine.isStarted()) {
             List<String> valueList = new ArrayList<>(values.size());
             for (T value : values) {
                 valueList.add(itemProvider.getValue(value));
@@ -129,7 +138,7 @@ public class MultipleSelect<T> extends SelectBase<T> implements HasValues<T> {
 
     @Override
     public List<T> getValues() {
-        if (engine != null) {
+        if (engine != null && engine.isStarted()) {
             List<T> values = new ArrayList<>();
             for (String value : engine.getValues()) {
                 values.add(optionList.get(value));

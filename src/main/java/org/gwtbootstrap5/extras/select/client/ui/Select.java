@@ -35,17 +35,17 @@ public class Select<T> extends SelectBase<T> {
     }
 
     @Override
-    public boolean isMultiple() {
-        return false;
-    }
-
-    @Override
     protected void onLoad() {
         super.onLoad();
 
         if (valueSelectedBeforeInit != null) {
             setValue(valueSelectedBeforeInit, false);
         }
+    }
+
+    @Override
+    public boolean isMultiple() {
+        return false;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class Select<T> extends SelectBase<T> {
     @Override
     public void setValue(final T value, final boolean fireEvents) {
         if (value == null) {
-            if (engine != null) {
+            if (engine != null && engine.isStarted()) {
                 engine.clear(!fireEvents);
             }
             return;
@@ -76,7 +76,7 @@ public class Select<T> extends SelectBase<T> {
             setOptions(Collections.singletonList(value));
         }
 
-        if (engine != null) {
+        if (engine != null && engine.isStarted()) {
             engine.setValue(itemProvider.getValue(value), !fireEvents);
         } else {
             this.valueSelectedBeforeInit = value;
@@ -85,7 +85,7 @@ public class Select<T> extends SelectBase<T> {
 
     @Override
     public T getValue() {
-        if (engine != null) {
+        if (engine != null && engine.isStarted()) {
             return optionList.get(engine.getValue());
         }
 
