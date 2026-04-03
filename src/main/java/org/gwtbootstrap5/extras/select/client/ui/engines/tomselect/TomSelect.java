@@ -23,6 +23,7 @@ package org.gwtbootstrap5.extras.select.client.ui.engines.tomselect;
 import elemental2.core.JsArray;
 import elemental2.dom.Element;
 import jsinterop.annotations.*;
+import jsinterop.base.JsPropertyMap;
 
 @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "TomSelect")
 public class TomSelect {
@@ -136,5 +137,8 @@ public class TomSelect {
         // Tom Select passes the option object to this function
         boolean filter(Object option);
     }
+
+    @JsProperty(name = "options")
+    public native JsPropertyMap<Object> getOptionsMap();
 
 }

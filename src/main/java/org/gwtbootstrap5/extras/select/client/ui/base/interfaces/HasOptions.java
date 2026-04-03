@@ -26,5 +26,6 @@ public interface HasOptions<T> {
     void clearOptions();
     void setOptions(List<T> options);
     void addOption(T option);
+    void addOptions(List<T> option);
     List<T> getOptions();
 }

@@ -21,6 +21,7 @@ package org.gwtbootstrap5.extras.select.client.ui.engines.tomselect;
  */
 
 import elemental2.core.JsArray;
+import elemental2.core.JsObject;
 import elemental2.dom.HTMLSelectElement;
 import jsinterop.base.Js;
 import jsinterop.base.JsPropertyMap;
@@ -161,21 +162,40 @@ public class TomSelectEngine implements ISelectEngine {
 
     @Override
     public List<SelectOption> getOptions() {
-        if (instance != null) {
-            List<SelectOption> options = new ArrayList<>();
+        List<SelectOption> options = new ArrayList<>();
 
-            JsArray<Object> data = Js.cast(this.properties.options);
-            for (int i = 0; i < data.length; i++) {
-                JsPropertyMap<Object> opt = Js.cast(data);
+        if (instance != null) {
+            // 1. Get the internal dictionary map
+            JsPropertyMap<Object> optionsMap = instance.getOptionsMap();
+
+            // 2. Use Elemental2's JsObject.values() to extract just the data into an array
+            // (We cast the map to an Object to satisfy the method signature)
+            JsArray<Object> allOptionsList = JsObject.values(optionsMap);
+
+            // 3. Now you have a standard JsArray you can loop through!
+            for (int i = 0; i < allOptionsList.length; i++) {
+                Object optionData = allOptionsList.getAt(i);
+
+                // Cast it back to a property map to read its fields
+                JsPropertyMap<String> itemMap = jsinterop.base.Js.cast(optionData);
+
                 SelectOption option = new SelectOption();
-                option.setValue(Js.cast(opt.get("value")));
-                option.setText(Js.cast(opt.get("label")));
+                option.setValue(Js.cast(itemMap.get("value")));
+                option.setText(Js.cast(itemMap.get("label")));
                 options.add(option);
             }
-
-            return options;
         }
-        return List.of();
+
+        return options;
+    }
+
+    @Override
+    public boolean haveOption(String value) {
+        if (instance != null) {
+            return instance.getOptionsMap().has(value);
+        }
+
+        return false;
     }
 
     @Override

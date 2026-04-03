@@ -28,7 +28,6 @@ import org.gwtbootstrap5.extras.select.client.ui.base.interfaces.HasValues;
 import org.gwtbootstrap5.extras.select.client.ui.engines.SelectEngine;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class MultipleSelect<T> extends SelectBase<T> implements HasValues<T> {
@@ -88,8 +87,8 @@ public class MultipleSelect<T> extends SelectBase<T> implements HasValues<T> {
             return;
         }
 
-        if (optionList.isEmpty()) {
-            setOptions(Collections.singletonList(value));
+        if (!engine.haveOption(itemProvider.getValue(value))) {
+            addOption(value);
         }
 
         if (isEngineStarted()) {
@@ -120,9 +119,7 @@ public class MultipleSelect<T> extends SelectBase<T> implements HasValues<T> {
             return;
         }
 
-        if (optionList.isEmpty()) {
-            setOptions(values);
-        }
+        setOptions(values);
 
         if (isEngineStarted()) {
             List<String> valueList = new ArrayList<>(values.size());

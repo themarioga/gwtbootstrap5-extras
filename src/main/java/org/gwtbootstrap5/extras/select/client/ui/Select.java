@@ -72,8 +72,8 @@ public class Select<T> extends SelectBase<T> {
             return;
         }
 
-        if (optionList.isEmpty()) {
-            setOptions(Collections.singletonList(value));
+        if (!engine.haveOption(itemProvider.getValue(value))) {
+            addOption(value);
         }
 
         if (isEngineStarted()) {

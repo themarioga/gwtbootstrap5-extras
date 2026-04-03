@@ -38,6 +38,7 @@ public interface ISelectEngine {
     void addOption(SelectOption option);
     void addOptions(List<SelectOption> options);
     List<SelectOption> getOptions();
+    boolean haveOption(String value);
     void setValue(String value, boolean silent);
     String getValue();
     void setValues(List<String> value, boolean silent);
