@@ -47,10 +47,6 @@ import org.gwtbootstrap5.client.ui.form.validator.Validator;
 import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engine.DateTimePickerOptions;
 import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engine.IDateTimePickerEngine;
 import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.engine.IDateTimePickerHandlers;
-import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.events.ChangeDateEvent;
-import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.events.ChangeDateHandler;
-import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.events.ErrorEvent;
-import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.events.ErrorHandler;
 import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.interfaces.*;
 import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.validators.DatePickerBlankValidatorMixin;
 
@@ -230,18 +226,6 @@ public abstract class DateTimePickerBase extends Widget implements HasEnabled, H
     @Override
     public HandlerRegistration addHideHandler(final HideHandler hideHandler) {
         return addHandler(hideHandler, HideEvent.getType());
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public HandlerRegistration addChangeDateHandler(final ChangeDateHandler changeDateHandler) {
-        return addHandler(changeDateHandler, ChangeDateEvent.getType());
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public HandlerRegistration addErrorHandler(final ErrorHandler errorHandler) {
-        return addHandler(errorHandler, ErrorEvent.getType());
     }
 
     /** {@inheritDoc} */

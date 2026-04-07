@@ -181,7 +181,7 @@ public class TomSelectEngine implements ISelectEngine {
 
                 SelectOption option = new SelectOption();
                 option.setValue(Js.cast(itemMap.get("value")));
-                option.setText(Js.cast(itemMap.get("label")));
+                option.setText(Js.cast(itemMap.get("text")));
                 options.add(option);
             }
         }

@@ -23,8 +23,6 @@ package org.gwtbootstrap5.extras.datetimepicker.client.ui.base.interfaces;
 import com.google.web.bindery.event.shared.HandlerRegistration;
 import org.gwtbootstrap5.client.shared.event.HideHandler;
 import org.gwtbootstrap5.client.shared.event.ShowHandler;
-import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.events.ChangeDateHandler;
-import org.gwtbootstrap5.extras.datetimepicker.client.ui.base.events.ErrorHandler;
 
 /**
  * All handlers for the DateTimePicker
@@ -35,8 +33,4 @@ public interface HasDateTimePickerHandlers {
     HandlerRegistration addShowHandler(ShowHandler showHandler);
 
     HandlerRegistration addHideHandler(HideHandler hideHandler);
-
-    HandlerRegistration addChangeDateHandler(ChangeDateHandler changeDateHandler);
-
-    HandlerRegistration addErrorHandler(ErrorHandler errorHandler);
 }
