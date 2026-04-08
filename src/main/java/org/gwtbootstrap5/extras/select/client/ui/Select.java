@@ -61,9 +61,9 @@ public class Select<T> extends SelectBase<T> {
 
     @Override
     public void clearAll() {
-        clearOptions();
-
         clear();
+
+        clearOptions();
     }
 
     @Override

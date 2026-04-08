@@ -72,9 +72,9 @@ public class MultipleSelect<T> extends SelectBase<T> implements HasValues<T> {
 
     @Override
     public void clearAll() {
-        clearOptions();
-
         clear();
+
+        clearOptions();
     }
 
     @Override
