@@ -23,7 +23,6 @@ package org.gwtbootstrap5.extras.select.client.ui;
 import org.gwtbootstrap5.extras.select.client.ui.base.SelectBase;
 import org.gwtbootstrap5.extras.select.client.ui.engines.SelectEngine;
 
-import java.util.Collections;
 import java.util.List;
 
 public class Select<T> extends SelectBase<T> {
@@ -56,6 +55,13 @@ public class Select<T> extends SelectBase<T> {
     @Override
     public void clear() {
         setValue(null, false);
+    }
+
+    @Override
+    public void clearAll() {
+        clearOptions();
+
+        clear();
     }
 
     @Override

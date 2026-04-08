@@ -23,6 +23,7 @@ package org.gwtbootstrap5.extras.select.client.ui.base.interfaces;
 import java.util.List;
 
 public interface HasOptions<T> {
+    void clearAll();
     void clearOptions();
     void setOptions(List<T> options);
     void addOption(T option);
