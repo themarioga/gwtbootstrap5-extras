@@ -441,7 +441,7 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasEnabled,
         optionList.clear();
 
         if (engine != null) {
-            engine.setOptions(new ArrayList<>());
+            engine.clearOptions();
         }
     }
 
