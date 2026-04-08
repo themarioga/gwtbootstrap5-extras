@@ -516,7 +516,7 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasEnabled,
             @Override
             public void onAsyncLoad(String query, OnAsyncLoadCallback callback) {
                 that.asyncDataLoad(query, result -> {
-                    optionList.clear();
+                    clearOptions();
 
                     List<ISelectEngine.SelectOption> selectOptions = new ArrayList<>();
                     for (T option : result) {
