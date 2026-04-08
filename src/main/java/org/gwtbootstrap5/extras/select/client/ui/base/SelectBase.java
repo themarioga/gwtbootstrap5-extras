@@ -483,6 +483,13 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasEnabled,
         return new ArrayList<>(optionList.values());
     }
 
+    @Override
+    public void triggerSearch(String search) {
+        if (engine != null) {
+            engine.triggerAsyncLoad(search);
+        }
+    }
+
     protected void setItemProvider(ItemProvider<T> itemProvider) {
         this.itemProvider = itemProvider;
     }

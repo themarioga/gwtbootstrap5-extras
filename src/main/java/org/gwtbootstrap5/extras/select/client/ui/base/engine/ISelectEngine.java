@@ -31,7 +31,7 @@ public interface ISelectEngine {
     void show();
     void hide();
     void toggle();
-    void triggerAsyncLoad();
+    void triggerAsyncLoad(String search);
     void clear(boolean silent);
     void clearOptions();
     void setOptions(List<SelectOption> options);

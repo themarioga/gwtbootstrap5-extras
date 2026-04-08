@@ -54,7 +54,9 @@ public class Select<T> extends SelectBase<T> {
 
     @Override
     public void clear() {
-        setValue(null, false);
+        if (engine != null) {
+            engine.clear(true);
+        }
     }
 
     @Override
@@ -97,5 +99,4 @@ public class Select<T> extends SelectBase<T> {
 
         return null;
     }
-
 }

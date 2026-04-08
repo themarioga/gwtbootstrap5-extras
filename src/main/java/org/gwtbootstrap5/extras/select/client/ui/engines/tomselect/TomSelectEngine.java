@@ -113,9 +113,9 @@ public class TomSelectEngine implements ISelectEngine {
     }
 
     @Override
-    public void triggerAsyncLoad() {
+    public void triggerAsyncLoad(String search) {
         if (instance != null) {
-            instance.load("");
+            instance.load(search);
         }
     }
 

@@ -23,4 +23,5 @@ package org.gwtbootstrap5.extras.select.client.ui.base.interfaces;
 public interface HasSearch {
     void setSearchEnabled(boolean enabled);
     void setSearchPlaceholder(String placeholder);
+    void triggerSearch(String search);
 }
