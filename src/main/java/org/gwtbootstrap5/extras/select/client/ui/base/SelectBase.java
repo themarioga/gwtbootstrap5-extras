@@ -449,7 +449,17 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasEnabled,
     public void setOptions(List<T> options) {
         clearOptions();
 
-        addOptions(options);
+        List<ISelectEngine.SelectOption> selectOptions = new ArrayList<>();
+        for (T option : options) {
+            ISelectEngine.SelectOption selectOption = transformOptionToSelectOption(option);
+
+            optionList.put(selectOption.getValue(), option);
+            selectOptions.add(selectOption);
+        }
+
+        if (engine != null) {
+            engine.setOptions(selectOptions);
+        }
     }
 
     @Override
@@ -474,7 +484,7 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasEnabled,
         }
 
         if (engine != null) {
-            engine.setOptions(selectOptions);
+            engine.addOptions(selectOptions);
         }
     }
 

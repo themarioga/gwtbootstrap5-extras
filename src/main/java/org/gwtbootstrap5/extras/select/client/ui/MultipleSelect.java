@@ -38,6 +38,14 @@ public class MultipleSelect<T> extends SelectBase<T> implements HasValues<T> {
         super(SelectEngine.getEngine(engine));
     }
 
+    public void setMultipleLimit(int limit) {
+        this.properties.setMultipleLimit(limit);
+
+        if (isEngineStarted()) {
+            engine.updateProperties(this.properties);
+        }
+    }
+
     @Override
     protected void onLoad() {
         super.onLoad();
@@ -57,17 +65,11 @@ public class MultipleSelect<T> extends SelectBase<T> implements HasValues<T> {
         callback.onResult(List.of());
     }
 
-    public void setMultipleLimit(int limit) {
-        this.properties.setMultipleLimit(limit);
-
-        if (isEngineStarted()) {
-            engine.updateProperties(this.properties);
-        }
-    }
-
     @Override
     public void clear() {
-        setValue(null, false);
+        if (engine != null) {
+            engine.clear(true);
+        }
     }
 
     @Override
