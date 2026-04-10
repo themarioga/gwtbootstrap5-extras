@@ -128,7 +128,9 @@ public class MultipleSelect<T> extends SelectBase<T> implements HasValues<T> {
             return;
         }
 
-        setOptions(values);
+        List<T> tmpValues = getOptions();
+        tmpValues.addAll(values);
+        setOptions(tmpValues);
 
         if (isEngineStarted()) {
             List<String> valueList = new ArrayList<>(values.size());

@@ -128,19 +128,19 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasEnabled,
     }
 
     public void show() {
-        if (engine != null) {
+        if (isEngineStarted()) {
             engine.show();
         }
     }
 
     public void hide() {
-        if (engine != null) {
+        if (isEngineStarted()) {
             engine.hide();
         }
     }
 
     public void refresh() {
-        if (engine != null) {
+        if (isEngineStarted()) {
             engine.refresh();
         }
     }
@@ -148,7 +148,7 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasEnabled,
     public void setAllowClear(boolean allowClear) {
         this.properties.setAllowClear(allowClear);
 
-        if (engine != null) {
+        if (isEngineStarted()) {
             engine.updateProperties(this.properties);
         }
     }
@@ -208,7 +208,7 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasEnabled,
     public void setSearchEnabled(boolean enabled) {
         this.properties.setSearchEnabled(enabled);
 
-        if (engine != null) {
+        if (isEngineStarted()) {
             engine.updateProperties(this.properties);
         }
     }
@@ -222,7 +222,7 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasEnabled,
     public void setSearchPlaceholder(String placeholder) {
         this.properties.setSearchPlaceholder(placeholder);
 
-        if (engine != null) {
+        if (isEngineStarted()) {
             engine.updateProperties(this.properties);
         }
     }
@@ -311,7 +311,7 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasEnabled,
     public void setPlaceholder(final String placeholder) {
         properties.setPlaceholder(placeholder);
 
-        if (engine != null) {
+        if (isEngineStarted()) {
             engine.updateProperties(this.properties);
         }
     }
@@ -348,7 +348,7 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasEnabled,
     public void setEnabled(boolean enabled) {
         enabledMixin.setEnabled(enabled);
 
-        if (engine != null) {
+        if (isEngineStarted()) {
             engine.setEnabled(enabled);
         }
     }
@@ -440,7 +440,7 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasEnabled,
     public void clearOptions() {
         optionList.clear();
 
-        if (engine != null) {
+        if (isEngineStarted()) {
             engine.clearOptions();
         }
     }
@@ -457,7 +457,7 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasEnabled,
             selectOptions.add(selectOption);
         }
 
-        if (engine != null) {
+        if (isEngineStarted()) {
             engine.setOptions(selectOptions);
         }
     }
@@ -468,7 +468,7 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasEnabled,
 
         optionList.put(selectOption.getValue(), option);
 
-        if (engine != null) {
+        if (isEngineStarted()) {
             engine.addOption(selectOption);
         }
     }
@@ -483,7 +483,7 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasEnabled,
             selectOptions.add(selectOption);
         }
 
-        if (engine != null) {
+        if (isEngineStarted()) {
             engine.addOptions(selectOptions);
         }
     }
@@ -495,7 +495,7 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasEnabled,
 
     @Override
     public void triggerSearch(String search) {
-        if (engine != null) {
+        if (isEngineStarted()) {
             engine.triggerAsyncLoad(search);
         }
     }
