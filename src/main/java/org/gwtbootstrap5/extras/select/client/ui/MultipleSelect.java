@@ -128,9 +128,7 @@ public class MultipleSelect<T> extends SelectBase<T> implements HasValues<T> {
             return;
         }
 
-        List<T> tmpValues = getOptions();
-        tmpValues.addAll(values);
-        setOptions(tmpValues);
+        setOptions(mergeValueListWithCurrentOptions(values));
 
         if (isEngineStarted()) {
             List<String> valueList = new ArrayList<>(values.size());
@@ -142,6 +140,16 @@ public class MultipleSelect<T> extends SelectBase<T> implements HasValues<T> {
         } else {
             this.valuesSelectedBeforeInit.addAll(values);
         }
+    }
+
+    private List<T> mergeValueListWithCurrentOptions(List<T> values) {
+        List<T> oldValues = getOptions();
+        for (T value : values) {
+            if (!oldValues.contains(value)) {
+                oldValues.add(value);
+            }
+        }
+        return oldValues;
     }
 
     @Override
