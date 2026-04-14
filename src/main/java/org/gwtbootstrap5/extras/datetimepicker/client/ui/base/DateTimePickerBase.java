@@ -123,7 +123,7 @@ public abstract class DateTimePickerBase extends Widget implements HasEnabled, H
         dateTimePickerEngine.hide();
     }
 
-    public void selectDateOnWrite(boolean value) {
+    public void setSelectDateOnWrite(boolean value) {
         options.setSelectDateOnWrite(value);
 
         if (dateTimePickerEngine != null) {
