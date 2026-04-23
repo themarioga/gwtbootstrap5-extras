@@ -131,6 +131,14 @@ public abstract class DateTimePickerBase extends Widget implements HasEnabled, H
         }
     }
 
+    public void setTypingDelay(int delay) {
+        options.setTypingDelay(delay);
+
+        if (dateTimePickerEngine != null) {
+            dateTimePickerEngine.updateProperties(options);
+        }
+    }
+
     public void setAlignment(final ValueBoxBase.TextAlignment align) {
         textBox.setAlignment(align);
     }

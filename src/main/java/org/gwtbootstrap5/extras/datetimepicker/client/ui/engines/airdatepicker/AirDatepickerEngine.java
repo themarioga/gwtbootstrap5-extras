@@ -23,6 +23,7 @@ package org.gwtbootstrap5.extras.datetimepicker.client.ui.engines.airdatepicker;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import elemental2.core.JsArray;
 import elemental2.core.JsDate;
+import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLInputElement;
 import jsinterop.base.Js;
@@ -40,6 +41,8 @@ public class AirDatepickerEngine implements IDateTimePickerEngine {
     private AirDatepicker instance;
     private AirDatepickerOptions options;
 
+    private double typingTimerId = 0;
+
     @Override
     public void init(com.google.gwt.dom.client.Element element, DateTimePickerOptions options, IDateTimePickerHandlers handlers) {
         Element input = Js.cast(element);
@@ -53,19 +56,25 @@ public class AirDatepickerEngine implements IDateTimePickerEngine {
         // Añadimos evento de keyup como hack para que se refresque en vivo
         if (options.isFocusDateOnWrite() || options.isSelectDateOnWrite()) {
             input.addEventListener("keyup", event -> {
-                if (((HTMLInputElement) input).value == null || ((HTMLInputElement) input).value.isBlank()) {
-                    clear(false);
-                } else {
-                    Date inputDate = getDateFromInput(options, (HTMLInputElement) input);
-                    if (inputDate != null) {
-                        if (options.isFocusDateOnWrite()) {
-                            setViewDate(inputDate);
-                        }
-                        if (options.isSelectDateOnWrite()) {
-                            setDate(inputDate, false);
+                HTMLInputElement htmlInput = (HTMLInputElement) input;
+
+                DomGlobal.clearTimeout(typingTimerId);
+
+                typingTimerId = DomGlobal.setTimeout(p0 -> {
+                    if (htmlInput.value == null || htmlInput.value.isBlank()) {
+                        clear(false);
+                    } else {
+                        Date inputDate = getDateFromInput(options, htmlInput);
+                        if (inputDate != null) {
+                            if (options.isFocusDateOnWrite()) {
+                                setViewDate(inputDate);
+                            }
+                            if (options.isSelectDateOnWrite()) {
+                                setDate(inputDate, false);
+                            }
                         }
                     }
-                }
+                }, options.getTypingDelay());
             });
         }
 

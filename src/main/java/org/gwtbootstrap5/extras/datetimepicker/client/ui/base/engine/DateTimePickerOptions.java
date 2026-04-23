@@ -38,6 +38,7 @@ public class DateTimePickerOptions {
     private boolean onlyTime = false;
     private boolean focusDateOnWrite = true;
     private boolean selectDateOnWrite = false;
+    private int typingDelay = 1000; // In ms
 
     public boolean isKeepOpen() {
         return keepOpen;
@@ -176,4 +177,11 @@ public class DateTimePickerOptions {
         this.selectDateOnWrite = selectDateOnWrite;
     }
 
+    public int getTypingDelay() {
+        return typingDelay;
+    }
+
+    public void setTypingDelay(int typingDelay) {
+        this.typingDelay = typingDelay;
+    }
 }
