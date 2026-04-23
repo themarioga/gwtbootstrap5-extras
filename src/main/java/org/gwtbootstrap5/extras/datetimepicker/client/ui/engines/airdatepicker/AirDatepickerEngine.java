@@ -56,25 +56,14 @@ public class AirDatepickerEngine implements IDateTimePickerEngine {
         // Añadimos evento de keyup como hack para que se refresque en vivo
         if (options.isFocusDateOnWrite() || options.isSelectDateOnWrite()) {
             input.addEventListener("keyup", event -> {
-                HTMLInputElement htmlInput = (HTMLInputElement) input;
-
                 DomGlobal.clearTimeout(typingTimerId);
 
-                typingTimerId = DomGlobal.setTimeout(p0 -> {
-                    if (htmlInput.value == null || htmlInput.value.isBlank()) {
-                        clear(false);
-                    } else {
-                        Date inputDate = getDateFromInput(options, htmlInput);
-                        if (inputDate != null) {
-                            if (options.isFocusDateOnWrite()) {
-                                setViewDate(inputDate);
-                            }
-                            if (options.isSelectDateOnWrite()) {
-                                setDate(inputDate, false);
-                            }
-                        }
-                    }
-                }, options.getTypingDelay());
+                typingTimerId = DomGlobal.setTimeout(p0 -> manageTypingEvent(options, ((HTMLInputElement) input).value), options.getTypingDelay());
+            });
+            input.addEventListener("blur", event -> {
+                DomGlobal.clearTimeout(typingTimerId);
+
+                manageTypingEvent(options, ((HTMLInputElement) input).value);
             });
         }
 
@@ -259,10 +248,26 @@ public class AirDatepickerEngine implements IDateTimePickerEngine {
         return new Date((long) jsDate.getTime());
     }
 
-    private static @Nullable Date getDateFromInput(DateTimePickerOptions options, HTMLInputElement input) {
+    private void manageTypingEvent(DateTimePickerOptions options, String value) {
+        if (value == null || value.isBlank()) {
+            clear(false);
+        } else {
+            Date inputDate = getDateFromInput(options, value);
+            if (inputDate != null) {
+                if (options.isFocusDateOnWrite()) {
+                    setViewDate(inputDate);
+                }
+                if (options.isSelectDateOnWrite()) {
+                    setDate(inputDate, false);
+                }
+            }
+        }
+    }
+
+    private static @Nullable Date getDateFromInput(DateTimePickerOptions options, String value) {
         Date formattedDate;
         try {
-            formattedDate = DateTimeFormat.getFormat(options.getDateTimeFormat()).parse(input.value);
+            formattedDate = DateTimeFormat.getFormat(options.getDateTimeFormat()).parse(value);
         } catch (IllegalArgumentException e) {
             formattedDate = null;
         }
