@@ -54,7 +54,7 @@ public class AirDatepickerEngine implements IDateTimePickerEngine {
         if (options.isFocusDateOnWrite() || options.isSelectDateOnWrite()) {
             input.addEventListener("keyup", event -> {
                 if (((HTMLInputElement) input).value == null || ((HTMLInputElement) input).value.isBlank()) {
-                    clear(true);
+                    clear(false);
                 } else {
                     Date inputDate = getDateFromInput(options, (HTMLInputElement) input);
                     if (inputDate != null) {
@@ -62,7 +62,7 @@ public class AirDatepickerEngine implements IDateTimePickerEngine {
                             setViewDate(inputDate);
                         }
                         if (options.isSelectDateOnWrite()) {
-                            setDate(inputDate, true);
+                            setDate(inputDate, false);
                         }
                     }
                 }
