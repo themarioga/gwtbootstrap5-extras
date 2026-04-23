@@ -53,13 +53,17 @@ public class AirDatepickerEngine implements IDateTimePickerEngine {
         // Añadimos evento de keyup como hack para que se refresque en vivo
         if (options.isFocusDateOnWrite() || options.isSelectDateOnWrite()) {
             input.addEventListener("keyup", event -> {
-                Date inputDate = getDateFromInput(options, (HTMLInputElement) input);
-                if (inputDate != null) {
-                    if (options.isFocusDateOnWrite()) {
-                        setViewDate(inputDate);
-                    }
-                    if (options.isSelectDateOnWrite()) {
-                        setDate(inputDate, true);
+                if (((HTMLInputElement) input).value == null || ((HTMLInputElement) input).value.isBlank()) {
+                    clear(true);
+                } else {
+                    Date inputDate = getDateFromInput(options, (HTMLInputElement) input);
+                    if (inputDate != null) {
+                        if (options.isFocusDateOnWrite()) {
+                            setViewDate(inputDate);
+                        }
+                        if (options.isSelectDateOnWrite()) {
+                            setDate(inputDate, true);
+                        }
                     }
                 }
             });
