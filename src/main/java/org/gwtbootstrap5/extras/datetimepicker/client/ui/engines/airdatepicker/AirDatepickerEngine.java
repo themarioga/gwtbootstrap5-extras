@@ -61,9 +61,11 @@ public class AirDatepickerEngine implements IDateTimePickerEngine {
                 typingTimerId = DomGlobal.setTimeout(p0 -> manageTypingEvent(options, ((HTMLInputElement) input).value), options.getTypingDelay());
             });
             input.addEventListener("blur", event -> {
-                DomGlobal.clearTimeout(typingTimerId);
+                if (typingTimerId != 0) {
+                    DomGlobal.clearTimeout(typingTimerId);
 
-                manageTypingEvent(options, ((HTMLInputElement) input).value);
+                    manageTypingEvent(options, ((HTMLInputElement) input).value);
+                }
             });
         }
 
@@ -249,6 +251,8 @@ public class AirDatepickerEngine implements IDateTimePickerEngine {
     }
 
     private void manageTypingEvent(DateTimePickerOptions options, String value) {
+        typingTimerId = 0;
+
         if (value == null || value.isBlank()) {
             clear(false);
         } else {
