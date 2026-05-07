@@ -113,6 +113,20 @@ public class TomSelectEngine implements ISelectEngine {
     }
 
     @Override
+    public void focus() {
+        if (instance != null) {
+            instance.focus();
+        }
+    }
+
+    @Override
+    public void blur() {
+        if (instance != null) {
+            instance.blur();
+        }
+    }
+
+    @Override
     public void triggerAsyncLoad(String search) {
         if (instance != null) {
             instance.load(search);

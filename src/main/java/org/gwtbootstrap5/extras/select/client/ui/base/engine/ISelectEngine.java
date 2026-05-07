@@ -31,6 +31,8 @@ public interface ISelectEngine {
     void show();
     void hide();
     void toggle();
+    void focus();
+    void blur();
     void triggerAsyncLoad(String search);
     void clear(boolean silent);
     void clearOptions();

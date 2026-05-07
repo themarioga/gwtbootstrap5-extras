@@ -372,8 +372,14 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasEnabled,
     public void setFocus(boolean focused) {
         if (focused) {
             focusImpl.focus(getFocusElement());
+            if (engine != null) {
+                engine.focus();
+            }
         } else {
             focusImpl.blur(getFocusElement());
+            if (engine != null) {
+                engine.blur();
+            }
         }
     }
 
