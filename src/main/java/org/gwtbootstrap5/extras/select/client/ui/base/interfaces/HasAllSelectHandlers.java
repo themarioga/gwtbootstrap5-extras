@@ -28,6 +28,6 @@ import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
  * @param <T> select value type
  */
 public interface HasAllSelectHandlers<T> extends HasLoadedHandlers, HasValueChangeHandlers<T>,
-        HasShowHandlers, HasShownHandlers, HasHideHandlers, HasHiddenHandlers {
+        HasShowHandlers, HasShownHandlers, HasHideHandlers, HasHiddenHandlers, HasFocusHandlers, HasBlurHandlers {
 
 }

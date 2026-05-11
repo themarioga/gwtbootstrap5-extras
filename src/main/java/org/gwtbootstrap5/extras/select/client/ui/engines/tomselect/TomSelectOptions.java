@@ -66,6 +66,8 @@ public class TomSelectOptions {
     @JsProperty public OnItemRemoveCallback onItemRemove;
     @JsProperty public OnDropdownStateCallback onDropdownOpen;
     @JsProperty public OnDropdownStateCallback onDropdownClose;
+    @JsProperty public OnFocusCallback onFocus;
+    @JsProperty public OnBlurCallback onBlur;
 
     // --- JsFunction Interfaces for Callbacks ---
     
@@ -89,6 +91,17 @@ public class TomSelectOptions {
     public interface OnInitializeCallback {
         void onInitialize();
     }
+
+    @JsFunction
+    public interface OnFocusCallback {
+        void onFocus();
+    }
+
+    @JsFunction
+    public interface OnBlurCallback {
+        void onBlur();
+    }
+
     // --- JsFunction Interfaces for Loading ---
 
     /**

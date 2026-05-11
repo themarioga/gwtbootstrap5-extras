@@ -13,10 +13,10 @@ You can easily add GwtBootstrap5-Extras to your project by including the library
 ```
 
 ### Final Release
-* 0.1.10.10 - Released on 16 March 2026. 
+* 0.1.11 - Released on 16 March 2026. 
   * Based on GwtBootstrap5 v0.1.10.10
-* [Demo](Soon) - The GwtBootstrap5 0.1.10.10 Demo.
-* [API Docs](Soon) - The GwtBootstrap5-Extras 0.1.10.10 API Javadoc.
+* [Demo](Soon) - The GwtBootstrap5 0.1.11 Demo.
+* [API Docs](Soon) - The GwtBootstrap5-Extras 0.1.11 API Javadoc.
 
 ### Resources
 * [Project Wiki](https://github.com/themarioga/gwtbootstrap5-extras/wiki) - Help with getting started and other useful project help.

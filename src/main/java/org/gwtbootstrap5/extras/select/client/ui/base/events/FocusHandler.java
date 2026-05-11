@@ -1,10 +1,10 @@
-package org.gwtbootstrap5.extras.select.client.ui.base.engine;
+package org.gwtbootstrap5.extras.select.client.ui.base.events;
 
 /*-
  * ==========================LICENSE_START===============================
  * GwtBootstrap5
  * ======================================================================
- * Copyright (C) 2026 GwtBootstrap5
+ * Copyright (C) 2023 - 2026 GwtBootstrap5
  * ======================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,20 +20,17 @@ package org.gwtbootstrap5.extras.select.client.ui.base.engine;
  * ==========================LICENSE_END=================================
  */
 
-import java.util.List;
+import com.google.gwt.event.shared.EventHandler;
 
-public interface ISelectHandlers {
-    void onLoaded();
-    void onAsyncLoad(String query, OnAsyncLoadCallback callback);
-    void onShow();
-    void onShown();
-    void onHide();
-    void onHidden();
-    void onChange();
-    void onFocus();
-    void onBlur();
+/**
+ * Handler interface for {@link FocusEvent} events.
+ */
+public interface FocusHandler extends EventHandler {
 
-    interface OnAsyncLoadCallback {
-        void callback(List<ISelectEngine.SelectOption> options);
-    }
+    /**
+     * Called when {@link FocusEvent} is fired.
+     *
+     * @param event the {@link FocusEvent} that was fired
+     */
+    void onFocus(FocusEvent event);
 }

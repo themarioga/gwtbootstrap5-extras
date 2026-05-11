@@ -329,6 +329,8 @@ public class TomSelectEngine implements ISelectEngine {
             handlers.onHide();
             handlers.onHidden();
         };
+        opt.onFocus = handlers::onFocus;
+        opt.onBlur = handlers::onBlur;
     }
 
     private static @NonNull Object getObjectFromSelectOptions(SelectOption option) {

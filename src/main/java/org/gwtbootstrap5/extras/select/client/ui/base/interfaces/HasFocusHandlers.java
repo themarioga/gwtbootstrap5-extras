@@ -1,10 +1,10 @@
-package org.gwtbootstrap5.extras.select.client.ui.base.engine;
+package org.gwtbootstrap5.extras.select.client.ui.base.interfaces;
 
 /*-
  * ==========================LICENSE_START===============================
  * GwtBootstrap5
  * ======================================================================
- * Copyright (C) 2026 GwtBootstrap5
+ * Copyright (C) 2023 - 2026 GwtBootstrap5
  * ======================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,20 +20,21 @@ package org.gwtbootstrap5.extras.select.client.ui.base.engine;
  * ==========================LICENSE_END=================================
  */
 
-import java.util.List;
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.event.shared.HasHandlers;
+import org.gwtbootstrap5.extras.select.client.ui.base.events.FocusHandler;
 
-public interface ISelectHandlers {
-    void onLoaded();
-    void onAsyncLoad(String query, OnAsyncLoadCallback callback);
-    void onShow();
-    void onShown();
-    void onHide();
-    void onHidden();
-    void onChange();
-    void onFocus();
-    void onBlur();
+/**
+ * A widget that implements this interface is a public source of
+ * {@link org.gwtbootstrap5.extras.select.client.ui.base.events.FocusEvent} events.
+ */
+public interface HasFocusHandlers extends HasHandlers {
 
-    interface OnAsyncLoadCallback {
-        void callback(List<ISelectEngine.SelectOption> options);
-    }
+    /**
+     * Adds a {@link org.gwtbootstrap5.extras.select.client.ui.base.events.FocusHandler} handler.
+     *
+     * @param handler the handler
+     * @return the registration for the event
+     */
+    HandlerRegistration addFocusHandler(FocusHandler handler);
 }

@@ -419,6 +419,16 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasEnabled,
     }
 
     @Override
+    public HandlerRegistration addFocusHandler(FocusHandler handler) {
+        return addHandler(handler, FocusEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addBlurHandler(BlurHandler handler) {
+        return addHandler(handler, BlurEvent.getType());
+    }
+
+    @Override
     public com.google.web.bindery.event.shared.HandlerRegistration addValidationChangedHandler(ValidationChangedEvent.ValidationChangedHandler handler) {
         return validatorMixin.addValidationChangedHandler(handler);
     }
@@ -576,6 +586,16 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasEnabled,
             @Override
             public void onChange() {
                 ValueChangeEvent.fire(that, getValue());
+            }
+
+            @Override
+            public void onFocus() {
+                FocusEvent.fire(that);
+            }
+
+            @Override
+            public void onBlur() {
+                BlurEvent.fire(that);
             }
         };
     }
