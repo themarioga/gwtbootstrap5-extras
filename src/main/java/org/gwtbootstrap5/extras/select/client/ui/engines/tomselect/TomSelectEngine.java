@@ -248,7 +248,7 @@ public class TomSelectEngine implements ISelectEngine {
 
     @Override
     public List<String> getValues() {
-        if (instance != null) {
+        if (instance != null && instance.getValue() != null) {
             if (instance.getValue() instanceof JsArray) {
                 JsArray<Object> data = (JsArray<Object>) instance.getValue();
                 List<String> values = new ArrayList<>();

@@ -20,6 +20,7 @@ package org.gwtbootstrap5.extras.select.client.ui;
  * ==========================LICENSE_END=================================
  */
 
+import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -155,17 +156,26 @@ public class MultipleSelect<T> extends SelectBase<T> implements HasValues<T> {
     @Override
     public List<T> getValues() {
         if (isEngineStarted()) {
-            List<T> values = new ArrayList<>();
-            for (String value : engine.getValues()) {
-                values.add(optionList.get(value));
-            }
-
-            return values;
+            return getSelectedOptions();
         }
 
         return List.of();
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <p>
+     * Multiple selects carry the whole list of selected values: {@link #addValuesChangeHandler} is
+     * registered on this same event type, and {@link #getValue()} only ever holds what was selected
+     * before the engine started.
+     * </p>
+     */
+    @Override
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    protected void fireValueChangeEvent() {
+        ValueChangeEvent.fire((HasValueChangeHandlers) this, getValues());
+    }
 
     @Override
     public HandlerRegistration addValuesChangeHandler(ValueChangeHandler<List<T>> handler) {

@@ -549,6 +549,9 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasEnabled,
             @Override
             public void onAsyncLoad(String query, OnAsyncLoadCallback callback) {
                 that.asyncDataLoad(query, result -> {
+                    // Resolved before wiping the list, while the options they came from are still there.
+                    List<T> selected = getSelectedOptions();
+
                     clearOptions();
 
                     List<ISelectEngine.SelectOption> selectOptions = new ArrayList<>();
@@ -557,6 +560,18 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasEnabled,
 
                         optionList.put(selectOption.getValue(), option);
                         selectOptions.add(selectOption);
+                    }
+
+                    // Whatever is selected stays an option even if this search does not return it:
+                    // otherwise its value has nothing left to resolve against and the selection is
+                    // silently lost the next time the values are read.
+                    for (T option : selected) {
+                        ISelectEngine.SelectOption selectOption = transformOptionToSelectOption(option);
+
+                        if (!optionList.containsKey(selectOption.getValue())) {
+                            optionList.put(selectOption.getValue(), option);
+                            selectOptions.add(selectOption);
+                        }
                     }
 
                     callback.callback(selectOptions);
@@ -585,7 +600,7 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasEnabled,
 
             @Override
             public void onChange() {
-                ValueChangeEvent.fire(that, getValue());
+                that.fireValueChangeEvent();
             }
 
             @Override
@@ -598,6 +613,33 @@ public abstract class SelectBase<T> extends ComplexWidget implements HasEnabled,
                 BlurEvent.fire(that);
             }
         };
+    }
+
+    /**
+     * Fires the value change event carrying this widget's current value. Multiple selects override
+     * it to carry the whole list of selected values, which is what their handlers are registered for.
+     */
+    protected void fireValueChangeEvent() {
+        ValueChangeEvent.fire(this, getValue());
+    }
+
+    /**
+     * @return the options currently selected, resolved against the option list in force
+     */
+    protected List<T> getSelectedOptions() {
+        List<T> selected = new ArrayList<>();
+
+        if (isEngineStarted()) {
+            for (String value : engine.getValues()) {
+                T option = optionList.get(value);
+
+                if (option != null) {
+                    selected.add(option);
+                }
+            }
+        }
+
+        return selected;
     }
 
     protected interface ItemProvider<T> {
